@@ -122,7 +122,6 @@
 ?>
 </tbody>
 </table>
-otro cambio
 <script type="text/javascript">
   function agregar_numero_product() {
     var total_productos_itbms = 0;
