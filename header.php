@@ -37,7 +37,7 @@
         </a>
         <a href="home.php" class="navbar-brand">
           <img src="images/1.png" class="m-r-sm" alt="scale">
-          <span class="hidden-nav-xs">Mega Ramen</span>
+          <span class="hidden-nav-xs">Ramen</span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>

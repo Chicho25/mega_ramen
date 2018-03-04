@@ -808,20 +808,20 @@
                             <div class="form-group">
                               <label class="col-lg-2 text-right control-label font-bold">Venta Gravable</label>
                               <div class="col-lg-3">
-                                <input id="productos_total" name="sale_gravable" value="<?php echo $venta_gravable; ?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
+                                <input id="productos_total" readonly name="sale_gravable" value="<?php echo $venta_gravable; ?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
                               <label class="col-lg-2 text-right control-label font-bold">Venta no gravable</label>
                               <div class="col-lg-3">
-                                <input id="total_serv_hidden" name="sale_no_gravable" value="<?php echo $venta_no_gravable;?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
+                                <input id="total_serv_hidden" readonly name="sale_no_gravable" value="<?php echo $venta_no_gravable;?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
                               <label class="col-lg-2 text-right control-label font-bold">itbms</label>
                               <div class="col-lg-3">
-                                <input id="itbms_total_final" name="itbms" class="form-control" value="<?php echo $itbms; ?>" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
+                                <input id="itbms_total_final" readonly name="itbms" class="form-control" value="<?php echo $itbms; ?>" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
                               <label class="col-lg-2 text-right control-label font-bold">Total</label>
                               <div class="col-lg-3">
                                 <input id="txt4" class="form-control" type="hidden" style="margin:5px;" Width="70px" onkeyup="format(this)"/>
-                                <input id="total_coti" name="total" class="form-control" value="<?php echo $total; ?>" style="margin:5px;" Width="70px" onkeyup="format(this)"/>
+                                <input id="total_coti" name="total" readonly class="form-control" value="<?php echo $total; ?>" style="margin:5px;" Width="70px" onkeyup="format(this)"/>
                               </div>
                             </div>
                           </div>

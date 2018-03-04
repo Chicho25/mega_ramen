@@ -170,7 +170,7 @@ $nId = InsertRec("log_tracing", $arrVal);
       <td class="tbdata"> <input id="price<?php echo $value['id_tmp']?>" onkeyup=" agregar_numero_product();format(this)" onchange="format(this)" class="form-control" type="text" name="price[]" placeholder="Precio" autocomplete="off"> </td>
       <td class="tbdata"> <input id="canti<?php echo $value['id_tmp']?>" onkeyup="agregar_numero_product();format(this)" onchange="format(this)" class="form-control" type="text" name="canti[]" value="" placeholder="Cantidad" autocomplete="off"> </td>
       <td class="tbdata"> <input id="itbms<?php echo $value['id_tmp']?>" onkeyup="agregar_numero_product();format(this)" onchange="format(this)" class="form-control" type="text" name="itbms_product[]" placeholder="ITBMS" <?php if($value['type_product'] == 1){ ?> value="0" <?php }else{ ?> value="7" <?php } ?> ></td>
-      <td class="tbdata"> <input id="total_prod<?php echo $value['id_tmp']?>" class="form-control" type="text" name="total_prod[]" value="" placeholder="Total" autocomplete="off">
+      <td class="tbdata"> <input id="total_prod<?php echo $value['id_tmp']?>" class="form-control" type="text" name="total_prod[]" value="" placeholder="Total" readonly>
       <input class="form-control" type="hidden" name="type_product[]" value="<?php echo $value['type_product']?>">
       </td>
       <td>
