@@ -50,7 +50,8 @@
                 	<form class="form-horizontal" data-validate="parsley" method="post" enctype="multipart/form-data">
                       <section class="panel panel-default">
                         <header class="panel-heading">
-                          <span class="h4">Ver detalle de Cotizacion <?php echo $number_tickets.' V-'.$version; ?></span>
+                          <?php $numero_tikete = GetRecords("select number_tickets from crm_entry where id=".$id_tikete); ?>
+                          <span class="h4">Ver detalle de Cotizacion <?php echo $numero_tikete[0]['number_tickets'].' V-'.$version; ?></span>
                         </header>
                         <div class="panel-body">
                           <?php if(isset($_GET['enviado'])){

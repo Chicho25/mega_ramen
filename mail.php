@@ -36,11 +36,12 @@
     $version = $arrQuotCrate[0]['version'];
     $number_tickets = $arrQuotCrate[0]['number_tickets'];
 
-    $nomrbe_archivo = $number_tickets.' V-'.$version;
-
     $telefono_cliente = GetRecords("select phone_1, legal_name from crm_customers where id =".$id_customer);
     $telefono_contacto = GetRecords("select phone_1, name_contact, last_name from crm_contact where id =".$id_contact);
     $vendedor_nombre = GetRecords("select real_name, last_name from users where id =".$id_seller);
+    $numero_tikete = GetRecords("select number_tickets from crm_entry where id=".$id_tikete);
+
+    $nomrbe_archivo = $numero_tikete[0]['number_tickets'].' V-'.$version;
 
     $html = '
             <html>
