@@ -15,6 +15,10 @@
           exit;
      }
 
+     if (isset($_POST['n_factura'])) {
+       
+     }
+
       $arrEntry = GetRecords("Select * from crm_entry where id =".$_GET['id']);?>
 
 	    <section id="content">
@@ -30,7 +34,7 @@
                                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         <strong>Cotizacion Enviada</strong>
                                       </div>';
-                          }elseif ($_GET['guardado']){
+                          }elseif (isset($_GET['guardado'])){
                           $message = '<div class="alert alert-success">
                                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         <strong>Cotizacion Cambios Realizados</strong>
@@ -214,6 +218,7 @@
                                 <a href="edit_quot.php?id=<?php echo $_GET['id']?>&id_quot=<?php echo $value['id']?>" title="Editar Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                                 <a href="convert_pdf.php?id=<?php echo $value['id']?>" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
                                 <a href="mail.php?id=<?php echo $value['id']?>&locat_view=1" class="btn btn-success btn-s-xs glyphicon glyphicon-send"> Enviar</a>
+                                <a href="modal_n_factura.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-warning btn-s-xs fa fa-asterisk"> N# Factura</a>
                               </td>
                           </tr>
                           <?php } ?>
