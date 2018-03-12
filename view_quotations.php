@@ -16,7 +16,16 @@
      }
 
      if (isset($_POST['n_factura'])) {
-       
+
+       $array_n_invoice = array("n_invoice" => $_POST['n_factura']);
+
+       $update_number = UpdateRec("crm_quot", "id=".$_POST['id'], $array_n_invoice);
+
+       $message = '<div class="alert alert-success">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     <strong>Numero de cotizacion registrado</strong>
+                   </div>';
+
      }
 
       $arrEntry = GetRecords("Select * from crm_entry where id =".$_GET['id']);?>

@@ -130,6 +130,9 @@
                     <div style="border-radius:5px; color:white; width:100%;">CANTIDAD</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;">
+                    <div style="border-radius:5px; color:white; width:100%;">SUBTOTAL</div>
+                   </th>
+                   <th style="text-align: center; background-color:#1e4799;">
                     <div style="border-radius:5px; color:white; width:100%;">ITBMS</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;">
@@ -208,6 +211,7 @@
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
                    <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
                    <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
+                   <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").'</th>
                    <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").'</th>
                    <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
                  </tr>
