@@ -1,27 +1,52 @@
-<?php
-
-    if (isset($_POST['button1'])) {
-      echo 'boton 1<br>';
-    }
-    if (isset($_POST['button2'])) {
-      echo 'boton 2<br>';
-    }
-    if (isset($_POST['texto1'])) {
-      echo $_POST['texto1'];
-    }
-
- ?>
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <form class="" action="" method="post">
-      <input type="text" name="texto1" value="">
-      <button type="submit" name="button1">ok</button>
-      <button type="submit" name="button2">ok</button>
-    </form>
-  </body>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+div {
+    box-shadow: 0px 0px 10px grey;
+    padding: 20px;
+    min-height: 120px;
+    max-width: 400px;
+}
+img {
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: cyan;
+    border-width: 4px;
+    box-shadow: 0px 0px 10px grey;
+    float: left;
+    margin-right: 20px;
+    left: 50%;
+    top: 50%;
+    height: 100px;
+    width: 100px;
+}
+h1 {
+	font-size: 1.45em;
+}
+h2 {
+	font-size: 1.15em;
+    font-style: italic;
+    color: #777;
+}
+h1 {
+	text-align: center;
+}
+.fa-facebook {
+	color: blue;
+}
+</style>
+</head>
+<body>
+
+<div>
+	<img src="https://f4.bcbits.com/img/a0582851717_16.jpg">
+    <h1>Mr. Robot</h1>
+    <h2><i class="fa fa-envelope"></i> mr.robot@anonymous.com</h2>
+    <h2><i class="fa fa-facebook"></i> mr.robot</h2>
+</div>
+
+</body>
 </html>
