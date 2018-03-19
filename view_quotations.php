@@ -192,8 +192,8 @@
                       <table class="table table-striped b-t b-light" data-ride="datatables">
                           <thead>
                             <tr>
-                              <th>ID</th>
                               <th>FECHA DE ENVIO</th>
+                              <th>VERSION</th>
                               <th>TOTAL</th>
                               <th>VENDEDOR</th>
                               <th>ESTATUS</th>
@@ -205,8 +205,8 @@
                             foreach ($arQuots as $key => $value) {
                             ?>
                           <tr>
-                              <td style="text-align: left;"> <?php echo $arrEntry[0]['number_tickets'].' V-'.$value['version']?> </td>
                               <td style="text-align: left;"> <?php echo $value['date_send']?> </td>
+                              <td style="text-align: left;"> <?php echo $arrEntry[0]['number_tickets'].' V-'.$value['version']?> </td>
                               <td style="text-align: left;"> <?php echo $value['total']?> </td>
                               <td style="text-align: left;">
                                 <?php

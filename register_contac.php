@@ -28,7 +28,7 @@
         $extention = $_POST['extention'];
         $phone_3 = $_POST['phone_3'];
 
-        $ifUserExist = RecCount("crm_contact", "email = '".$email."'");
+        /*$ifUserExist = RecCount("crm_contact", "email = '".$email."'");
         if($ifUserExist > 0)
         {
           $message = '<div class="alert alert-danger">
@@ -37,7 +37,7 @@
                         </div>';
         }
         else
-        {
+        {*/
             $arrVal = array(
                           "id_customer" => $id_customer,
                           "name_contact" => $name_contact,
@@ -75,7 +75,7 @@
               $nId = InsertRec("log_tracing", $arrVal);
               /*  Fin Log Seguimiento */
 
-          }
+          /*}*/
      }
 ?>
 	<section id="content">

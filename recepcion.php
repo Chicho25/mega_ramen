@@ -3,7 +3,7 @@
 include("include/config.php");
 include("include/defs.php");
 
-  if (isset($_POST['button'])) {
+/*  if (isset($_POST['button'])) {
       include('twilio-php-master/Twilio/autoload.php');
       $sid = ""; // Your Account SID from www.twilio.com/console
       $token = ""; // Your Auth Token from www.twilio.com/console
@@ -32,7 +32,7 @@ include("include/defs.php");
          'url' => 'https://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient'
        )
       );
-   }
+   } */
   ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,39 +50,46 @@ include("include/defs.php");
     <form class="" action="" method="post">
       <button type="submit" name="llamada">llamada</button>
     </form>
-    <a id="div-btn1" style="cursor:pointer;">Ver el archivo que contiene hola</a>
-    <div id="div-results"></div>
-    <?php $categorias = GetRecords("SELECT * FROM rc_category where stat = 1"); ?>
+    <a style="cursor:pointer;">Ver el archivo que contiene hola</a>
+
+
     <section class="container" style="width:100%;">
       <div class="row" style="width:100%;">
-    <?php foreach ($categorias as $key => $value) { ?>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <?php
 
-          <div class="card" style="width: 200px; margin:5px; float: left;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $value['description']; ?></h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Solicitar</a>
-            </div>
+        $categorias = GetRecords("SELECT * FROM rc_bussines where stat = 1");
+
+        foreach ($categorias as $key => $value) { ?>
+
+        <div class="card" style="width: 200px; margin:5px; float: left;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $value['description']; ?></h5>
+            <p class="card-text">Direcctorio telefonico de <?php echo $value['description']; ?></p>
+            <a id="div-btnE<?php echo $value['id']; ?>" href="#" class="btn btn-primary">Ver</a>
           </div>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function() {
+           $('#div-btnE<?php echo $value['id']; ?>').click(function(){
+              $.ajax({
+              type: "POST",
+              url: "employers.php?id=<?php echo $value['id']; ?>",
+              success: function(a) {
+                        $('#div-results').html(a);
+              }
+               });
+           });
+          });
+        </script>
+        <?php } ?>
 
-    <?php } ?>
+        <div id="div-results"></div>
+
       </div>
     </section>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-       $('#div-btn1').click(function(){
-          $.ajax({
-          type: "POST",
-          url: "employers.php",
-          success: function(a) {
-                    $('#div-results').html(a);
-          }
-           });
-       });
-      });
-    </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>

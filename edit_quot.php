@@ -344,24 +344,24 @@
                           <div class="form-group required">
                               <label class="col-lg-2 text-right control-label font-bold">Cliente</label>
                               <div class="col-lg-3">
-                                  <select class="form-control" name="" disabled required="required">
+                                  <select class="form-control" name="id_customer" required="required" id="customer">
 
                                     <?PHP
-                                    $arrCust = GetRecords("Select * from crm_customers where stat = 1 and id=".$id_customer);
+                                    $arrCust = GetRecords("Select * from crm_customers where stat = 1");
                                     foreach ($arrCust as $key => $value) {
                                       $kinId = $value['id'];
                                       $legal_name = $value['legal_name'];
                                     ?>
-                                    <option value="<?php echo $kinId?>"><?php echo $legal_name?></option>
+                                    <option value="<?php echo $kinId?>" <?php if($id_customer == $kinId){ echo 'selected';}?>><?php echo $legal_name?></option>
                                     <?php
                                     }
                                     ?>
                                   </select>
-                                  <input type="hidden" name="id_customer" value="<?php echo $id_customer;?>">
+                                  <!--<input type="hidden" name="id_customer" value="<?php echo $id_customer;?>">-->
                               </div>
                               <label class="col-lg-2 text-right control-label font-bold">Contacto</label>
                               <div class="col-lg-3">
-                                  <select class="form-control" name="id_contact" disabled required="required">
+                                  <select class="form-control" name="id_contact" required="required" id="contact">
 
                                     <?PHP
                                     $arrCust = GetRecords("Select * from crm_contact where stat = 1 and id=".$id_contact);
@@ -375,7 +375,7 @@
                                     }
                                     ?>
                                   </select>
-                                  <input type="hidden" name="id_contact" value="<?php echo $id_contact;?>">
+                                  <!--<input type="hidden" name="id_contact" value="<?php echo $id_contact;?>">-->
                               </div>
                           </div>
                           <div class="form-group required">
@@ -582,6 +582,29 @@
             </section>
         </section>
     </section>
+    <script language="javascript" src="http://code.jquery.com/jquery-1.2.6.min.js"></script>
+    <script language="javascript">
+    $(document).ready(function(){
+       $("#customer").change(function () {
+               $("#customer option:selected").each(function () {
+                customer_elegido=$(this).val();
+                $.post("select_dependent.php?metodo=1", { customer_elegido: customer_elegido }, function(data){
+                $("#contact").html(data);
+                });
+            });
+       })
+
+       $("#contact").change(function () {
+               $("#contact option:selected").each(function () {
+                contact_elegido=$(this).val();
+                $.post("select_dependent.php?metodo=2", { contact_elegido: contact_elegido }, function(data){
+                $("#date_contact").html(data);
+                });
+            });
+       })
+
+    });
+    </script>
 <?php
 	include("footer.php");
 ?>

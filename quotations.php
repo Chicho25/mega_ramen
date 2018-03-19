@@ -109,12 +109,14 @@
                                users.last_name as apellido,
                                master_stat.description,
                                crm_entry.log_time,
-                               crm_entry.stat
+                               crm_entry.stat,
+                               crm_notes.id as id_nota
                                from
                                crm_entry inner join crm_customers on crm_entry.id_customer = crm_customers.id
                                          inner join crm_contact on crm_entry.id_contact = crm_contact.id
                                          inner join users on crm_entry.log_user_register = users.id
                                          inner join master_stat on crm_entry.stat = master_stat.id_stat
+                                         left join crm_notes on crm_entry.id = crm_notes.id_entry
                               $where"); ?>
 	<section id="content">
           <section class="vbox">
@@ -229,6 +231,9 @@
                               <td class="tbdata"> <?php echo $value['log_time']?> </td>
                               <td class="tbdata"> <?php echo utf8_encode($value['description'])?> </td>
                               <td>
+                                <?php if($value['id_nota']!=''){ ?>
+                                <a href="modal-nota_quot.php?id_nota=<?php echo $value['id_nota']?>" data-toggle="ajaxModal" title="Ver nota" class="btn btn-sm btn-icon btn-info"><i class="fa fa-pencil-square"></i></a>
+                                <?php } ?>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 3){ ?>
                                 <a href="register_quolations.php?id=<?php echo $value['id']?>" title="Crear Cotizacion" class="btn btn-sm btn-icon btn-success"><i class="glyphicon glyphicon-plus"></i></a>
                                 <a href="modal-status_approval.php?id=<?php echo $value['id']?>" title="Aprobar" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-warning"><i class="glyphicon glyphicon-ok"></i></a>

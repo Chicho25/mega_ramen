@@ -33,7 +33,7 @@
         $province = $_POST['province'];
         $city = $_POST['city'];
 
-        $ifUserExist = RecCount("crm_customers", "phone_1 = '".$phone_1."' or email = '".$email."'");
+        /*$ifUserExist = RecCount("crm_customers", "phone_1 = '".$phone_1."' or email = '".$email."'");
         if($ifUserExist > 0)
         {
           $message = '<div class="alert alert-danger">
@@ -42,7 +42,7 @@
                         </div>';
         }
         else
-        {
+        {*/
             $arrCus = array(
                           "trade_name" => $trade_name,
                           "legal_name" => $legal_name,
@@ -96,7 +96,7 @@
                       UpdateRec("customer", "id = ".$nId, array("image" => $filenameThumb));
                   }
                 }*/
-              }
+            /*  } */
           }
      }
 ?>
