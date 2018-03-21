@@ -10,7 +10,7 @@ $categorias = GetRecords("SELECT * FROM rc_category where stat = 1");
 foreach ($categorias as $key => $value) { ?>
 
       <div class="card" style="width: 200px; margin:5px; float: left;">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <img class="card-img-top" src="<?php echo $value['image']; ?>" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title"><?php echo $value['description']; ?></h5>
           <p class="card-text"><?php echo $value['description']; ?></p>
@@ -40,7 +40,7 @@ foreach ($categorias as $key => $value) { ?>
   foreach ($categorias as $key => $value) { ?>
 
   <div class="card" style="width: 200px; margin:5px; float: left;">
-    <img class="card-img-top" src="..." alt="Card image cap">
+    <img width="150" style="display:block; margin:auto;" src="recept/user.png">
     <div class="card-body">
       <h5 class="card-title"><?php echo $value['name_employer'].' '.$value['last_name']; ?></h5>
       <p class="card-text"><?php echo $value['number_phone']; ?></p>
@@ -50,3 +50,12 @@ foreach ($categorias as $key => $value) { ?>
 
 <?php }
 } ?>
+
+<div class="card" style="width: 200px; margin:5px; float: left;">
+  <img width="150" src="recept/back.png" style="display:block; margin:auto;">
+  <div class="card-body">
+    <h5 class="card-title">Volver al inicio</h5>
+    <p class="card-text">Regresar al inicio</p>
+    <a href="recepcion.php" class="btn btn-primary">Volver al inicio</a>
+  </div>
+</div>
