@@ -465,7 +465,6 @@
                           </div>
                           <div class="form-group required">
                             <label class="col-lg-2 text-right control-label font-bold">Acuerdo de servicio al cliente</label>
-
                             <div class="col-lg-3">
                               <textarea class="form-control" placeholder="Acuerdo de servicio al cliente" name="service_customer" required><?php echo $service_customer; ?></textarea>
                             </div>

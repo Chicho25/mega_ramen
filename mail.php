@@ -453,8 +453,8 @@ $message .= "Quedamos a la espera de sus comentarios y confirmación," .$eol;
 $message .= "Si tiene alguna duda o consulta favor comunicarse con la Sra. Moira Chávez al número telefónico (507)231-6811/6866." .$eol;
 $message .= "--".$separator.$eol;
 $message .= "Content-Type: text/html; charset=\"iso-8859-1\"".$eol;
-$message .= $html;
-$message .= $html2;
+/*$message .= $html; preview 
+$message .= $html2;*/
 $message .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
 $message .= "--".$separator.$eol;
 $message .= "Content-Type: application/pdf; name=\"".$fileName."\"".$eol;

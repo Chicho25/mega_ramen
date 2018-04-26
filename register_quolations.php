@@ -210,6 +210,11 @@
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                       <strong>Los cambios fueron realizados</strong>
                     </div>';
+
+        // al realizar los cambios se borran los registros temporales
+        $session_id = session_id();
+        DeleteRec("crm_tmp_product", "id_session ='".$session_id."'");
+
     }
 
     /* Envia Cotizacion */
@@ -327,6 +332,10 @@
 
       // Envio de correo electronico
       $rq = 1;
+      // al enviar los cambios se borran los registros temporales
+      $session_id = session_id();
+      DeleteRec("crm_tmp_product", "id_session ='".$session_id."'");
+      /////////////////////////////////////////////////////////////
       header("Location: mail.php?id=".$_POST['id_coti_creada']."&locat_page=".$rq);
 
       /*  casos para el status de la cotizacion e ingreso  */

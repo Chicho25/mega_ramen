@@ -12,14 +12,14 @@ $message = "";
 
       $client = new Twilio\Rest\Client($sid, $token);
       $message = $client->messages->create(
-      '+50760026773', // Text this number
+      '+507'.$_POST['n_telefono'], // Text this number
       array(
         'from' => '+12673676863', // From a valid Twilio number
         'body' => 'Se le solicita en la recepcion '
       )
       );
 
-      $message = '<div class="alert alert-success">
+      $message = '<div class="alert alert-success" id="target">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>El usuario ya fue notificado, por favor espere un momento</strong>
                   </div>';
@@ -46,7 +46,7 @@ $message = "";
   <head>
     <meta charset="utf-8">
     <title>Recepcion Virtual</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; maximum-scale=1.0; user-scalable=0; shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
@@ -68,6 +68,11 @@ $message = "";
       <h1>Recepción Virtual</h1>
       <div class="row" style="width:100%;" id="div-results">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('#target').hide(10000);
+         });
+        </script>
         <?php
 
         $categorias = GetRecords("SELECT * FROM rc_bussines where stat = 1");
