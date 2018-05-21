@@ -15,6 +15,39 @@
           exit;
      }
 
+     if(isset($_POST['note'], $_POST['id_entry_nota'])){
+
+       $arrNot = array(
+                     "type_note" => 3,
+                     "conten_note" => $_POST['note_quot'],
+                     "stat" => 1,
+                     "log_user_register" => $_SESSION['MR_USER_ID'],
+                     "log_time" => date("Y-m-d H:i:s"),
+                     "id_entry" => $_POST['id_entry_nota'],
+                     "remember_date" => $_POST['fecha_nota']
+                    );
+
+     $noteId = InsertRec("crm_notes", $arrNot);
+
+       if(isset($noteId)){
+         $message = '<div class="alert alert-success">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                         <strong>La nota fue agregada!</strong>
+                       </div>';
+       }
+       /* Log Seguimiento */
+       $arrVal = array(
+                       "id_module" => 19,
+                       "description" => "El usuasrio ".$_SESSION['MR_NAME']." ".$_SESSION['MR_LAST_NAME']." ha Registrado una nota en una cotizacion .",
+                       "id_user" => $_SESSION['MR_USER_ID'],
+                       "log_time" => date("Y-m-d H:i:s")
+                      );
+
+       $nId = InsertRec("log_tracing", $arrVal);
+       /*  Fin Log Seguimiento */
+
+     }
+
      if (isset($_POST['n_factura'])) {
 
        $array_n_invoice = array("n_invoice" => $_POST['n_factura']);
@@ -181,6 +214,14 @@
                         <div class="col-lg-4">
                           <label class="radio-inline"><input disabled type="radio" name="inspection" value="1" <?php if($arrEntry[0]['inspection'] == 1){ echo 'checked';} ?>>Si</label>
                           <label class="radio-inline"><input disabled type="radio" name="inspection" value="0" <?php if($arrEntry[0]['inspection'] == 0){ echo 'checked';} ?>>No</label>
+                        </div>
+                      </div>
+                      <div class="form-group required">
+                        <label class="col-lg-4 text-right control-label font-bold">Se puede inspeccionar?</label>
+                        <div class="col-lg-4">
+                          <a href="modal-nota_quot.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-primary glyphicon glyphicon-pushpin"> Agregar Nota</a>
+                          <a href="modal-ver-notas.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-danger glyphicon glyphicon-pushpin"> Ver Notas</a>
+
                         </div>
                       </div>
                     </div>

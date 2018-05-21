@@ -15,6 +15,39 @@
           exit;
      }
 
+     if(isset($_POST['note'], $_POST['id_entry_nota'])){
+
+       $arrNot = array(
+                     "type_note" => 3,
+                     "conten_note" => $_POST['note_quot'],
+                     "stat" => 1,
+                     "log_user_register" => $_SESSION['MR_USER_ID'],
+                     "log_time" => date("Y-m-d H:i:s"),
+                     "id_entry" => $_POST['id_entry_nota'],
+                     "remember_date" => $_POST['fecha_nota']
+                    );
+
+     $noteId = InsertRec("crm_notes", $arrNot);
+
+       if(isset($noteId)){
+         $message = '<div class="alert alert-success">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                         <strong>La nota fue agregada!</strong>
+                       </div>';
+       }
+       /* Log Seguimiento */
+       $arrVal = array(
+                       "id_module" => 19,
+                       "description" => "El usuasrio ".$_SESSION['MR_NAME']." ".$_SESSION['MR_LAST_NAME']." ha Registrado una nota en una cotizacion .",
+                       "id_user" => $_SESSION['MR_USER_ID'],
+                       "log_time" => date("Y-m-d H:i:s")
+                      );
+
+       $nId = InsertRec("log_tracing", $arrVal);
+       /*  Fin Log Seguimiento */
+
+     }
+
      if (isset($_POST['id_entry'], $_POST['billing'])){
 
        $arrStatus = array("stat"=>6);
@@ -109,14 +142,12 @@
                                users.last_name as apellido,
                                master_stat.description,
                                crm_entry.log_time,
-                               crm_entry.stat,
-                               crm_notes.id as id_nota
+                               crm_entry.stat
                                from
                                crm_entry inner join crm_customers on crm_entry.id_customer = crm_customers.id
                                          inner join crm_contact on crm_entry.id_contact = crm_contact.id
                                          inner join users on crm_entry.log_user_register = users.id
                                          inner join master_stat on crm_entry.stat = master_stat.id_stat
-                                         left join crm_notes on crm_entry.id = crm_notes.id_entry
                               $where"); ?>
 	<section id="content">
           <section class="vbox">
@@ -231,13 +262,14 @@
                               <td class="tbdata"> <?php echo $value['log_time']?> </td>
                               <td class="tbdata"> <?php echo utf8_encode($value['description'])?> </td>
                               <td>
-                                <?php if($value['id_nota']!=''){ ?>
-                                <a href="modal-nota_quot.php?id_nota=<?php echo $value['id_nota']?>" data-toggle="ajaxModal" title="Ver nota" class="btn btn-sm btn-icon btn-info"><i class="fa fa-pencil-square"></i></a>
-                                <?php } ?>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 3){ ?>
                                 <a href="register_quolations.php?id=<?php echo $value['id']?>" title="Crear Cotizacion" class="btn btn-sm btn-icon btn-success"><i class="glyphicon glyphicon-plus"></i></a>
                                 <a href="modal-status_approval.php?id=<?php echo $value['id']?>" title="Aprobar" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-warning"><i class="glyphicon glyphicon-ok"></i></a>
                                 <?php } ?>
+                                <a href="modal-nota_quot.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
+
+                                <a href="modal-ver-notas.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Ver nota" class="btn btn-sm btn-icon btn-info"><i class="glyphicon glyphicon-pushpin"></i></a>
+                                
                                 <a href="view_quotations.php?id=<?php echo $value['id']?>" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 4){ ?>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $value['stat'] == 8){ ?>
