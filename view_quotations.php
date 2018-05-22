@@ -18,13 +18,13 @@
      if(isset($_POST['note'], $_POST['id_entry_nota'])){
 
        $arrNot = array(
-                     "type_note" => 3,
-                     "conten_note" => $_POST['note_quot'],
-                     "stat" => 1,
-                     "log_user_register" => $_SESSION['MR_USER_ID'],
-                     "log_time" => date("Y-m-d H:i:s"),
-                     "id_entry" => $_POST['id_entry_nota'],
-                     "remember_date" => $_POST['fecha_nota']
+                   "type_note" => $_POST['type_note'],
+                   "conten_note" => $_POST['note_quot'],
+                   "stat" => 1,
+                   "log_user_register" => $_SESSION['MR_USER_ID'],
+                   "log_time" => date("Y-m-d H:i:s"),
+                   "id_entry" => $_POST['id_entry_nota'],
+                   "remember_date" => $_POST['fecha_nota'].' '.$_POST['hora']
                     );
 
      $noteId = InsertRec("crm_notes", $arrNot);
@@ -217,10 +217,10 @@
                         </div>
                       </div>
                       <div class="form-group required">
-                        <label class="col-lg-4 text-right control-label font-bold">Se puede inspeccionar?</label>
+                        <label class="col-lg-4 text-right control-label font-bold">Notas</label>
                         <div class="col-lg-4">
                           <a href="modal-nota_quot.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-primary glyphicon glyphicon-pushpin"> Agregar Nota</a>
-                          <a href="modal-ver-notas.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-danger glyphicon glyphicon-pushpin"> Ver Notas</a>
+                          <a href="ver_notas.php?id=<?php echo $value['id']?>" class="btn btn-danger glyphicon glyphicon-pushpin"> Ver Notas</a>
 
                         </div>
                       </div>

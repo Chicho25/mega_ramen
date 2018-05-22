@@ -20,8 +20,23 @@ include("include/defs.php");
             <textarea class="form-control" name="note_quot" rows="8" cols="80" placeholder="Nota / Recordatorio"></textarea>
 			    </div>
           <div class="form form-horizontal" style="padding:10px; margin:10px;">
-            <label class="col-lg-4 text-right control-label font-bold">Fecha de Recordatorio</label>
-            <input type="datetime-local" name="fecha_nota" placeholder="Fecha de Recordatorio">
+            <label class="col-lg-4 text-right control-label font-bold">Fecha de Recordatorio
+            <input type="date" name="fecha_nota" placeholder="Fecha de Recordatorio"></label>
+            <label class="col-lg-4 text-right control-label font-bold">Hora de Recordatorio
+            <input type="time" name="hora" placeholder="Fecha de Recordatorio"></label>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="form form-horizontal col-lg-5" style="padding:10px; margin:10px;">
+            <select class="chosen-select form-control" name="type_note">
+
+              <option value="">--------Tipo de Nota-------</option>
+              <option value="1">Nota</option>
+              <option value="2">Llamada</option>
+              <option value="3">Recordatorio</option>
+
+            </select>
           </div>
         </div>
       </div>

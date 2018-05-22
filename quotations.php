@@ -18,13 +18,13 @@
      if(isset($_POST['note'], $_POST['id_entry_nota'])){
 
        $arrNot = array(
-                     "type_note" => 3,
+                     "type_note" => $_POST['type_note'],
                      "conten_note" => $_POST['note_quot'],
                      "stat" => 1,
                      "log_user_register" => $_SESSION['MR_USER_ID'],
                      "log_time" => date("Y-m-d H:i:s"),
                      "id_entry" => $_POST['id_entry_nota'],
-                     "remember_date" => $_POST['fecha_nota']
+                     "remember_date" => $_POST['fecha_nota'].' '.$_POST['hora']
                     );
 
      $noteId = InsertRec("crm_notes", $arrNot);
@@ -154,7 +154,7 @@
             <section class="scrollable padder">
               <section class="panel panel-default">
                 <header class="panel-heading">
-                          <span class="h4">Lista de Inresos</span>
+                          <span class="h4">Lista de Inresos <?php echo $_POST['fecha_nota'].' '.$_POST['hora']; ?></span>
                 </header>
                 <div class="panel-body">
                   <?php
@@ -268,8 +268,8 @@
                                 <?php } ?>
                                 <a href="modal-nota_quot.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
 
-                                <a href="modal-ver-notas.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Ver nota" class="btn btn-sm btn-icon btn-info"><i class="glyphicon glyphicon-pushpin"></i></a>
-                                
+                                <a href="ver_notas.php?id=<?php echo $value['id']?>" title="Ver notas" class="btn btn-sm btn-icon btn-info"><i class="glyphicon glyphicon-pushpin"></i></a>
+
                                 <a href="view_quotations.php?id=<?php echo $value['id']?>" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 4){ ?>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $value['stat'] == 8){ ?>

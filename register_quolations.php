@@ -101,13 +101,13 @@
      }elseif(isset($_POST['note'], $_POST['id_entry_nota'])){
 
             $arrNot = array(
-                          "type_note" => 3,
-                          "conten_note" => $_POST['note_quot'],
-                          "stat" => 1,
-                          "log_user_register" => $_SESSION['MR_USER_ID'],
-                          "log_time" => date("Y-m-d H:i:s"),
-                          "id_entry" => $_POST['id_entry_nota'],
-                          "remember_date" => $_POST['fecha_nota']
+                            "type_note" => $_POST['type_note'],
+                            "conten_note" => $_POST['note_quot'],
+                            "stat" => 1,
+                            "log_user_register" => $_SESSION['MR_USER_ID'],
+                            "log_time" => date("Y-m-d H:i:s"),
+                            "id_entry" => $_POST['id_entry_nota'],
+                            "remember_date" => $_POST['fecha_nota'].' '.$_POST['hora']
                          );
 
           $noteId = InsertRec("crm_notes", $arrNot);
@@ -789,9 +789,9 @@
                           <?php if(isset($cotizacion_creada)){ ?>
                           <a href="moda-discar_quot.php?id=<?php echo $id?>" title=" Descartar Cotizacion" data-toggle="ajaxModal" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i> Descartar Cotizacion</a>
                           <?php } ?>
-                          <a href="modal-nota_call.php?id=<?php echo $id_entry?>" title=" Agregar Nota de llamada" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-earphone"></i> Agregar Nota Llamada</a>
+                          <!--<a href="modal-nota_call.php?id=<?php echo $id_entry?>" title=" Agregar Nota de llamada" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-earphone"></i> Agregar Nota Llamada</a>-->
                           <a href="modal-nota_quot.php?id=<?php echo $id_entry?>" title=" Agregar Nota" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-pushpin"></i> Agregar Nota</a>
-                          <a href="modal-ver-notas.php?id=<?php echo $id_entry?>" data-toggle="ajaxModal" class="btn btn-danger glyphicon glyphicon-pushpin"> Ver Notas</a>
+                          <a href="ver_notas.php?id=<?php echo $id_entry?>" class="btn btn-danger glyphicon glyphicon-pushpin"> Ver Notas</a>
                           <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk" name="save"> Guardar</button>
                           <?php if (isset($cotizacion_creada)): ?>
                           <?php $id_coti_creada = $arrQuotCrate[0]['id']; ?>

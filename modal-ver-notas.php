@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
                                 FROM
                                   crm_notes INNER JOIN users on crm_notes.log_user_register = users.id
                                 WHERE
-                                  crm_notes.id_entry =".$_GET['id']."
+                                  crm_notes.id =".$_GET['id']."
                                 ORDER BY 1 desc
                                   ");
 }
