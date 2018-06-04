@@ -28,7 +28,6 @@
                           "phone_1"=>$_POST['phone_1'],
                           "phone_2"=>$_POST['phone_2'],
                           "email"=>$_POST['email'],
-                          "fax"=>$_POST['fax'],
                           "type_industry"=>$_POST['type_industry'],
                           "country"=>$_POST['country'],
                           "province"=>$_POST['province'],

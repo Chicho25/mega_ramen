@@ -121,13 +121,19 @@
                     <div style="border-radius:5px; color:white; width:100%;">DESCRIPCION</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;">
-                    <div style=" border-radius:5px; color:white; width:100%;">TIPO</div>
+                    <div style=" border-radius:5px; color:white; width:100%;">CANTIDAD</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;" width="150">
-                    <div style="border-radius:5px; color:white; width:100%;">PRECIO</div>
+                    <div style="border-radius:5px; color:white; width:100%;">UNIDAD</div>
+                   </th>
+                   <th style="text-align: center; background-color:#1e4799;" width="150">
+                    <div style="border-radius:5px; color:white; width:100%;">COSTO</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;">
-                    <div style="border-radius:5px; color:white; width:100%;">CANTIDAD</div>
+                    <div style="border-radius:5px; color:white; width:100%;">HORAS MIN</div>
+                   </th>
+                   <th style="text-align: center; background-color:#1e4799;">
+                    <div style="border-radius:5px; color:white; width:100%;">HORAS EXTRAS</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;">
                     <div style="border-radius:5px; color:white; width:100%;">SUBTOTAL</div>
@@ -208,9 +214,11 @@
 
           $html.='<tr>
                    <th style="text-align: left; width:200px;">'.$valueProdut['name_product'].'</th>
+                   <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
                    <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
-                   <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
+                   <th style="text-align: left;"></th>
+                   <th style="text-align: left;"></th>
                    <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").'</th>
                    <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").'</th>
                    <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
@@ -420,6 +428,7 @@ $html2 = '
 
 include("pdf/mpdf.php");
 $mpdf=new mPDF();
+$mpdf->AddPage('L');
 //$mpdf->WriteHTML($stylesheet, 1);
 $mpdf->WriteHTML($html);
 $mpdf->AddPage();

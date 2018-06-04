@@ -1,12 +1,10 @@
 <?php
     ob_start();
     session_start();
-    $entryclass="class='active'";
     $regentryclass="class='active'";
 
     include("include/config.php");
     include("include/defs.php");
-
     include("header.php");
 
     if(!isset($_SESSION['MR_USER_ID']))
@@ -15,6 +13,40 @@
           exit;
      }
      $message="";
+
+     if (isset($_POST['trade_name'])) {
+
+       $id_insert_customer = array("trade_name"=>$_POST['trade_name'],
+                                   "stat" => 1);
+
+       $nId_customer = InsertRec("crm_customers", $id_insert_customer);
+
+       $_SESSION['cliente_name'] = $_POST['trade_name'];
+       $_SESSION['id_cliente'] = $nId_customer;
+
+       $message = '<div class="alert alert-danger">
+                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       <strong>Cliente registrado!</strong>
+                     </div>';
+
+     }
+     if (isset($_POST['name_contact'])) {
+
+       $id_insert_contact = array("id_customer" => $_POST['id_cliente'],
+                                  "name_contact"=>$_POST['name_contact'],
+                                  "stat" => 1);
+
+       $nId_contact = InsertRec("crm_contact", $id_insert_contact);
+
+       $_SESSION['contact_name'] = $_POST['name_contact'];
+       $_SESSION['id_contact'] = $nId_contact;
+
+       $message = '<div class="alert alert-danger">
+                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       <strong>Contacto registrado!</strong>
+                     </div>';
+
+     }
 
     if(isset($_POST['submitEntry']))
      {
@@ -106,10 +138,10 @@
                                 if($message !="")
                                     echo $message;
                           ?>
-                          <div class="form-group required">
+                          <div class="form-group">
                               <label class="col-lg-4 text-right control-label font-bold">Medio de Comunicacion</label>
                               <div class="col-lg-4">
-                                  <select class="chosen-select form-control" name="id_type_media" required="required" onChange="mostrar(this.value);">
+                                  <select class="chosen-select form-control" name="id_type_media" onChange="mostrar(this.value);">
                                     <option value="">Seleccionar</option>
                                     <?PHP
                                     $arrKindMeetings = GetRecords("Select * from crm_type_media where stat = 1");
@@ -124,10 +156,10 @@
                                   </select>
                               </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                               <label class="col-lg-4 text-right control-label font-bold">Pais</label>
                               <div class="col-lg-4">
-                                  <select class="chosen-select form-control" name="id_country" required="required" onChange="mostrar(this.value);">
+                                  <select class="chosen-select form-control" name="id_country" onChange="mostrar(this.value);">
                                     <option value="">Seleccionar</option>
                                     <?PHP
                                     $arrKindMeetings = GetRecords("Select * from country where stat = 1");
@@ -142,7 +174,7 @@
                                   </select>
                               </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-4 text-right control-label font-bold">Fecha</label>
                             <div class="col-lg-4">
                               <input type="text" class="form-control" value="<?php echo date("Y-m-d H:i:s"); ?>" name="date_form" readonly>
@@ -160,20 +192,31 @@
                                   $trade_name = $value['trade_name'];
                                   $legal_name = $value['legal_name'];
                                 ?>
-                                <option value="<?php echo $kinId?>"><?php echo $trade_name.' '.$legal_name?></option>
+                                <option value="<?php echo $kinId?>" <?php if(isset($_SESSION['id_cliente']) && $_SESSION['id_cliente'] ==$kinId){ echo 'selected'; }?>><?php echo $trade_name.' '.$legal_name?></option>
                                 <?php
                                 }
                                 ?>
                               </select>
                             </div>
+                            <a href="modal_cliente.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-plus-sign"></i></a>
                           </div>
                           <div class="form-group required">
                             <label class="col-lg-4 text-right control-label font-bold">Contacto</label>
                             <div class="col-lg-4">
+                              <?php
+
+                              if (isset($_SESSION['contact_name'], $_SESSION['id_contact'])) {
+                                
+                              }
+
+                               ?>
                               <select class="form-control"  name="id_contact" id="contact">
                                 <option value="">Seleccionar</option>
                               </select>
                             </div>
+                            <?php if(isset($_SESSION['cliente_name'])){ ?>
+                            <a href="modal-contacto.php?id_cliente=<?php echo $_SESSION['id_cliente']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-user"></i></a>
+                            <?php } ?>
                           </div>
                           <div id="date_contact">
 
@@ -184,44 +227,44 @@
                               <input type="text" class="form-control" placeholder="Nombre del Proyecto" name="proyect_name" required>
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-4 text-right control-label font-bold">Trabajo a Realizar</label>
                             <div class="col-lg-4">
-                              <textarea class="form-control" placeholder="Trabajo a Realizar" name="work_do" required></textarea>
+                              <textarea class="form-control" placeholder="Trabajo a Realizar" name="work_do"></textarea>
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Distancia Horizontal Aproximada</label>
                             <div class="col-lg-4">
-                              <input type="number" step="any" class="form-control" placeholder="Distancia Horizontal Aproximada" name="width_aprox" required>
+                              <input type="number" step="any" class="form-control" placeholder="Distancia Horizontal Aproximada" name="width_aprox" >
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Altura Aproximada</label>
                             <div class="col-lg-4">
-                              <input type="number" step="any" class="form-control" placeholder="Altura Aproximada" name="height_aprox" required>
+                              <input type="number" step="any" class="form-control" placeholder="Altura Aproximada" name="height_aprox" >
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Peso</label>
                             <div class="col-lg-4">
-                              <input type="number" step="any" class="form-control" placeholder="Peso" name="weight_aprox" required>
+                              <input type="number" step="any" class="form-control" placeholder="Peso" name="weight_aprox" >
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Ubicacion del proyecto</label>
                             <div class="col-lg-4">
-                              <textarea class="form-control" placeholder="Ubicacion del proyecto" name="proyect_locate" required></textarea>
+                              <textarea class="form-control" placeholder="Ubicacion del proyecto" name="proyect_locate" ></textarea>
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Tipo de trabajo</label>
                             <div class="col-lg-4">
                               <label class="radio-inline"><input type="radio" name="id_type_work" value="1">Por Hora</label>
                               <label class="radio-inline"><input type="radio" name="id_type_work" value="2">Por proyecto</label>
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group ">
                             <label class="col-lg-4 text-right control-label font-bold">Se puede inspeccionar?</label>
                             <div class="col-lg-4">
                               <label class="radio-inline"><input type="radio" name="inspection" value="1">Si</label>

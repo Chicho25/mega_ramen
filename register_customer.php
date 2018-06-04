@@ -27,7 +27,6 @@
         $phone_1 = $_POST['phone_1'];
         $phone_2 = $_POST['phone_2'];
         $email = $_POST['email'];
-        $fax = $_POST['fax'];
         $type_industry = $_POST['type_industry'];
         $country = $_POST['country'];
         $province = $_POST['province'];
@@ -53,7 +52,6 @@
                           "phone_1" => $phone_1,
                           "phone_2" => $phone_2,
                           "email" => $email,
-                          "fax" => $fax,
                           "type_industry" => $type_industry,
                           "country" => $country,
                           "province" => $province,
@@ -171,12 +169,14 @@
                               <input type="email" class="form-control" placeholder="Email" name="email" required>
                             </div>
                           </div>
+                          <?php /* ?>
                           <div class="form-group">
                             <label class="col-lg-4 text-right control-label font-bold">Fax</label>
                             <div class="col-lg-4">
                               <input type="text" class="form-control" placeholder="Fax" name="fax">
                             </div>
                           </div>
+                          <?php */ ?>
                           <div class="form-group">
                             <label class="col-lg-4 text-right control-label font-bold">Tipo de industria</label>
                             <div class="col-lg-4">

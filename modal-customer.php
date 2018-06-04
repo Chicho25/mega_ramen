@@ -16,7 +16,6 @@
     $phone_1 = $arrCus[0]['phone_1'];
     $phone_2 = $arrCus[0]['phone_2'];
     $email = $arrCus[0]['email'];
-    $fax = $arrCus[0]['fax'];
     $type_industry = $arrCus[0]['type_industry'];
     $country = $arrCus[0]['country'];
     $province = $arrCus[0]['province'];
@@ -89,12 +88,6 @@
               <label class="col-lg-3 text-right control-label">Email</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" name="email" value="<?php echo $email; ?>">
-              </div>
-            </div>
-            <div class="form-group ">
-              <label class="col-lg-3 text-right control-label">Fax</label>
-              <div class="col-lg-7">
-                <input type="text" class="form-control" name="fax" value="<?php echo $fax; ?>">
               </div>
             </div>
             <div class="form-group ">
