@@ -85,13 +85,13 @@
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio" name="price" required>
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Flag</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Flag $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Flag" name="flag" required>
                             </div>

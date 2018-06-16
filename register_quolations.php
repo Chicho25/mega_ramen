@@ -701,47 +701,41 @@
                               <input type="text" class="form-control" value="<?php echo $proyect_name; ?>" name="proyect_name">
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Direccion del Proyecto</label>
                             <div class="col-lg-3">
-
-                              <textarea class="form-control" placeholder="Direccion del Proyecto" name="proyect_locate" required><?php echo $proyect_locate; ?></textarea>
+                              <textarea class="form-control" placeholder="Direccion del Proyecto" name="proyect_locate"><?php echo $proyect_locate; ?></textarea>
                             </div>
                             <label class="col-lg-2 text-right control-label font-bold">Contacto en el Sitio</label>
-
                             <div class="col-lg-3">
                               <input type="text" class="form-control" placeholder="Contacto en el Sitio" name="proyect_contact" value="<?php echo $contact_site;?>">
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Descripcion de la carga</label>
                             <div class="col-lg-3">
-
                               <textarea class="form-control" placeholder="Descripcion de la carga" name="description_charge"><?php echo $description_charge; ?></textarea>
                             </div>
-                            <label class="col-lg-2 text-right control-label font-bold">Dimenciones</label>
+                            <label class="col-lg-2 text-right control-label font-bold">Dimensiones Mts(Metros)</label>
                             <div class="col-lg-3">
-
-                              <input type="number" step="any" class="form-control" placeholder="Dimenciones" name="dimensions" value="<?php echo $dimensions; ?>" required>
+                              <input type="number" step="any" class="form-control" placeholder="Dimenciones" name="dimensions" value="<?php echo $dimensions; ?>">
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Radio de giro</label>
-
                             <div class="col-lg-3">
-                              <input type="number" step="any" class="form-control" placeholder="Radio de giro" name="turning_radius" required value="<?php echo $radio_giro; ?>">
+                              <input type="number" step="any" class="form-control" placeholder="Radio de giro" name="turning_radius" value="<?php echo $radio_giro; ?>">
                             </div>
-                            <label class="col-lg-2 text-right control-label font-bold">Altura</label>
-
+                            <label class="col-lg-2 text-right control-label font-bold">Altura Mts(Metros)</label>
                             <div class="col-lg-3">
-                              <input type="number" step="any" class="form-control" placeholder="Altura" name="height" required value="<?php echo $height; ?>">
+                              <input type="number" step="any" class="form-control" placeholder="Altura" name="height" value="<?php echo $height; ?>">
                             </div>
                           </div>
-                          <div class="form-group required">
-                            <label class="col-lg-2 text-right control-label font-bold">Peso Maximo</label>
+                          <div class="form-group">
+                            <label class="col-lg-2 text-right control-label font-bold">Peso Maximo kg(Kilogramos)</label>
 
                             <div class="col-lg-3">
-                              <input type="number" step="any" class="form-control" placeholder="Peso Maximo" name="weight_max" required value="<?php echo $weight_max;?>">
+                              <input type="number" step="any" class="form-control" placeholder="Peso Maximo" name="weight_max" value="<?php echo $weight_max;?>">
                             </div>
                             <label class="col-lg-2 text-right control-label font-bold">Email</label>
 
@@ -749,11 +743,11 @@
                               <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
                             </div>
                           </div>
-                          <div class="form-group required">
-                            <label class="col-lg-2 text-right control-label font-bold">Percepcion del valor del trabajo</label>
+                          <div class="form-group">
+                            <label class="col-lg-2 text-right control-label font-bold">Percepcion del valor del trabajo $ </label>
                             <div class="col-lg-3">
 
-                              <textarea class="form-control" placeholder="Ubicacion del proyecto" name="perceptions_value_work" required><?php echo $perception_value_work; ?></textarea>
+                              <textarea class="form-control" placeholder="Ubicacion del proyecto" name="perceptions_value_work"><?php echo $perception_value_work; ?></textarea>
                             </div>
                             <label class="col-lg-2 text-right control-label font-bold">Vendedor</label>
                             <div class="col-lg-3">
@@ -774,11 +768,11 @@
                               <input type="hidden" name="id_seller" value="<?php echo $id_seller;?>">
                             </div>
                           </div>
-                          <div class="form-group required">
+                          <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Acuerdo de servicio al cliente</label>
 
                             <div class="col-lg-3">
-                              <textarea class="form-control" placeholder="Acuerdo de servicio al cliente" name="service_customer" required><?php echo $service_customer; ?></textarea>
+                              <textarea class="form-control" placeholder="Acuerdo de servicio al cliente" name="service_customer"><?php echo $service_customer; ?></textarea>
                             </div>
                           </div>
 
@@ -814,22 +808,22 @@
                           <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Comentarios</label>
                             <div class="col-lg-3">
-                              <textarea class="form-control" style="height:150px" placeholder="Comentarios" name="comentary" required><?php echo $comentary; ?></textarea>
+                              <textarea class="form-control" style="height:150px" placeholder="Comentarios" name="comentary"><?php echo $comentary; ?></textarea>
                             </div>
                             <div class="form-group">
-                              <label class="col-lg-2 text-right control-label font-bold">Venta Gravable</label>
+                              <label class="col-lg-2 text-right control-label font-bold">Venta Gravable $</label>
                               <div class="col-lg-3">
                                 <input id="productos_total" readonly name="sale_gravable" value="<?php echo $venta_gravable; ?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
-                              <label class="col-lg-2 text-right control-label font-bold">Venta no gravable</label>
+                              <label class="col-lg-2 text-right control-label font-bold">Venta no gravable $</label>
                               <div class="col-lg-3">
                                 <input id="total_serv_hidden" readonly name="sale_no_gravable" value="<?php echo $venta_no_gravable;?>" class="form-control" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
-                              <label class="col-lg-2 text-right control-label font-bold">itbms</label>
+                              <label class="col-lg-2 text-right control-label font-bold">itbms $</label>
                               <div class="col-lg-3">
                                 <input id="itbms_total_final" readonly name="itbms" class="form-control" value="<?php echo $itbms; ?>" style="margin:5px;" Width="70px" onkeyup="agregar_numero();format(this)" onchange="format(this)"/>
                               </div>
-                              <label class="col-lg-2 text-right control-label font-bold">Total</label>
+                              <label class="col-lg-2 text-right control-label font-bold">Total $</label>
                               <div class="col-lg-3">
                                 <input id="txt4" class="form-control" type="hidden" style="margin:5px;" Width="70px" onkeyup="format(this)"/>
                                 <input id="total_coti" name="total" readonly class="form-control" value="<?php echo $total; ?>" style="margin:5px;" Width="70px" onkeyup="format(this)"/>

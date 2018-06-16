@@ -216,12 +216,12 @@
                    <th style="text-align: left; width:200px;">'.$valueProdut['name_product'].'</th>
                    <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
-                   <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
+                   <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").' $</th>
                    <th style="text-align: left;"></th>
                    <th style="text-align: left;"></th>
-                   <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").'</th>
-                   <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").'</th>
-                   <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
+                   <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").' $</th>
+                   <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").' $</th>
+                   <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").' $</th>
                  </tr>
                  <tr>
                    <th style="text-align: left;">Destalle: </th>
@@ -261,19 +261,19 @@
                  <table width="100%">
                    <tr>
                      <th style="text-align: left;">VENTA GRAVABLE:</th>
-                     <th style="text-align: left;">'.number_format($venta_gravable,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($venta_gravable,2,".",",").' $</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">VENTA NO GRAVABLE:</th>
-                     <th style="text-align: left;">'.number_format($venta_no_gravable,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($venta_no_gravable,2,".",",").' $</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">ITBMS:</th>
-                     <th style="text-align: left;">'.number_format($itbms_for_product_sum,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($itbms_for_product_sum,2,".",",").' $</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">TOTAL:</th>
-                     <th style="text-align: left;">'.number_format($total,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($total,2,".",",").' $</th>
                    </tr>
                  </table>
                </div>

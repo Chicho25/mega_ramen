@@ -4,9 +4,15 @@
     $quotclass ="class='active'";
     $regquotclass ="class='active'";
 
+    if (isset($_SESSION['contact_name']) || isset($_SESSION['id_contact']) || isset($_SESSION['cliente_name']) || isset($_SESSION['id_cliente'])) {
+        unset($_SESSION['contact_name']);
+        unset($_SESSION['id_contact']);
+        unset($_SESSION['cliente_name']);
+        unset($_SESSION['id_cliente']);
+    }
+
     include("include/config.php");
     include("include/defs.php");
-
     include("header.php");
 
     if(!isset($_SESSION['MR_USER_ID']))
@@ -84,11 +90,22 @@
                    </div>';
      }
 
-    $where = "where (1=1)";
+    //$where = "where (1=1)";
+
+    // condiciones segun el tipo de rol de usuario
+
+    if($_SESSION['MR_USER_ROLE'] == 1)
+      { $where = "where (1=1)"; }
+    elseif($_SESSION['MR_USER_ROLE'] == 3)
+      { $where = "where crm_entry.stat in(3,4,5)";}
+    elseif($_SESSION['MR_USER_ROLE'] == 4)
+      { $where = "where crm_entry.stat in(8,10)";}
+    elseif($_SESSION['MR_USER_ROLE'] == 5)
+      { $where = "where crm_entry.stat in(6)";}
 
      if(isset($_POST['id_status']) && $_POST['id_status'] != "")
      {
-        $where.=" and  crm_entry.stat = ".$_POST['id_status']." ";
+        $where.=" and crm_entry.stat = ".$_POST['id_status']." ";
         $id_status = $_POST['id_status'];
      }
      if(isset($_POST['id_seller']) && $_POST['id_seller'] != "")
@@ -120,17 +137,6 @@
        $name_proyect = $_POST['name_proyect'];
     }
 
-    // condiciones segun el tipo de rol de usuario
-
-    if($_SESSION['MR_USER_ROLE'] == 1)
-      { $where = "where (1=1)"; }
-    elseif($_SESSION['MR_USER_ROLE'] == 3)
-      { $where = "where crm_entry.stat in(3,4,5)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 4)
-      { $where = "where crm_entry.stat in(8,10)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 5)
-      { $where = "where crm_entry.stat in(6)";}
-
        $arrEntry = GetRecords("Select
                                crm_entry.id,
                                crm_entry.number_tickets,
@@ -154,7 +160,7 @@
             <section class="scrollable padder">
               <section class="panel panel-default">
                 <header class="panel-heading">
-                          <span class="h4">Lista de Inresos <?php echo $_POST['fecha_nota'].' '.$_POST['hora']; ?></span>
+                          <span class="h4">Lista de Ingresos <?php //echo $_POST['fecha_nota'].' '.$_POST['hora']; ?></span>
                 </header>
                 <div class="panel-body">
                   <?php
@@ -182,7 +188,7 @@
                                   $kinId = $value['id_stat'];
                                   $kinDesc = $value['description'];
                                 ?>
-                                <option value="<?php echo $kinId?>" <?php if(isset($id_status) && $id_status = $kinId){ echo 'selected';} ?>><?php echo utf8_encode($kinDesc)?></option>
+                                <option value="<?php echo $kinId?>" <?php if(isset($id_status) && $id_status == $kinId){ echo 'selected';} ?>><?php echo utf8_encode($kinDesc)?></option>
                                 <?php
                               }
                                 ?>
@@ -201,7 +207,7 @@
                                     $name = $value['real_name'];
                                     $last_name = $value['last_name'];
                                   ?>
-                                  <option value="<?php echo $kinId?>" <?php if(isset($id_seller) && $id_seller = $kinId){ echo 'selected';} ?>><?php echo $name.' '.$last_name;?></option>
+                                  <option value="<?php echo $kinId?>" <?php if(isset($id_seller) && $id_seller == $kinId){ echo 'selected';} ?>><?php echo $name.' '.$last_name;?></option>
                                   <?php
                                 }
                                   ?>

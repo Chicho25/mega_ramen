@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Capacidad</label>
+              <label class="col-lg-3 text-right control-label">Capacidad Tn(Toneladas)</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="capacity" value="<?php echo $capacity; ?>">
               </div>
@@ -67,31 +67,31 @@
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio Por Hora</label>
+              <label class="col-lg-3 text-right control-label">Precio Por Hora $</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="price_hour" value="<?php echo $price_hour; ?>">
               </div>
             </div>
 			      <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio Por Dia</label>
+              <label class="col-lg-3 text-right control-label">Precio Por Dia $</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="price_day" value="<?php echo $price_day; ?>">
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio Por Semana</label>
+              <label class="col-lg-3 text-right control-label">Precio Por Semana $</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="price_week" value="<?php echo $price_week; ?>">
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio Por Mes</label>
+              <label class="col-lg-3 text-right control-label">Precio Por Mes $</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="price_mon" value="<?php echo $price_mon; ?>">
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio Por Año</label>
+              <label class="col-lg-3 text-right control-label">Precio Por Año $</label>
               <div class="col-lg-7">
                 <input type="number" step="any" class="form-control" name="price_year" value="<?php echo $price_year; ?>">
               </div>

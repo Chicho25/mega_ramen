@@ -35,13 +35,13 @@
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Precio</label>
+              <label class="col-lg-3 text-right control-label">Precio $</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" name="price" value="<?php echo $price; ?>">
               </div>
             </div>
             <div class="form-group required">
-              <label class="col-lg-3 text-right control-label">Flag</label>
+              <label class="col-lg-3 text-right control-label">Flag $</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" name="flag" value="<?php echo $flag; ?>">
               </div>

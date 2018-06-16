@@ -139,8 +139,8 @@
                               <td class="tbdata"> <?php echo $value['name_craner']?> </td>
                               <td class="tbdata"> <?php echo $value['brand']?> </td>
                               <td class="tbdata"> <?php echo $value['model']?> </td>
-                              <td class="tbdata"> <?php echo $value['capacity']?> </td>
-                              <td class="tbdata"> <?php echo $value['price_hour']?> </td>
+                              <td class="tbdata"> <?php echo $value['capacity']?> Tn</td>
+                              <td class="tbdata"> <?php echo $value['price_hour']?> $ </td>
                               <td class="tbdata"> <?php echo $status?> </td>
                               <td>
                                 <a href="modal-craner.php?id=<?php echo $value['id']?>" title="Editar usuario" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-edit (alias)"></i></a>

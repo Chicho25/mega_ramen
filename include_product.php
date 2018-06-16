@@ -5,10 +5,10 @@
       <th>ID</th>
       <th>NOMBRE</th>
       <th>TIPO</th>
-      <th>PRECIO</th>
+      <th>PRECIO $</th>
       <th>CANTIDAD</th>
-      <th>ITBMS</th>
-      <th>TOTAL</th>
+      <th>ITBMS %</th>
+      <th>TOTAL $</th>
     </tr>
   </thead>
   <tbody>

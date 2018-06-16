@@ -17,6 +17,7 @@
      if (isset($_POST['trade_name'])) {
 
        $id_insert_customer = array("trade_name"=>$_POST['trade_name'],
+                                   "legal_name"=>$_POST['trade_name'],
                                    "stat" => 1);
 
        $nId_customer = InsertRec("crm_customers", $id_insert_customer);
@@ -203,16 +204,19 @@
                           <div class="form-group required">
                             <label class="col-lg-4 text-right control-label font-bold">Contacto</label>
                             <div class="col-lg-4">
-                              <?php
+                              <?php if (isset($_SESSION['contact_name'], $_SESSION['id_contact'])) { ?>
 
-                              if (isset($_SESSION['contact_name'], $_SESSION['id_contact'])) {
-                                
-                              }
+                                <input type="text" class="form-control" readonly name="id_contact" value="<?php echo $_SESSION['contact_name']; ?>">
+                                <input type="hidden" class="form-control" name="id_contact" value="<?php echo $_SESSION['id_contact']; ?>">
+                                <input type="hidden" name="id_type_work" value="0">
+                                <input type="hidden" name="inspection" value="0">
 
-                               ?>
+
+                              <?php }else{ ?>
                               <select class="form-control"  name="id_contact" id="contact">
                                 <option value="">Seleccionar</option>
                               </select>
+                              <?php } ?>
                             </div>
                             <?php if(isset($_SESSION['cliente_name'])){ ?>
                             <a href="modal-contacto.php?id_cliente=<?php echo $_SESSION['id_cliente']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-user"></i></a>
@@ -234,19 +238,19 @@
                             </div>
                           </div>
                           <div class="form-group ">
-                            <label class="col-lg-4 text-right control-label font-bold">Distancia Horizontal Aproximada</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Distancia Horizontal Aproximada Mts(Metros)</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Distancia Horizontal Aproximada" name="width_aprox" >
                             </div>
                           </div>
                           <div class="form-group ">
-                            <label class="col-lg-4 text-right control-label font-bold">Altura Aproximada</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Altura Aproximada Mts(Metros)</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Altura Aproximada" name="height_aprox" >
                             </div>
                           </div>
                           <div class="form-group ">
-                            <label class="col-lg-4 text-right control-label font-bold">Peso</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Peso Kg(kilogramos)</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Peso" name="weight_aprox" >
                             </div>

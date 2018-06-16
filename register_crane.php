@@ -130,7 +130,7 @@
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Capacidad</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Capacidad Tn(Toneladas)</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Capacidad" name="capacity" required>
                             </div>
@@ -142,31 +142,31 @@
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Hora</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Hora $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio Por Hora" name="price_hour" required>
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Dia</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Dia $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio Por Dia" name="price_day" required>
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Semana</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Semana $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio Por Semana" name="price_week" required>
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Mes</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Mes $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio por Mes" name="price_mon" required>
                             </div>
                           </div>
                           <div class="form-group required">
-                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Año</label>
+                            <label class="col-lg-4 text-right control-label font-bold">Precio Por Año $</label>
                             <div class="col-lg-4">
                               <input type="number" step="any" class="form-control" placeholder="Precio Por Año" name="price_year" required>
                             </div>

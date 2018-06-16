@@ -103,8 +103,8 @@
                           <tr>
                               <td class="tbdata"> <?php echo $value['id']?> </td>
                               <td class="tbdata"> <?php echo $value['name_service']?> </td>
-                              <td class="tbdata"> <?php echo $value['price']?> </td>
-                              <td class="tbdata"> <?php echo $value['flag']?> </td>
+                              <td class="tbdata"> <?php echo $value['price']?> $ </td>
+                              <td class="tbdata"> <?php echo $value['flag']?> $ </td>
                               <td class="tbdata"> <?php echo $status?> </td>
                               <td>
                                 <a href="modal-services.php?id=<?php echo $value['id']?>" title="Editar Servicio" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-edit (alias)"></i></a>
