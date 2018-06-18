@@ -48,6 +48,21 @@
 
      }
 
+     if (isset($_POST['switch'])) {
+
+       $array_switch = array("id_last_craner" => $_POST['id_craner'],
+                             "comentary_last_craner" => $_POST['note_switch']);
+
+       $update_number = UpdateRec("crm_quot", "id=".$_POST['id_quot'], $array_switch);
+
+       $message = '<div class="alert alert-success">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     <strong>Cambio Realizado con exito</strong>
+                   </div>';
+
+
+     }
+
      if (isset($_POST['n_factura'])) {
 
        $array_n_invoice = array("n_invoice" => $_POST['n_factura']);
@@ -269,6 +284,7 @@
                                 <a href="convert_pdf.php?id=<?php echo $value['id']?>" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
                                 <a href="mail.php?id=<?php echo $value['id']?>&locat_view=1" class="btn btn-success btn-s-xs glyphicon glyphicon-send"> Enviar</a>
                                 <a href="modal_n_factura.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-warning btn-s-xs fa fa-asterisk"> N# Factura</a>
+                                <a href="modal-swich.php?id=<?php echo $value['id']?>&id_grua=<?php echo $value['id_last_craner'];?>" data-toggle="ajaxModal" class="btn btn-danger btn-s-xs glyphicon glyphicon-random"> Cambio</a>
                               </td>
                           </tr>
                           <?php } ?>

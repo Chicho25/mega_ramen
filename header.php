@@ -27,6 +27,9 @@
       width: 100% !important;
     }
   </style>
+
+  <script src="js/jquery.min.js"></script>
+
 </head>
 <body class="" >
   <section class="vbox">

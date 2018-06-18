@@ -65,7 +65,7 @@
         $id_type_work = $_POST['id_type_work'];
         $inspection = $_POST['inspection'];
 
-        $ifUserExist = RecCount("crm_entry", "proyect_name = '".$proyect_name."'");
+        /*$ifUserExist = RecCount("crm_entry", "proyect_name = '".$proyect_name."'");
         if($ifUserExist > 0)
         {
           $message = '<div class="alert alert-danger">
@@ -74,7 +74,7 @@
                         </div>';
         }
         else
-        {
+        {*/
             $arrEnt = array(
                           "id_type_media" => $id_type_media,
                           "id_country" => $id_country,
@@ -120,8 +120,8 @@
 
               $nId = InsertRec("log_tracing", $arrVal);
               /*  Fin Log Seguimiento */
+          /*  } */
 
-          }
      }
 ?>
 	<section id="content">
