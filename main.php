@@ -21,7 +21,9 @@ include("header.php");
                <header class="panel-heading">
                   <span class="h4">Principal</span>
                </header>
+
                <div class="panel-body">
+                 <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
                  <?php
                        if(isset($message) && $message !=""){
                            echo $message;
@@ -66,7 +68,19 @@ include("header.php");
                               <i class="fa fa-usd i-1x text-white"></i>
                             </span>
                                 <span class="clear">
-                                <span class="h3 block m-t-xs text-success">1000<?php /*echo number_format($value, 2, ',', '.'); */ ?> </span>
+                                <span class="h3 block m-t-xs text-success"><?php
+
+                                $arrayFac = GetRecords("select
+                                                        sum(crm_quot.total) as total_fact
+                                                        from
+                                                        crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                                        where
+                                                        crm_entry.stat = 6
+                                                        and
+                                                        crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+
+                                                        echo number_format($arrayFac[0]['total_fact'], 2, ',', '.');
+                                 ?> </span>
                                 <small class="text-muted text-u-c">Facturación</small>
                                 </span>
                           </a>
@@ -83,7 +97,19 @@ include("header.php");
 
                               $sum = $arrSum[0]['sum_remaining']/$value; */ ?>
 
-                              <span class="h3 block m-t-xs text-danger">1000<?php /* echo number_format($sum, 2, ',', '.'); */ ?> </span>
+                              <span class="h3 block m-t-xs text-danger"><?php
+
+                                                    $arrayCre = GetRecords("select
+                                                      sum(crm_quot.total) as total_cre
+                                                      from
+                                                      crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                                      where
+                                                      crm_entry.stat = 4
+                                                      and
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+
+                                                      echo number_format($arrayCre[0]['total_cre'], 2, ',', '.');
+                               ?> </span>
                               <small class="text-muted text-u-c">Creadas</small>
                             </span>
                           </a>
@@ -100,7 +126,19 @@ include("header.php");
 
                               $sum = $arrSum[0]['sum_remaining'];*/ ?>
 
-                              <span class="h3 block m-t-xs text-danger">1000<?php /*echo number_format($sum, 2, ',', '.');*/ ?> </span>
+                              <span class="h3 block m-t-xs text-danger"><?php
+
+                                                    $arrayEnv = GetRecords("select
+                                                      sum(crm_quot.total) as total_env
+                                                      from
+                                                      crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                                      where
+                                                      crm_entry.stat = 5
+                                                      and
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+
+                                                      echo number_format($arrayEnv[0]['total_env'], 2, ',', '.');
+                               ?></span>
                               <small class="text-muted text-u-c">Enviadas</small>
                             </span>
                           </a>
@@ -115,7 +153,19 @@ include("header.php");
                               <?php /*$arrCus = GetRecords("SELECT count(*) as con_customer from customer where stat = 1");
 
                                     $cust = $arrCus[0]['con_customer']; */ ?>
-                              <span class="h3 block m-t-xs text-primary">1000<?php /*echo $cust;*/ ?></span>
+                              <span class="h3 block m-t-xs text-primary"><?php
+
+                                                    $arrayApr = GetRecords("select
+                                                      sum(crm_quot.total) as total_apro
+                                                      from
+                                                      crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                                      where
+                                                      crm_entry.stat = 8
+                                                      and
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+
+                                                      echo number_format($arrayApr[0]['total_apro'], 2, ',', '.');
+                               ?></span>
                               <small class="text-muted text-u-c">Aprobadas</small>
                             </span>
                           </a>
@@ -183,6 +233,35 @@ include("header.php");
                   <style type="text/css">
                     ${demo.css}
                   </style>
+                  <?php
+
+                  $arrayMon = GetRecords("select
+                                          sum(crm_quot.total) as total_mon
+                                          from
+                                          crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                          where
+                                          crm_entry.stat = 3
+                                          and
+                                          crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+
+                  $arraySwitch = GetRecords("select (select count(*) from crm_quot where id_last_craner = 0) as sin_cambio,
+                                                    (select count(*) from crm_quot where id_last_craner <> 0) as con_cambio");
+
+                                          $sin_coti = $arrayMon[0]['total_mon'];
+                                          $coti_creada = $arrayCre[0]['total_cre'];
+                                          $coti_envi = $arrayEnv[0]['total_env'];
+                                          $coti_fact = $arrayFac[0]['total_fact'];
+                                          $coti_apro = $arrayApr[0]['total_apro'];
+
+                                          $_100 = $sin_coti + $coti_creada + $coti_envi + $coti_fact + $coti_apro;
+
+                                          $sincoti = 100 * $sin_coti / $_100;
+                                          $coticrea = 100 * $coti_creada / $_100;
+                                          $cotienvi = 100 * $coti_envi / $_100;
+                                          $cotifac = 100 * $coti_fact / $_100;
+                                          $cotiapro = 100 * $coti_apro / $_100;
+
+                   ?>
                         <script type="text/javascript">
                     $(function () {
                         $('#container2').highcharts({
@@ -214,17 +293,11 @@ include("header.php");
                                 type: 'pie',
                                 name: 'Browser share',
                                 data: [
-                                    ['Firefox',   45.0],
-                                    ['IE',       26.8],
-                                    {
-                                        name: 'Chrome',
-                                        y: 12.8,
-                                        sliced: true,
-                                        selected: true
-                                    },
-                                    ['Safari',    8.5],
-                                    ['Opera',     6.2],
-                                    ['Others',   0.7]
+                                    ['Sin Cotizacion',  <?php echo $sincoti; ?>],
+                                    ['Creada',   <?php echo $coticrea; ?>],
+                                    ['Enviada',    <?php echo $cotienvi; ?>],
+                                    ['Facturada',    <?php echo $cotifac; ?>],
+                                    ['Aprobada',   <?php echo $cotiapro; ?>]
                                 ]
                             }]
                         });
@@ -303,17 +376,8 @@ include("header.php");
                                 type: 'pie',
                                 name: 'Browser share',
                                 data: [
-                                    ['Firefox',   45.0],
-                                    ['IE',       26.8],
-                                    {
-                                        name: 'Chrome',
-                                        y: 12.8,
-                                        sliced: true,
-                                        selected: true
-                                    },
-                                    ['Safari',    8.5],
-                                    ['Opera',     6.2],
-                                    ['Others',   0.7]
+                                    ['Sin camnio de Equipo',   <?php echo $arraySwitch[0]['sin_cambio']; ?>],
+                                    ['<a href="report_switch_crener.php" target="_blank">Cambio de Equipo</a>',   <?php echo $arraySwitch[0]['con_cambio']; ?>]
                                 ]
                             }]
                         });
@@ -345,38 +409,29 @@ include("header.php");
                        yAxis: {
                            min: 0,
                            title: {
-                               text: 'Population (millions)'
+                               text: 'Numero de Cotizaciones'
                            }
                        },
                        legend: {
                            enabled: false
                        },
                        tooltip: {
-                           pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+                           pointFormat: 'Cotizaciones en la que aparece: <b>{point.y:.1f} </b>'
                        },
                        series: [{
                            name: 'Population',
+                           <?php $registro_gruas = GetRecords("select
+                                                                id,
+                                                                name_craner,
+                                                                (select count(*) from crm_quot_producs where id_produc = crm_craner.id) as contar
+                                                                from crm_craner "); ?>
                            data: [
-                               ['Shanghai', 23.7],
-                               ['Lagos', 16.1],
-                               ['Instanbul', 14.2],
-                               ['Karachi', 14.0],
-                               ['Mumbai', 12.5],
-                               ['Moscow', 12.1],
-                               ['São Paulo', 11.8],
-                               ['Beijing', 11.7],
-                               ['Guangzhou', 11.1],
-                               ['Delhi', 11.1],
-                               ['Shenzhen', 10.5],
-                               ['Seoul', 10.4],
-                               ['Jakarta', 10.0],
-                               ['Kinshasa', 9.3],
-                               ['Tianjin', 9.3],
-                               ['Tokyo', 9.0],
-                               ['Cairo', 8.9],
-                               ['Dhaka', 8.9],
-                               ['Mexico City', 8.9],
-                               ['Lima', 8.9]
+                             <?php foreach ($registro_gruas as $key => $value):
+                                    //if($value['id']==9){ continue; }
+                                ?>
+                                    ['<?php echo $value['name_craner']?>', <?php echo $value['contar']?>],
+                             <?php endforeach; ?>
+                                    ['', 0]
                            ],
                            dataLabels: {
                                enabled: true,
@@ -403,16 +458,16 @@ include("header.php");
                           x: -20 //center
                       },
                       subtitle: {
-                          text: 'Source: WorldClimate.com',
+                          text: 'Mega Ramen',
                           x: -20
                       },
                       xAxis: {
-                          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                          categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                              'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
                       },
                       yAxis: {
                           title: {
-                              text: 'Temperature (°C)'
+                              text: 'Cantidad'
                           },
                           plotLines: [{
                               value: 0,
@@ -421,7 +476,7 @@ include("header.php");
                           }]
                       },
                       tooltip: {
-                          valueSuffix: '°C'
+                          valueSuffix: ''
                       },
                       legend: {
                           layout: 'vertical',
@@ -430,17 +485,27 @@ include("header.php");
                           borderWidth: 0
                       },
                       series: [{
-                          name: 'Tokyo',
-                          data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-                      }, {
-                          name: 'New York',
-                          data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-                      }, {
-                          name: 'Berlin',
-                          data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-                      }, {
-                          name: 'London',
-                          data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                          name: 'Ingresos Creados',
+                          <?php $ingresos = GetRecords("select
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 01 ) as ene,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 02 ) as feb,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 03 ) as mar,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 04 ) as abr,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 05 ) as may,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 06 ) as jun,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 07 ) as jul,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 08 ) as ago,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 09 ) as sep,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 010 ) as oct,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 011 ) as nov,
+                                                        (select count(*) from crm_entry where MONTH(date_form) = 012 ) as dic "); ?>
+
+                          <?php foreach($ingresos as $key => $value){ ?>
+                          data: [<?php echo $value['ene']; ?>, <?php echo $value['feb']; ?>, <?php echo $value['mar']; ?>,
+                          <?php echo $value['abr']; ?>, <?php echo $value['may']; ?>, <?php echo $value['jun']; ?>,
+                          <?php echo $value['jul']; ?>, <?php echo $value['ago']; ?>, <?php echo $value['sep']; ?>,
+                          <?php echo $value['oct']; ?>, <?php echo $value['nov']; ?>, <?php echo $value['dic']; ?>]
+                          <?php } ?>
                       }]
                   });
                   });
@@ -456,10 +521,29 @@ include("header.php");
 
 
                 </div>
+              <?php endif; ?>
                </div>
              </section>
            </section>
        </section>
    </section>
 
-<?php include("footer.php"); ?>
+   <script src="js/bootstrap.js"></script>
+  <script src="js/app.js"></script>
+   <script src="js/datepicker/bootstrap-datepicker.js"></script>
+   <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+   <script src="js/chosen/chosen.jquery.min.js"></script>
+   <!-- parsley -->
+ <script src="js/parsley/parsley.min.js"></script>
+ <script src="js/parsley/parsley.extend.js"></script>
+ <script src="js/datatables/jquery.dataTables.min.js"></script>
+ <script src="js/datatables/dataTables.buttons.min.js"></script>
+ <script src="js/datatables/buttons.flash.min.js"></script>
+ <script src="js/datatables/jszip.min.js"></script>
+ <script src="js/datatables/pdfmake.min.js"></script>
+ <script src="js/datatables/vfs_fonts.js"></script>
+ <script src="js/datatables/buttons.html5.min.js"></script>
+ <script src="js/datatables/buttons.print.min.js"></script>
+ <script src="js/datatables/demo.js"></script>
+   <script src="js/app.plugin.js"></script>
+   <script src="js/main.js"></script>

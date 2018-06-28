@@ -97,21 +97,25 @@
                             <span>Ver Contactos</span>
                           </a>
                         </li>
+                        <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
                         <li <?php if(isset($registerCranerclass)) echo $registerCranerclass;?>>
                           <a href="register_crane.php"><i class="i i-dot"></i>
                             <span>Registrar Grua</span>
                           </a>
                         </li>
+                      <?php endif; ?>
                         <li <?php if(isset($Grualistclass)) echo $Grualistclass;?>>
                           <a href="craners.php"><i class="i i-dot"></i>
                             <span>Ver Gruas</span>
                           </a>
                         </li>
+                        <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
                         <li <?php if(isset($registerServiceclass)) echo $registerServiceclass;?>>
                           <a href="register_service.php"><i class="i i-dot"></i>
                             <span>Registrar Servicios</span>
                           </a>
                         </li>
+                        <?php endif; ?>
                         <li <?php if(isset($Servicelistclass)) echo $Servicelistclass;?>>
                           <a href="services.php"><i class="i i-dot"></i>
                             <span>Ver Servicios</span>
@@ -156,6 +160,11 @@
                         <li <?php if(isset($hisquotclass)) echo $hisquotclass;?>>
                           <a href="history_quotations.php"><i class="i i-dot"></i>
                             <span>Historial de Cotizaciones</span>
+                          </a>
+                        </li>
+                        <li <?php if(isset($canquotclass)) echo $canquotclass;?>>
+                          <a href="switch_quotations.php"><i class="i i-dot"></i>
+                            <span>Reporte Cambio</span>
                           </a>
                         </li>
                       </ul>
