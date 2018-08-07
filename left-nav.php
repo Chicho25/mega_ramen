@@ -162,6 +162,13 @@
                             <span>Historial de Cotizaciones</span>
                           </a>
                         </li>
+                        <?php if( $_SESSION['MR_USER_ROLE'] == 1){ ?>
+                        <li <?php if(isset($disquotclass)) echo $disquotclass;?>>
+                          <a href="discard_quolation.php"><i class="i i-dot"></i>
+                            <span>Cotizaciones Descartadas</span>
+                          </a>
+                        </li>
+                        <?php } ?>
                         <li <?php if(isset($canquotclass)) echo $canquotclass;?>>
                           <a href="switch_quotations.php"><i class="i i-dot"></i>
                             <span>Reporte Cambio</span>
@@ -187,6 +194,23 @@
                         <li <?php if(isset($viewconditionclass)) echo $viewconditionclass;?>>
                           <a href="condition_services.php"><i class="i i-dot"></i>
                             <span>Ver Condiciones</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li <?php if(isset($Reportclass)) echo $Reportclass;?>>
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-dot"></i>
+                        <span>Reportes</span>
+                      </a>
+                      <ul class="nav dker">
+                        <li <?php if(isset($regReportclass)) echo $regReportclass;?>>
+                          <a href="report_coti_concre.php"><i class="i i-dot"></i>
+                            <span>Cotizado | Concretado</span>
                           </a>
                         </li>
                       </ul>

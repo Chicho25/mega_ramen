@@ -12,7 +12,28 @@ include("header.php");
      {
           header("Location: index.php");
           exit;
-     } ?>
+     }
+
+     $where=" AND LEFT(crm_entry.date_form, 10) = CURDATE()";
+     $whereprin = "";
+
+     if(isset($_POST['date_from']) && $_POST['date_from'] != "")
+     {
+        $where=" and crm_entry.date_form >= '".$_POST['date_from']."'";
+        $date_from = $_POST['date_from'];
+
+        $whereprin=" and crm_entry.date_form >= '".$_POST['date_from']."'";
+     }
+
+     if(isset($_POST['date_to']) && $_POST['date_to'] != "")
+     {
+        $where.=" and crm_entry.date_form <= '".$_POST['date_to']." 23:59:59'";
+        $date_to = $_POST['date_to'];
+
+        $whereprin.=" and crm_entry.date_form <= '".$_POST['date_to']." 23:59:59'";
+     }
+
+     ?>
 
  <section id="content">
          <section class="vbox">
@@ -55,12 +76,13 @@ include("header.php");
                         <div class="col-md-3 b-b b-r">
                           <?php
                           $arrContar = GetRecords("select
-                                            	  (select count(*) from crm_entry where stat = 3) as sin_coti,
-                                                (select count(*) from crm_entry where stat = 4) as coti_creada,
-                                                (select count(*) from crm_entry where stat = 5) as coti_enviada,
-                                                (select count(*) from crm_entry where stat = 6) as coti_facturada,
-                                                (select count(*) from crm_entry where stat = 8) as coti_aprobada,
-                                                (select count(*) from crm_entry where stat = 10) as aprobada_final"); ?>
+                                            	  (select count(*) from crm_entry where stat = 3 $whereprin) as sin_coti,
+                                                (select count(*) from crm_entry where stat = 4 $whereprin) as coti_creada,
+                                                (select count(*) from crm_entry where stat = 5 $whereprin) as coti_enviada,
+                                                (select count(*) from crm_entry where stat = 6 $whereprin) as coti_facturada,
+                                                (select count(*) from crm_entry where stat = 8 $whereprin) as coti_aprobada,
+                                                (select count(*) from crm_entry where stat = 7 $whereprin) as coti_descartada,
+                                                (select count(*) from crm_entry where stat = 10 $whereprin) as aprobada_final"); ?>
 
                           <a href="modal-taza-actual.php?id=<?php /*echo $id; */ ?>" title="Cambiar la taza actual" data-toggle="ajaxModal" class="block padder-v hover">
                             <span class="i-s i-s-2x pull-left m-r-sm">
@@ -77,7 +99,8 @@ include("header.php");
                                                         where
                                                         crm_entry.stat = 6
                                                         and
-                                                        crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+                                                        crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)
+                                                        $whereprin");
 
                                                         echo number_format($arrayFac[0]['total_fact'], 2, ',', '.');
                                  ?> </span>
@@ -106,7 +129,8 @@ include("header.php");
                                                       where
                                                       crm_entry.stat = 4
                                                       and
-                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)
+                                                      $whereprin");
 
                                                       echo number_format($arrayCre[0]['total_cre'], 2, ',', '.');
                                ?> </span>
@@ -135,7 +159,8 @@ include("header.php");
                                                       where
                                                       crm_entry.stat = 5
                                                       and
-                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)
+                                                      $whereprin");
 
                                                       echo number_format($arrayEnv[0]['total_env'], 2, ',', '.');
                                ?></span>
@@ -162,7 +187,8 @@ include("header.php");
                                                       where
                                                       crm_entry.stat = 8
                                                       and
-                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)");
+                                                      crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)
+                                                      $whereprin");
 
                                                       echo number_format($arrayApr[0]['total_apro'], 2, ',', '.');
                                ?></span>
@@ -170,6 +196,7 @@ include("header.php");
                             </span>
                           </a>
                         </div>
+
                         <div class="col-md-3 b-b b-r">
                           <a href="#" class="block padder-v hover">
                             <span class="i-s i-s-2x pull-left m-r-sm">
@@ -227,8 +254,89 @@ include("header.php");
                             </span>
                           </a>
                         </div>
+
+                        <div class="col-md-3 b-b">
+                          <a href="#" class="block padder-v hover">
+                            <span class="i-s i-s-2x pull-left m-r-sm">
+                              <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i>
+                              <i class="fa fa-usd i-1x text-white"></i>
+                            </span>
+                            <span class="clear">
+                              <span class="h3 block m-t-xs text-danger"><?php
+                                $arrayApr = GetRecords("select
+                                  sum(crm_quot.total) as total_apro
+                                  from
+                                  crm_entry inner join crm_quot on crm_entry.id = crm_quot.id_entry
+                                  where
+                                  crm_entry.stat = 7
+                                  and
+                                  crm_quot.id = (select max(id) from crm_quot where id_entry = crm_entry.id)
+                                  $whereprin");
+
+                                  echo number_format($arrayApr[0]['total_apro'], 2, ',', '.');
+                               ?></span>
+                              <small class="text-muted text-u-c">Monto Descartadas</small>
+                            </span>
+                          </a>
+                        </div>
+
+                        <div class="col-md-3 b-b b-r">
+                          <a href="#" class="block padder-v hover">
+                            <span class="i-s i-s-2x pull-left m-r-sm">
+                              <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i>
+                              <i class="glyphicon glyphicon-warning-sign i-sm text-white"></i>
+                            </span>
+                            <span class="clear">
+                              <span class="h3 block m-t-xs text-danger"><?php echo $arrContar[0]['coti_descartada']; ?> <span class="text-sm"></span></span>
+                              <small class="text-muted text-u-c">Cantidad Descartadas </small>
+                            </span>
+                          </a>
+                        </div>
+
                       </div>
                     </div>
+                    <?php
+
+                    $arrEntry = GetRecords("Select
+                                            crm_entry.date_form,
+                                            crm_customers.legal_name,
+                                            crm_contact.name_contact,
+                                            crm_contact.last_name,
+                                            crm_type_media.description
+                                            from
+                                            crm_entry inner join crm_customers on crm_entry.id_customer = crm_customers.id
+                                                      inner join crm_contact on crm_entry.id_contact = crm_contact.id
+                                                      inner join crm_type_media on crm_entry.id_type_media = crm_type_media.id
+                                           where (1=1)
+                                           $where");
+
+                     ?>
+                     <br>
+                     <div class="col-md-12 b-b b-r">
+                     <span class="h4">CUADRO DE LLAMADAS POR DIA</span>
+                     <table class="table table-striped b-t b-light" data-ride="datatables">
+                         <thead>
+                           <tr>
+                             <th>FECHA CREACION</th>
+                             <th>NOMBRE CLIENTE</th>
+                             <th>NOMBRE CONTACTO</th>
+                             <th>MEDIO</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                         <?PHP
+                           foreach ($arrEntry as $key => $value) {
+                           ?>
+                         <tr>
+                             <td class="tbdata"> <?php echo $value['date_form']?> </td>
+                             <td class="tbdata"> <?php echo $value['legal_name']?> </td>
+                             <td class="tbdata"> <?php echo $value['name_contact'].' '.$value['last_name']?> </td>
+                             <td class="tbdata"> <?php echo $value['description']?> </td>
+                         </tr>
+                         <?php } ?>
+                         </tbody>
+                       </table>
+                  </div>
                   </div>
                   <style type="text/css">
                     ${demo.css}
@@ -516,9 +624,18 @@ include("header.php");
                   <div id="container2" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
                   <div id="container3" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
                   <div id="container4" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
-                  <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto;"></div>
-                  <div id="container5" style="min-width: 310px; height: 400px; margin-top:600px;"></div>
 
+                  <div id="container5" style="min-width: 310px; height: 400px; margin-top:600px;"></div>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <br><br>
+                  <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto;"></div>
 
                 </div>
               <?php endif; ?>

@@ -2,56 +2,17 @@
     ob_start();
     session_start();
     $quotclass ="class='active'";
-    $regquotclass ="class='active'";
-
-    if (isset($_SESSION['contact_name']) || isset($_SESSION['id_contact']) || isset($_SESSION['cliente_name']) || isset($_SESSION['id_cliente'])) {
-        unset($_SESSION['contact_name']);
-        unset($_SESSION['id_contact']);
-        unset($_SESSION['cliente_name']);
-        unset($_SESSION['id_cliente']);
-    }
+    $disquotclass ="class='active'";
 
     include("include/config.php");
     include("include/defs.php");
+
     include("header.php");
 
     if(!isset($_SESSION['MR_USER_ID']))
      {
           header("Location: index.php");
           exit;
-     }
-
-     if(isset($_POST['note'], $_POST['id_entry_nota'])){
-
-       $arrNot = array(
-                     "type_note" => $_POST['type_note'],
-                     "conten_note" => $_POST['note_quot'],
-                     "stat" => 1,
-                     "log_user_register" => $_SESSION['MR_USER_ID'],
-                     "log_time" => date("Y-m-d H:i:s"),
-                     "id_entry" => $_POST['id_entry_nota'],
-                     "remember_date" => $_POST['fecha_nota'].' '.$_POST['hora']
-                    );
-
-     $noteId = InsertRec("crm_notes", $arrNot);
-
-       if(isset($noteId)){
-         $message = '<div class="alert alert-success">
-                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                         <strong>La nota fue agregada!</strong>
-                       </div>';
-       }
-       /* Log Seguimiento */
-       $arrVal = array(
-                       "id_module" => 19,
-                       "description" => "El usuasrio ".$_SESSION['MR_NAME']." ".$_SESSION['MR_LAST_NAME']." ha Registrado una nota en una cotizacion .",
-                       "id_user" => $_SESSION['MR_USER_ID'],
-                       "log_time" => date("Y-m-d H:i:s")
-                      );
-
-       $nId = InsertRec("log_tracing", $arrVal);
-       /*  Fin Log Seguimiento */
-
      }
 
      if (isset($_POST['id_entry'], $_POST['billing'])){
@@ -68,15 +29,13 @@
 
      if (isset($_POST['id_entry'], $_POST['delete'])){
 
-       $arrStatus = array("stat"=>7,
-                          "why_delete"=>$_POST['delete_system'],
-                          "date_delete"=>date("Y-m-d H:i:s"));
+       $arrStatus = array("stat"=>7);
 
        UpdateRec("crm_entry", "id=".$_POST['id_entry'], $arrStatus);
 
        $message = '<div class="alert alert-danger">
                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                     <strong> Cotizacion descartada!</strong>
+                     <strong> Se elimino del sistema!</strong>
                    </div>';
      }
 
@@ -92,25 +51,10 @@
                    </div>';
      }
 
-    //$where = "where (1=1)";
+    $where = "where crm_entry.stat = 7 ";
 
-    // condiciones segun el tipo de rol de usuario
 
-    if($_SESSION['MR_USER_ROLE'] == 1)
-      { $where = "where (1=1)"; }
-    elseif($_SESSION['MR_USER_ROLE'] == 3)
-      { $where = "where crm_entry.stat in(3,4,5)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 4)
-      { $where = "where crm_entry.stat in(8,10)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 5)
-      { $where = "where crm_entry.stat in(6)";}
-
-     if(isset($_POST['id_status']) && $_POST['id_status'] != "")
-     {
-        $where.=" and crm_entry.stat = ".$_POST['id_status']." ";
-        $id_status = $_POST['id_status'];
-     }
-     if(isset($_POST['id_seller']) && $_POST['id_seller'] != "")
+     /*if(isset($_POST['id_seller']) && $_POST['id_seller'] != "")
      {
         $where.=" and  crm_entry.log_user_register = '".$_POST['id_seller']."'";
         $id_seller = $_POST['id_seller'];
@@ -137,7 +81,7 @@
     {
        $where.=" and crm_entry.proyect_name like '%".$_POST['name_proyect']."%'";
        $name_proyect = $_POST['name_proyect'];
-    }
+    }*/
 
        $arrEntry = GetRecords("Select
                                crm_entry.id,
@@ -150,19 +94,21 @@
                                users.last_name as apellido,
                                master_stat.description,
                                crm_entry.log_time,
-                               crm_entry.stat
+                               crm_entry.stat,
+                               crm_entry.why_delete,
+                               crm_entry.date_delete
                                from
                                crm_entry inner join crm_customers on crm_entry.id_customer = crm_customers.id
                                          inner join crm_contact on crm_entry.id_contact = crm_contact.id
                                          inner join users on crm_entry.log_user_register = users.id
                                          inner join master_stat on crm_entry.stat = master_stat.id_stat
-                              $where"); ?>
+                                         $where"); ?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">
               <section class="panel panel-default">
                 <header class="panel-heading">
-                          <span class="h4">Lista de Ingresos <?php //echo $_POST['fecha_nota'].' '.$_POST['hora']; ?></span>
+                          <span class="h4">Lista de Inresos</span>
                 </header>
                 <div class="panel-body">
                   <?php
@@ -190,7 +136,7 @@
                                   $kinId = $value['id_stat'];
                                   $kinDesc = $value['description'];
                                 ?>
-                                <option value="<?php echo $kinId?>" <?php if(isset($id_status) && $id_status == $kinId){ echo 'selected';} ?>><?php echo utf8_encode($kinDesc)?></option>
+                                <option value="<?php echo $kinId?>" <?php if(isset($id_status) && $id_status = $kinId){ echo 'selected';} ?>><?php echo utf8_encode($kinDesc)?></option>
                                 <?php
                               }
                                 ?>
@@ -209,7 +155,7 @@
                                     $name = $value['real_name'];
                                     $last_name = $value['last_name'];
                                   ?>
-                                  <option value="<?php echo $kinId?>" <?php if(isset($id_seller) && $id_seller == $kinId){ echo 'selected';} ?>><?php echo $name.' '.$last_name;?></option>
+                                  <option value="<?php echo $kinId?>" <?php if(isset($id_seller) && $id_seller = $kinId){ echo 'selected';} ?>><?php echo $name.' '.$last_name;?></option>
                                   <?php
                                 }
                                   ?>
@@ -253,6 +199,8 @@
                               <th>NOMBRE CONTACTO</th>
                               <th>VENDEDOR</th>
                               <th>FECHA CREACION</th>
+                              <th>FECHA DE DESCARTE</th>
+                              <th>RAZON DESCARTE</th>
                               <th>ESTATUS</th>
                               <th>ACIONES</th>
                             </tr>
@@ -268,26 +216,11 @@
                               <td class="tbdata"> <?php echo $value['name_contact'].' '.$value['last_name']?> </td>
                               <td class="tbdata"> <?php echo $value['real_name'].' '.$value['apellido']?> </td>
                               <td class="tbdata"> <?php echo $value['log_time']?> </td>
+                              <td class="tbdata"> <?php echo $value['date_delete']?> </td>
+                              <td class="tbdata"> <?php echo $value['why_delete']?> </td>
                               <td class="tbdata"> <?php echo utf8_encode($value['description'])?> </td>
                               <td>
-                                <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 3){ ?>
-                                <a href="register_quolations.php?id=<?php echo $value['id']?>" title="Crear Cotizacion" class="btn btn-sm btn-icon btn-success"><i class="glyphicon glyphicon-plus"></i></a>
-                                <a href="modal-status_approval.php?id=<?php echo $value['id']?>" title="Aprobar" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-warning"><i class="glyphicon glyphicon-ok"></i></a>
-                                <?php } ?>
-                                <a href="modal-nota_quot.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" title="Agregar nota" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-plus"></i></a>
-
-                                <a href="ver_notas.php?id=<?php echo $value['id']?>" title="Ver notas" class="btn btn-sm btn-icon btn-info"><i class="glyphicon glyphicon-pushpin"></i></a>
-
                                 <a href="view_quotations.php?id=<?php echo $value['id']?>" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 4){ ?>
-                                <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $value['stat'] == 8){ ?>
-                                <a href="approval_quot.php?id=<?php echo $value['id']?>" title="Ver y modificar Cotizacion" class="btn btn-sm btn-icon btn-default"><i class="glyphicon glyphicon-plus"></i></a>
-                                <?php } ?>
-                                <a href="modal-status_invoice.php?id=<?php echo $value['id']?>" title="Pasar a facturacion" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-default"><i class="glyphicon glyphicon-ok"></i></a>
-                                <?php } ?>
-                                <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 3 || $_SESSION['MR_USER_ROLE'] == 4){ ?>
-                                <a href="modal-delete-qualition.php?id=<?php echo $value['id']?>" title="Descartar Ingreso" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                <?php } ?>
                               </td>
                           </tr>
                           <?php } ?>
