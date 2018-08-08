@@ -61,6 +61,28 @@
                       </ul>
                     </li>
                   <?php endif; ?>
+                    <li <?php if(isset($collaclass)) echo $collaclass;?>>
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-dot"></i>
+                        <span>Colaboradores</span>
+                      </a>
+                      <ul class="nav dker">
+                        <li <?php if(isset($registercollaclass)) echo $registercollaclass;?>>
+                          <a href="register_collaborator.php"><i class="i i-dot"></i>
+                            <span>Registrar Colaborador</span>
+                          </a>
+                        </li>
+                        <li <?php if(isset($viewcollaclass)) echo $viewcollaclass;?>>
+                          <a href="collaborator.php"><i class="i i-dot"></i>
+                            <span>Ver Colaboradores</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
                     <?php /////////////////////////////////////////////////////////////////////// ?>
                     <li <?php if(isset($cataloge)) echo $cataloge;?>>
                       <a href="#" class="auto">
@@ -211,6 +233,11 @@
                         <li <?php if(isset($regReportclass)) echo $regReportclass;?>>
                           <a href="report_coti_concre.php"><i class="i i-dot"></i>
                             <span>Cotizado | Concretado</span>
+                          </a>
+                        </li>
+                        <li <?php if(isset($closedeportclass)) echo $closedeportclass;?>>
+                          <a href="entry_closed.php"><i class="i i-dot"></i>
+                            <span>Cerradas</span>
                           </a>
                         </li>
                       </ul>

@@ -15,6 +15,23 @@
 
      $message="";
 
+/* descartar Operador */
+
+if(isset($_POST['id_operador_delete'])){
+
+  $arrEntry = array(
+     "stat"=>9
+  );
+
+  UpdateRec("crm_quot_close_operator", "id=".$_POST['id_operador_delete'], $arrEntry);
+
+  $message = '<div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Operador Eliminado!</strong>
+                </div>';
+
+}
+
      /* descartar cotizacion */
 
      if(isset($_POST['id_tmp_delete'])){
@@ -31,6 +48,32 @@
                      </div>';
 
      }
+
+     /* Registro de Operador */
+
+     if(isset($_POST['operador_modal'])){
+
+       $arrNotCall = array(
+                     "id_entry" => $_POST['id_entry'],
+                     "id_quot" => $_POST['id_coti'],
+                     "id_operator" => $_POST['operator'],
+                     "id_craner_service" => $_POST['craner_service'],
+                     "hour_operator" => $_POST['hour_operator'],
+                     "note_operator" => $_POST['note_operator'],
+                     "id_user_register" => $_SESSION['MR_USER_ID'],
+                     "stat" => 1,
+                     "date_register" => date("Y-m-d H:i:s")
+                    );
+
+     $noteId = InsertRec("crm_quot_close_operator", $arrNotCall);
+
+       if(isset($noteId)){
+         $message = '<div class="alert alert-success">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                         <strong>El operador se registro!</strong>
+                       </div>';
+              }
+        }
 
      /* Registros de Notas */
      if(isset($_POST['note_call'])){
@@ -476,6 +519,8 @@
                           <a href="modal-nota_quot.php?id=<?php echo $id_entry?>" title=" Agregar Nota" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-pushpin"></i> Agregar Nota</a>
                           <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk" name="save"> Guardar</button>
                           <a href="convert_pdf.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          <a href="modal-operador.php?id_entry=<?php echo $id_entry;?>&id_coti=<?php echo $id_coti_creada;?>" title=" Agregar Operador" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="fa fa-user"></i> Operador</a>
+
                           <?php include('productos_closed.php'); ?>
                           <div id="miselector"></div>
                           <div class="form-group">
@@ -509,6 +554,47 @@
                               </div>
                             </div>
                           </div>
+
+                          <h4>Operadores</h4>
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>OPERADOR</th>
+                                <th>GRUA / SERVICIO</th>
+                                <th>HORAS</th>
+                                <th>NOTAS</th>
+                                <th>ACCION</th>
+                              </tr>
+                            </thead>
+                            <?php $operadores = GetRecords("SELECT
+                                                            cqco.id,
+                                                            cqco.hour_operator,
+                                                            cqco.note_operator,
+                                                            c.firs_name,
+                                                            c.last_name,
+                                                            cc.name_craner
+                                                            FROM
+                                                            crm_quot_close_operator cqco INNER JOIN collaborator c on cqco.id_operator = c.id
+                                                                                         INNER JOIN crm_craner cc on cqco.id_craner_service = cc.id
+                                                            WHERE
+                                                            cqco.stat = 1
+                                                            and
+                                                            cqco.id_quot =".$_GET['id_quot']); ?>
+                            <tbody>
+                              <?php foreach ($operadores as $key => $value): ?>
+                              <tr>
+                                <td><?php echo $value['id']; ?></td>
+                                <td><?php echo $value['firs_name'].' '.$value['last_name']; ?></td>
+                                <td><?php echo $value['name_craner']; ?></td>
+                                <td><?php echo $value['hour_operator']; ?></td>
+                                <td><?php echo $value['note_operator']; ?></td>
+                                <td><a href="modal-delete-operador.php?id_operador=<?php echo $value['id']?>" title="Eliminar de la lista" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i></td>
+                              </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+
                           <script type="text/javascript">
                             function format(input) {
                             var num = input.value.replace(/\,/g, '');
