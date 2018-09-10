@@ -20,6 +20,7 @@
     $photo = $arrUser[0]['photo'];
     $stat = $arrUser[0]['stat'];
     $create_date = $arrUser[0]['log_time'];
+    $serie = $arrUser[0]['serial'];
 
        }
 ?>
@@ -52,6 +53,12 @@
               <label class="col-lg-3 text-right control-label">Modelo</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" name="model" value="<?php echo $model; ?>">
+              </div>
+            </div>
+            <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Numero Serie</label>
+              <div class="col-lg-7">
+                <input type="text" class="form-control" name="serial" value="<?php echo $serie; ?>">
               </div>
             </div>
             <div class="form-group required">

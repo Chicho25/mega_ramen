@@ -167,7 +167,11 @@
                             </div>
                           </div>
                           <a href="convert_pdf.php?id=<?php echo $_GET['id']?>" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          <?php if (isset($_GET['no_send'])){ ?>
+
+                          <?php }else{ ?>
                           <a href="mail.php?id=<?php echo $_GET['id']?>&locat_view_detail=1" class="btn btn-success btn-s-xs glyphicon glyphicon-send"> Enviar</a>
+                          <?php } ?>
                           <?php ################################################################################# ?>
                           <h4>Productos</h4>
                           <table class="table table-striped">
@@ -175,6 +179,9 @@
                               <tr>
                                 <th>ID</th>
                                 <th>NOMBRE</th>
+                                <?php if ($id_customer == 104 || $id_customer == 333): ?>
+                                <th>SERIAL</th>
+                                <?php endif; ?>
                                 <th>TIPO</th>
                                 <th>PRECIO</th>
                                 <th>CANTIDAD</th>
@@ -186,6 +193,7 @@
                             <?PHP
                               $arrProduct = GetRecords("(select
                                                           crm_craner.name_craner as name_product,
+                                                          crm_craner.serial,
                                                           crm_craner.price_hour,
                                                           crm_craner.price_day,
                                                           crm_craner.price_week,
@@ -215,6 +223,7 @@
                                                           union
                                                           (select
                                                           crm_service.name_service as name_product,
+                                                          '0' as serial,
                                                           crm_service.price as price_hour,
                                                           crm_service.flag as price_day,
                                                           0 as price_week,
@@ -247,6 +256,9 @@
                             <tr>
                                 <td class="tbdata"> <?php echo $value['id_tmp']?></td>
                                 <td class="tbdata"> <?php echo $value['name_product']?> </td>
+                                <?php if ($id_customer == 104 || $id_customer == 333): ?>
+                                <td class="tbdata"> <?php echo $value['serial']?> </td>
+                                <?php endif; ?>
                                 <td class="tbdata">
                                   <input class="form-control" type="text" value="<?php echo $value['type_detail']?>" readonly>
                                 </td>
@@ -333,6 +345,47 @@
                               </div>
                             </div>
                           </div>
+
+                          <h4>Operadores</h4>
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>OPERADOR</th>
+                                <th>GRUA / SERVICIO</th>
+                                <th>HORAS</th>
+                                <th>NOTAS</th>
+                                <th>ACCION</th>
+                              </tr>
+                            </thead>
+                            <?php $operadores = GetRecords("SELECT
+                                                            cqco.id,
+                                                            cqco.hour_operator,
+                                                            cqco.note_operator,
+                                                            c.firs_name,
+                                                            c.last_name,
+                                                            cc.name_craner
+                                                            FROM
+                                                            crm_quot_close_operator cqco INNER JOIN collaborator c on cqco.id_operator = c.id
+                                                                                         INNER JOIN crm_craner cc on cqco.id_craner_service = cc.id
+                                                            WHERE
+                                                            cqco.stat = 1
+                                                            and
+                                                            cqco.id_quot =".$_GET['id']); ?>
+                            <tbody>
+                              <?php foreach ($operadores as $key => $value): ?>
+                              <tr>
+                                <td><?php echo $value['id']; ?></td>
+                                <td><?php echo $value['firs_name'].' '.$value['last_name']; ?></td>
+                                <td><?php echo $value['name_craner']; ?></td>
+                                <td><?php echo $value['hour_operator']; ?></td>
+                                <td><?php echo $value['note_operator']; ?></td>
+                                <td><!--<a href="modal-delete-operador.php?id_operador=<?php echo $value['id']?>" title="Eliminar de la lista" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i>--></td>
+                              </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+
                         </div>
                         <footer class="panel-footer text-right bg-light lter">
                         </footer>

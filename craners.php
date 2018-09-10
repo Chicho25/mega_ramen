@@ -29,6 +29,7 @@
                         "price_week" => $_POST['price_week'],
                         "price_mon" => $_POST['price_mon'],
                         "price_year" => $_POST['price_year'],
+                        "serial"=> $_POST['serial'],
                         "stat"=>$stat);
 
        UpdateRec("crm_craner", "id = ".$_POST['id'], $arrCran);
@@ -169,10 +170,9 @@
             reader.onload = function (e) {
                 $('#img').show().attr('src', e.target.result);
             }
-
             reader.readAsDataURL(input.files[0]);
         }
-    }
+    }104 333
   </script>
 <?php
 	include("footer.php");

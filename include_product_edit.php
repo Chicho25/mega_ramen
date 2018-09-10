@@ -4,6 +4,9 @@
     <tr>
       <th>ID</th>
       <th>NOMBRE</th>
+      <?php if ($id_customer == 104 || $id_customer == 333): ?>
+      <th>SERIAL</th>
+      <?php endif; ?>
       <th>TIPO</th>
       <th>PRECIO $</th>
       <th>CANTIDAD</th>
@@ -16,6 +19,7 @@
   <?PHP
     $arrProduct = GetRecords("(select
                                 crm_craner.name_craner as name_product,
+                                crm_craner.serial,
                                 crm_craner.price_hour,
                                 crm_craner.price_day,
                                 crm_craner.price_week,
@@ -45,6 +49,7 @@
                                 union
                                 (select
                                 crm_service.name_service as name_product,
+                                '0' as serial,
                                 crm_service.price as price_hour,
                                 crm_service.flag as price_day,
                                 0 as price_week,
@@ -77,6 +82,9 @@
     <td class="tbdata"> <?php echo $value['id_tmp']?>
       <input type="hidden" name="id_product[]" value="<?php echo $value['id_produc']?>">
       <input type="hidden" name="id_product_detail_tmp[]" value="<?php echo $value['id_tmp']?>">
+      <?php if ($id_customer == 104 || $id_customer == 333): ?>
+      <td class="tbdata"> <?php echo $value['serial']?> </td>
+      <?php endif; ?>
       <input type="hidden" name="type_product[]" value="<?php echo $value['type_product']?>">
     </td>
     <td class="tbdata"> <?php echo $value['name_product']?> </td>

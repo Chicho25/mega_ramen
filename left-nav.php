@@ -236,7 +236,7 @@
                           </a>
                         </li>
                         <li <?php if(isset($closedeportclass)) echo $closedeportclass;?>>
-                          <a href="entry_closed.php"><i class="i i-dot"></i>
+                          <a href="report_closed.php"><i class="i i-dot"></i>
                             <span>Cerradas</span>
                           </a>
                         </li>

@@ -188,7 +188,7 @@ if(isset($_POST['id_operador_delete'])){
                         "non_taxable_sale" => $sale_no_gravable,
                         "itbms" => $itbms,
                         "total" => $total,
-                        "date_send"=>date("Y-m-d H:i:s"),
+                        "log_time" => date("Y-m-d H:i:s"),
                         "id_user_finish" => $_SESSION['MR_USER_ID'],
                         "id_contact" => $id_contact,
                         "version" => $version,
@@ -281,7 +281,7 @@ if(isset($_POST['id_operador_delete'])){
                     "itbms" => $itbms,
                     "total" => $total,
                     "stat" => 5,
-                    "date_send"=>date("Y-m-d H:i:s"),
+                    "log_time" => date("Y-m-d H:i:s"),
                     "id_user_finish" => $_SESSION['MR_USER_ID'],
                     "id_contact" => $id_contact,
                     "number_tickets" => $number_tickets);

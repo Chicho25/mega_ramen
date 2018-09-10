@@ -118,8 +118,11 @@
                  <tr>
                    <th style="text-align: center; background-color:#1e4799;">
                     <div style="border-radius:5px; color:white; width:100%;">DESCRIPCION</div>
-                   </th>
-                   <th style="text-align: center; background-color:#1e4799;">
+                   </th>';
+                  if ($id_customer == 104 || $id_customer == 333):
+                  $html .= '   <th style="text-align: center;">SERIAL</th>';
+                 endif;
+                   $html .= '<th style="text-align: center; background-color:#1e4799;">
                     <div style=" border-radius:5px; color:white; width:100%;">TIPO</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;" width="150">
@@ -207,6 +210,11 @@
 
                $html.='<tr>
                    <th style="text-align: left; width:200px;">'.$valueProdut['name_product'].'</th>
+                   ';
+                  if ($id_customer == 104 || $id_customer == 333):
+                  $html .= '   <th style="text-align: center;">'.$valueProdut['serial'].'</th>';
+                 endif;
+                   $html .= '
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
                    <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
                    <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
@@ -432,7 +440,7 @@ if ($_SESSION['MR_USER_ROLE'] == 4) {
 }else{
     $email_ventas = "ventas@gruasshl.com";
 }
-$to = $email.','.$email_ventas;
+$to = $email.','.$email_ventas.',irma.rodriguez@gruasshl.com';
 //$to ='tayronperez17@gmail.com';
 $repEmail = (isset($email_ventas) && $email_ventas != "") ? $email_ventas : '';
 $conpania_nombre = 'SHL';
@@ -453,7 +461,7 @@ $message .= "Quedamos a la espera de sus comentarios y confirmación," .$eol;
 $message .= "Si tiene alguna duda o consulta favor comunicarse con la Sra. Moira Chávez al número telefónico (507)231-6811/6866." .$eol;
 $message .= "--".$separator.$eol;
 $message .= "Content-Type: text/html; charset=\"iso-8859-1\"".$eol;
-/*$message .= $html; preview 
+/*$message .= $html; preview
 $message .= $html2;*/
 $message .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
 $message .= "--".$separator.$eol;

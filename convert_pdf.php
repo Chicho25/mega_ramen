@@ -119,8 +119,11 @@
                  <tr>
                    <th style="text-align: center; background-color:#1e4799;">
                     <div style="border-radius:5px; color:white; width:100%;">DESCRIPCION</div>
-                   </th>
-                   <th style="text-align: center; background-color:#1e4799;">
+                   </th>';
+                    if ($id_customer == 104 || $id_customer == 333):
+                        $html .= '<th>SERIAL</th>';
+                    endif;
+                  $html .= ' <th style="text-align: center; background-color:#1e4799;">
                     <div style=" border-radius:5px; color:white; width:100%;">CANTIDAD</div>
                    </th>
                    <th style="text-align: center; background-color:#1e4799;" width="150">
@@ -141,6 +144,7 @@
                  </tr>';
                  $arrProduct = GetRecords("(select
                                              crm_craner.name_craner as name_product,
+                                             crm_craner.serial,
                                              crm_craner.price_hour,
                                              crm_craner.price_day,
                                              crm_craner.price_week,
@@ -170,6 +174,7 @@
                                              union
                                              (select
                                              crm_service.name_service as name_product,
+                                             '0' as serial,
                                              crm_service.price as price_hour,
                                              crm_service.flag as price_day,
                                              0 as price_week,
@@ -207,8 +212,11 @@
             $itbms_for_product = ($valueProdut['itbms_product'] * $total_cantidad)/100;
 
           $html.='<tr>
-                   <th style="text-align: left; width:200px;">'.$valueProdut['name_product'].'</th>
-                   <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
+                   <th style="text-align: left; width:200px;">'.$valueProdut['name_product'].'</th>';
+                   if ($id_customer == 104 || $id_customer == 333):
+                       $html .= '<th tyle="text-align: left;">'.$valueProdut['serial'].'</th>';
+                   endif;
+                   $html .= '<th style="text-align: left;">'.$valueProdut['quantity'].'</th>
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
                    <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").' $</th>
                    <th style="text-align: left; width:150px;">'.number_format($total_cantidad,2,".",",").' $ </th>
