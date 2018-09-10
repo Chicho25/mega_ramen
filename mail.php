@@ -440,7 +440,7 @@ if ($_SESSION['MR_USER_ROLE'] == 4) {
 }else{
     $email_ventas = "ventas@gruasshl.com";
 }
-$to = $email.','.$email_ventas.',irma.rodriguez@gruasshl.com';
+$to = $email.','.$email_ventas.', irma.rodriguez@gruasshl.com, osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernandez@gruasshl.com, moira.chavez@gruasshl.com';
 //$to ='tayronperez17@gmail.com';
 $repEmail = (isset($email_ventas) && $email_ventas != "") ? $email_ventas : '';
 $conpania_nombre = 'SHL';
