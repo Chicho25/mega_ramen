@@ -435,12 +435,12 @@ $mpdf->WriteHTML($html2);
 
 $subject = 'COTIZACION / GRUAS SHL: #'.$nomrbe_archivo.' PROYECTO: '.$proyect_name;
 $fileName = $nomrbe_archivo.'.pdf';
-if ($_SESSION['MR_USER_ROLE'] == 4) {
-    $email_ventas = "facturacion@gruasshl.com";
-}else{
+//if ($_SESSION['MR_USER_ROLE'] == 4) {
+//    $email_ventas = "facturacion@gruasshl.com";
+//}else{
     $email_ventas = "ventas@gruasshl.com";
-}
-$to = $email.','.$email_ventas.', irma.rodriguez@gruasshl.com, osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernandez@gruasshl.com, moira.chavez@gruasshl.com';
+//}
+$to = $email.','.$email_ventas.', irma.rodriguez@gruasshl.com, tayron.arrieta@gruasshl.com';
 //$to ='tayronperez17@gmail.com';
 $repEmail = (isset($email_ventas) && $email_ventas != "") ? $email_ventas : '';
 $conpania_nombre = 'SHL';
@@ -473,6 +473,56 @@ $message .= "--".$separator."--";
 
 if (mail($to, $subject, $message, $headers))
 {
+
+
+  /*$pass="Chicho1787$$$";
+  //use PHPMailer\PHPMailer\PHPMailer;
+  //use PHPMailer\PHPMailer\Exception;
+
+  require 'PHPMailer/PHPMailer/Exception.php';
+  require 'PHPMailer/PHPMailer/PHPMailer.php';
+  require 'PHPMailer/PHPMailer/SMTP.php';
+
+  $mail = new PHPMailer(true);
+  try {
+      //Server settings
+      $mail->SMTPDebug = 1;
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'tayron.arrieta@gruasshl.com';
+      $mail->Password = $pass;
+      $mail->SMTPSecure = 'tls';
+      $mail->Port = 587;
+
+      //Recipients
+      $mail->setFrom('ventas@gruasshl.com', 'Ventas SHL');
+      //$mail->addCC('tayronperez17@gmail.com', 'Cliente');     // Add a recipient
+      $mail->addAddress($email, 'Cliente');
+      //$mail->addCC('osalerno@gruasshl.com', 'Omar Salerno');
+      //$mail->addCC('luis.hernandez@gruasshl.com', 'Luis Hernandez');
+      //$mail->addAddress('moira.chavez@gruasshl.com', 'Moira Chavez');          // Name is optional
+      //$mail->addReplyTo('ventas@gruasshl.com', 'Ventas');
+      //$mail->addCC('cc@example.com');
+      //$mail->addBCC('bcc@example.com');
+
+      //Attachments
+      //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+      //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+      //Content
+      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = 'Gruas SHL Mensaje de Confirmacion';
+      $mail->Body    = 'Si este mensaje le ha llegado <b>La cotizacion '.$nomrbe_archivo.' !</b> ha llegado a su destino';
+      $mail->AltBody = 'Esto es un email automatico, No responsa este correo.';
+
+      $mail->send();
+      echo 'Message has been sent';
+  } catch (Exception $e) {
+      echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+  }
+
+*/
   if(isset($_GET['locat_page'])){
     header("Location: quotations.php?enviado=1");
   }elseif ($_GET['locat_view']){

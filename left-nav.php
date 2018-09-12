@@ -220,6 +220,23 @@
                         </li>
                       </ul>
                     </li>
+                    <li <?php if(isset($Reportdclass)) echo $Reportdclass;?>>
+                      <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <i class="i i-dot"></i>
+                        <span>Registro Diario</span>
+                      </a>
+                      <ul class="nav dker">
+                        <li <?php if(isset($regReportdclass)) echo $regReportdclass;?>>
+                          <a href="report_dialy_craners.php"><i class="i i-dot"></i>
+                            <span>Registro Diario</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
                     <li <?php if(isset($Reportclass)) echo $Reportclass;?>>
                       <a href="#" class="auto">
                         <span class="pull-right text-muted">
