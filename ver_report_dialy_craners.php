@@ -2,7 +2,7 @@
     ob_start();
     session_start();
     $Reportdclass="class='active'";
-    $regReportdclass="class='active'";
+    $regRepovrtdclass="class='active'";
 
     include("include/config.php");
     include("include/defs.php");
@@ -19,17 +19,14 @@
 
        if(isset($_POST['stat'])){ $stat = 1; }else{ $stat = 0; }
 
-       $arrCran = array("id_crane" => $_POST['id_crane'],
+       $arrCran = array(
                         "price_hour" => $_POST['price_hour'],
                         "hour_work" => $_POST['hour_work'],
                         "total_day" => $_POST['total_day'],
                         "event" => $_POST['event'],
-                        "descriptions_event" => $_POST['descriptions_event'],
-                        "id_user_register" => $_SESSION['MR_USER_ID'],
-                        "stat" => 1,
-                        "date_register" => date("Y-m-d H:i:s"));
+                        "descriptions_event" => $_POST['descriptions_event']);
 
-       $nId = InsertRec("crm_report_dialy_craners", $arrCran);
+       UpdateRec("crm_report_dialy_craners", "id = ".$_POST['id_report_di'], $arrCran);
 
        $message = '<div class="alert alert-success">
                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -53,6 +50,7 @@
 
       $arrCran = GetRecords("select
                               cc.id,
+                              cr.id as id_report,
                               cc.name_craner,
                               cc.model,
                               cr.price_hour,
@@ -60,10 +58,12 @@
                               cr.total_day,
                               cr.stat,
                               ce.descriptions
-                              from crm_craner cc left join crm_report_dialy_craners cr on cc.id = cr.id_crane and day(cr.date_register) = day(CURDATE())
+                              from crm_craner cc left join crm_report_dialy_craners cr on cc.id = cr.id_crane
                               					left join crm_events ce on cr.event = ce.id
                               where
-                              cc.id not in(34, 9)");?>
+                              cc.id not in(34, 9)
+                              and
+                              DATE_FORMAT(cr.date_register,'%d/%m/%Y') = '".$_GET['fecha']."'");?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">
@@ -107,7 +107,7 @@
                               <th>HORAS TRABAJADAS</th>
                               <th>MOTO TOTAL</th>
                               <th>ESTATUS</th>
-                              <th>REPORTAR</th>
+                              <th>EDITAR</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -115,7 +115,7 @@
                             $i=1;
                             foreach ($arrCran as $key => $value) {
 
-                              if ($value['stat'] == 1) {
+                              if ($value['stat'] == '') {
                                   continue;
                               }
 
@@ -132,7 +132,7 @@
                               <td>
                               <?php if ($value['id'] == 9) {
                                     }else{ ?>
-                                <a href="modal_repor_dialy_craners.php?id=<?php echo $value['id']?>" title="Editar Grua" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-edit (alias)"></i></a>
+                                <a href="modal-edit-report-dialy.php?id=<?php echo $value['id_report']?>" title="Editar Grua" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-edit (alias)"></i></a>
                               <?php } ?>
                               </td>
                           </tr>

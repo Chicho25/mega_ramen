@@ -235,6 +235,11 @@
                             <span>Registro Diario</span>
                           </a>
                         </li>
+                        <li <?php if(isset($regRepovrtdclass)) echo $regRepovrtdclass;?>>
+                          <a href="date_repor_dialy.php"><i class="i i-dot"></i>
+                            <span>Ver Registro Diario</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
                     <li <?php if(isset($Reportclass)) echo $Reportclass;?>>
