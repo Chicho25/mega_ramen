@@ -40,7 +40,8 @@
       $total = $arrQuotCrate[0]['total'];
       $id_seller = $arrQuotCrate[0]['id_seller'];
       $number_tickets = $arrQuotCrate[0]['number_tickets'];
-      $version = $arrQuotCrate[0]['version']; ?>
+      $version = $arrQuotCrate[0]['version'];
+      $limit_quot = $arrQuotCrate[0]['limit_quot']; ?>
 
 	<section id="content">
           <section class="vbox">
@@ -164,6 +165,11 @@
                             <label class="col-lg-2 text-right control-label font-bold">Acuerdo de servicio al cliente</label>
                             <div class="col-lg-3">
                               <textarea class="form-control" readonly><?php echo $service_customer; ?></textarea>
+                            </div>
+                            <label class="col-lg-2 text-right control-label font-bold">Limitada ?</label>
+                            <div class="col-lg-3">
+                              <label class="radio-inline"><input disabled type="radio" <?php if($limit_quot == 1){ echo 'checked';} ?> name="limit_quot" value="1" >Si</label>
+                              <label class="radio-inline"><input disabled type="radio" <?php if($limit_quot == 2){ echo 'checked';} ?> name="limit_quot" value="2" >No</label>
                             </div>
                           </div>
                           <a href="convert_pdf.php?id=<?php echo $_GET['id']?>" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>

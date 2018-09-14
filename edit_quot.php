@@ -124,6 +124,7 @@
           $total = $_POST['total'];
           $version = $_POST['version'];
           $number_tickets = $_POST['number_tickets']+1;
+          $limit_quot = $_POST['limit_quot'];
 
           $arrQuot_Update = array(
                         "id_customer" => $id_customer,
@@ -150,7 +151,8 @@
                         "id_contact" => $id_contact,
                         "version" => $version,
                         "number_tickets" => $number_tickets,
-                        "stat"=>5);
+                        "stat"=>5,
+                        "limit_quot" => $limit_quot);
 
           $id_Quot = InsertRec("crm_quot", $arrQuot_Update);
 
@@ -215,6 +217,7 @@
       $total = $_POST['total'];
       $version = $_POST['version'];
       $number_tickets = $_POST['number_tickets']+1;
+      $limit_quot = $_POST['limit_quot'];
 
 
       $arrQuot_Update = array(
@@ -241,7 +244,8 @@
                     "date_send"=>date("Y-m-d H:i:s"),
                     "id_user_finish" => $_SESSION['MR_USER_ID'],
                     "id_contact" => $id_contact,
-                    "number_tickets" => $number_tickets);
+                    "number_tickets" => $number_tickets,
+                    "limit_quot" => $limit_quot);
 
       $id_Quot = InsertRec("crm_quot", $arrQuot_Update);
 
@@ -284,6 +288,12 @@
       /*  Fin Log Seguimiento */
 
       // Envio de correo electronico
+
+      $arrSendEntry = array(
+                      "stat" => 5
+                     );
+
+      UpdateRec("crm_entry", "id=".$id_entry, $arrSendEntry);
       $rq = 1;
       header("Location: mail.php?id=".$_POST['id_coti_creada']."&locat_page_send_aproval=".$rq);
 
@@ -316,6 +326,7 @@
           $total = $arrQuotCrate[0]['total'];
           $id_seller = $arrQuotCrate[0]['id_seller'];
           $number_tickets = $arrQuotCrate[0]['number_tickets'];
+          $limit_quot = $arrQuotCrate[0]['limit_quot'];
 
       ?>
 
@@ -467,6 +478,11 @@
                             <label class="col-lg-2 text-right control-label font-bold">Acuerdo de servicio al cliente</label>
                             <div class="col-lg-3">
                               <textarea class="form-control" placeholder="Acuerdo de servicio al cliente" name="service_customer"><?php echo $service_customer; ?></textarea>
+                            </div>
+                            <label class="col-lg-2 text-right control-label font-bold">Limitada ?</label>
+                            <div class="col-lg-3">
+                              <label class="radio-inline"><input type="radio" <?php if($limit_quot == 1){ echo 'checked';} ?> name="limit_quot" value="1" >Si</label>
+                              <label class="radio-inline"><input type="radio" <?php if($limit_quot == 2){ echo 'checked';} ?> name="limit_quot" value="2" >No</label>
                             </div>
                           </div>
                           <?php $id_coti_creada = $arrQuotCrate[0]['id']; ?>
