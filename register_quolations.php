@@ -767,6 +767,13 @@
                               </select>
                               <input type="hidden" name="id_seller" value="<?php echo $id_seller;?>">
                             </div>
+                              <label class="col-lg-2 text-right control-label font-bold">Termino</label>
+                              <div class="col-lg-3">
+                                <label class="radio-inline"><input type="radio" name="term" value="1" required>Largo Termino</label>
+                                <label class="radio-inline"><input type="radio" name="term" value="2" required>Taxi</label>
+                              </div>
+
+
                           </div>
                           <div class="form-group">
                             <label class="col-lg-2 text-right control-label font-bold">Acuerdo de servicio al cliente</label>

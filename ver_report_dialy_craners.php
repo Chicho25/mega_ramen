@@ -114,11 +114,9 @@
                           <?PHP
                             $i=1;
                             foreach ($arrCran as $key => $value) {
-
                               if ($value['stat'] == '') {
                                   continue;
                               }
-
                               $status = ($value['stat'] == 1) ? 'Registrado' : 'No ingresasdo';
                             ?>
                           <tr>

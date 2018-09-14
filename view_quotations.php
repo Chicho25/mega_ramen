@@ -108,6 +108,13 @@
                         </div>
                       </div>
                       <div class="form-group required">
+                        <label class="col-lg-4 text-right control-label font-bold">Termino</label>
+                        <div class="col-lg-4">
+                          <label class="radio-inline"><input disabled type="radio" <?php if($arrEntry[0]['term'] == 1){ echo 'checked';} ?> name="term" value="1" >Largo Termino</label>
+                          <label class="radio-inline"><input disabled type="radio" <?php if($arrEntry[0]['term'] == 2){ echo 'checked';} ?> name="term" value="2" >Taxi</label>
+                        </div>
+                      </div>
+                      <div class="form-group required">
                           <label class="col-lg-4 text-right control-label font-bold">Medio de Comunicacion</label>
                           <div class="col-lg-4">
                               <select class="form-control" name="id_type_media" disabled>

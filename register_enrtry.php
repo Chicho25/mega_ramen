@@ -64,6 +64,7 @@
         $proyect_locate = $_POST['proyect_locate'];
         $id_type_work = $_POST['id_type_work'];
         $inspection = $_POST['inspection'];
+        $term = $_POST['term'];
 
         /*$ifUserExist = RecCount("crm_entry", "proyect_name = '".$proyect_name."'");
         if($ifUserExist > 0)
@@ -91,7 +92,8 @@
                           "inspection" => $inspection,
                           "stat" => 3,
                           "log_user_register" => $_SESSION['MR_USER_ID'],
-                          "log_time" => date("Y-m-d H:i:s")
+                          "log_time" => date("Y-m-d H:i:s"),
+                          "term" => $term
                          );
 
           $nId = InsertRec("crm_entry", $arrEnt);
@@ -139,6 +141,13 @@
                                 if($message !="")
                                     echo $message;
                           ?>
+                          <div class="form-group required">
+                            <label class="col-lg-4 text-right control-label font-bold">Termino</label>
+                            <div class="col-lg-4">
+                              <label class="radio-inline"><input type="radio" name="term" value="1" required>Largo Termino</label>
+                              <label class="radio-inline"><input type="radio" name="term" value="2" required>Taxi</label>
+                            </div>
+                          </div>
                           <div class="form-group">
                               <label class="col-lg-4 text-right control-label font-bold">Medio de Comunicacion</label>
                               <div class="col-lg-4">
@@ -310,7 +319,7 @@
 
     });
     </script>
-    
+
 <?php
 	include("footer.php");
 ?>

@@ -28,7 +28,7 @@ $fecha_local = $fecha.' '.$hora;
 //  if($fecha_local >= $value['remember_date']){
 
 $subject = 'COTIZACIONES NO ENVIADAS';
-$email_ventas = "osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernandez@gruasshl.com";
+$email_ventas = "osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernandez@gruasshl.com, call.center@gruasshl.com";
 
 $to = $email_ventas;
 //$to ='tayronperez17@gmail.com';
