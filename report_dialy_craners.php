@@ -27,7 +27,8 @@
                         "descriptions_event" => $_POST['descriptions_event'],
                         "id_user_register" => $_SESSION['MR_USER_ID'],
                         "stat" => 1,
-                        "date_register" => date("Y-m-d H:i:s"));
+                        "date_register" => date("Y-m-d H:i:s"),
+                        "insert_date" => $_POST['insert_date']);
 
        $nId = InsertRec("crm_report_dialy_craners", $arrCran);
 

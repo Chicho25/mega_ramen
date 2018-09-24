@@ -15,7 +15,6 @@
           exit;
      }
 
-
      if(isset($_POST['name_craner']) && $_POST['name_craner'] != "")
      {
         $where.=" and  name_craner LIKE '%".$_POST['name_craner']."%'";
@@ -27,10 +26,23 @@
         $lname_cr = $_POST['model'];
      }
 
-
-      $arrCran = GetRecords("select
-                               DATE_FORMAT(date_register,'%d/%m/%Y') as fecha
-                              from crm_report_dialy_craners group by year(date_register), month(date_register), day(date_register)");?>
+      $arrCran = GetRecords("(select
+                              	DATE_FORMAT(date_register,'%d/%m/%Y') as fecha
+                              	from
+                              	crm_report_dialy_craners
+                              	where
+                              	insert_date =''
+                              	group by year(date_register),
+                              			 month(date_register),
+                              			 day(date_register)
+                              	)union(
+                              	  select
+                              		insert_date as fecha
+                              		from
+                              		crm_report_dialy_craners
+                              		WHERE
+                              		insert_date <>'')
+                              		order by 1");?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">

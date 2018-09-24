@@ -35,7 +35,8 @@
                 </div>
                 <!-- nav -->
                 <nav class="nav-primary hidden-xs">
-                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><a href="main.php">Principal</a></div>
+                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><a href="main.php">Dashboard 1</a></div>
+                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><a href="main2.php">Dashboard 2</a></div>
                   <ul class="nav nav-main" data-ride="collapse">
                     <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
                     <li <?php if(isset($userclass)) echo $userclass;?>>
@@ -179,6 +180,11 @@
                             <span>Cotizaciones</span>
                           </a>
                         </li>
+                        <li <?php if(isset($billquotclass)) echo $billquotclass;?>>
+                          <a href="billing.php"><i class="i i-dot"></i>
+                            <span>Cotizaciones Facturacion</span>
+                          </a>
+                        </li>
                         <li <?php if(isset($hisquotclass)) echo $hisquotclass;?>>
                           <a href="history_quotations.php"><i class="i i-dot"></i>
                             <span>Historial de Cotizaciones</span>
@@ -227,7 +233,7 @@
                           <i class="i i-circle-sm text-active"></i>
                         </span>
                         <i class="i i-dot"></i>
-                        <span>Registro Diario</span>
+                        <span>Logistica</span>
                       </a>
                       <ul class="nav dker">
                         <li <?php if(isset($regReportdclass)) echo $regReportdclass;?>>

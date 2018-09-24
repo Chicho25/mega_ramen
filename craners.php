@@ -30,6 +30,7 @@
                         "price_mon" => $_POST['price_mon'],
                         "price_year" => $_POST['price_year'],
                         "serial"=> $_POST['serial'],
+                        "id_type_craner" => $_POST['type_craner'],
                         "stat"=>$stat);
 
        UpdateRec("crm_craner", "id = ".$_POST['id'], $arrCran);
@@ -80,8 +81,11 @@
      }
 
 
-      $arrCran = GetRecords("SELECT * FROM crm_craner
-                             $where");?>
+      $arrCran = GetRecords("SELECT
+                              cc.*,
+                              tc.descriptions
+                              FROM crm_craner cc
+                              left join type_craner tc on cc.id_type_craner = tc.id");?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">
@@ -124,6 +128,7 @@
                               <th>MARCA</th>
                               <th>CAPACIDAD</th>
                               <th>PRECIO POR HORA</th>
+                              <th>TIPO</th>
                               <th>ESTATUS</th>
                               <th>EDITAR</th>
                             </tr>
@@ -142,6 +147,7 @@
                               <td class="tbdata"> <?php echo $value['model']?> </td>
                               <td class="tbdata"> <?php echo $value['capacity']?> Tn</td>
                               <td class="tbdata"> <?php echo $value['price_hour']?> $ </td>
+                              <td class="tbdata"> <?php echo utf8_encode($value['descriptions'])?> </td>
                               <td class="tbdata"> <?php echo $status?> </td>
                               <td>
                               <?php if ($value['id'] == 9) {

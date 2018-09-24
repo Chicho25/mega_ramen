@@ -2,7 +2,7 @@
     ob_start();
     session_start();
     $quotclass ="class='active'";
-    $regquotclass ="class='active'";
+    $billquotclass ="class='active'";
 
     if (isset($_SESSION['contact_name']) || isset($_SESSION['id_contact']) || isset($_SESSION['cliente_name']) || isset($_SESSION['id_cliente'])) {
         unset($_SESSION['contact_name']);
@@ -96,14 +96,7 @@
 
     // condiciones segun el tipo de rol de usuario
 
-    if($_SESSION['MR_USER_ROLE'] == 1)
-      { $where = "where (1=1) and crm_entry.stat not in(6, 7)"; }
-    elseif($_SESSION['MR_USER_ROLE'] == 3)
-      { $where = "where crm_entry.stat in(3,4,5)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 4)
-      { $where = "where crm_entry.stat in(8,10)";}
-    elseif($_SESSION['MR_USER_ROLE'] == 5)
-      { $where = "where crm_entry.stat in(6)";}
+    $where = "where crm_entry.stat in(6)";
 
      if(isset($_POST['id_status']) && $_POST['id_status'] != "")
      {

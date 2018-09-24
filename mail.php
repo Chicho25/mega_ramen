@@ -35,6 +35,7 @@
     $date_send = $arrQuotCrate[0]['date_send'];
     $version = $arrQuotCrate[0]['version'];
     $number_tickets = $arrQuotCrate[0]['number_tickets'];
+    $limit_quot = $arrQuotCrate[0]['limit_quot'];
 
     $telefono_cliente = GetRecords("select phone_1, legal_name from crm_customers where id =".$id_customer);
     $telefono_contacto = GetRecords("select phone_1, name_contact, last_name from crm_contact where id =".$id_contact);
@@ -112,9 +113,112 @@
                </table>
              </div>
 
-             <div style="border:2px solid black; border-radius:5px; margin:3px; table-layout:fixed;">
+             <div style="border:2px solid black; border-radius:5px; margin:3px; table-layout:fixed;">';
 
-               <table width="100%" style="table-layout:fixed;">
+             if ($limit_quot == 1) {
+
+               $html .='<table width="100%" style="table-layout:fixed;">
+                          <tr>
+                            <th style="text-align: center; background-color:#1e4799;">
+                             <div style="border-radius:5px; color:white; width:100%;">DESCRIPCION</div>
+                            </th>
+                            <th style="text-align: center; background-color:#1e4799;" width="150">
+                             <div style="border-radius:5px; color:white; width:100%;">PRECIO</div>
+                            </th>
+                            <th style="text-align: center; background-color:#1e4799;">
+                             <div style="border-radius:5px; color:white; width:100%;">CANTIDAD</div>
+                            </th>
+                            <th style="text-align: center; background-color:#1e4799;">
+                             <div style="border-radius:5px; color:white; width:100%;">TOTAL</div>
+                            </th>
+                          </tr>';
+
+                          $arrProduct = GetRecords("(select
+                                                      crm_craner.name_craner as name_product,
+                                                      crm_craner.price_hour,
+                                                      crm_craner.price_day,
+                                                      crm_craner.price_week,
+                                                      crm_craner.price_mon,
+                                                      crm_craner.price_year,
+                                                      0 as price,
+                                                      crm_quot_producs.id as id_tmp,
+                                                      crm_quot_producs.log_time,
+                                                      crm_quot_producs.type_product,
+                                                      crm_quot_producs.id_produc,
+                                                      crm_quot_producs.price,
+                                                      crm_quot_producs.quantity,
+                                                      crm_quot_producs.itbms,
+                                                      crm_quot_producs.total,
+                                                      crm_quot_producs.comentary,
+                                                      crm_quot_producs.type,
+                                                      crm_quot_producs.itbms_product,
+                                                      crm_quot_producs.type_detail
+                                                      from
+                                                      crm_craner inner join crm_quot_producs on crm_quot_producs.id_produc = crm_craner.id
+                                                      where
+                                                      crm_quot_producs.stat in (1,2)
+                                                      and
+                                                      crm_quot_producs.type_product = 0
+                                                      and
+                                                      crm_quot_producs.id_quot = '".$_GET['id']."')
+                                                      union
+                                                      (select
+                                                      crm_service.name_service as name_product,
+                                                      crm_service.price as price_hour,
+                                                      crm_service.flag as price_day,
+                                                      0 as price_week,
+                                                      0 as price_mon,
+                                                      0 as price_year,
+                                                      crm_service.price,
+                                                      crm_quot_producs.id as id_tmp,
+                                                      crm_quot_producs.log_time,
+                                                      crm_quot_producs.type_product,
+                                                      crm_quot_producs.id_produc,
+                                                      crm_quot_producs.price,
+                                                      crm_quot_producs.quantity,
+                                                      crm_quot_producs.itbms,
+                                                      crm_quot_producs.total,
+                                                      crm_quot_producs.comentary,
+                                                      crm_quot_producs.type,
+                                                      crm_quot_producs.itbms_product,
+                                                      crm_quot_producs.type_detail
+                                                      from
+                                                      crm_service inner join crm_quot_producs on crm_quot_producs.id_produc = crm_service.id
+                                                      where
+                                                      crm_quot_producs.stat in (1,2)
+                                                      and
+                                                      crm_quot_producs.type_product = 1
+                                                      and
+                                                      crm_quot_producs.id_quot = '".$_GET['id']."')
+                                                      order by 8 asc");
+
+                        $itbms_for_product_sum = 0;
+
+                        foreach ($arrProduct as $key => $valueProdut) {
+
+                          $total_cantidad = $valueProdut['price'] * $valueProdut['quantity'];
+                          $itbms_for_product = ($valueProdut['itbms_product'] * $total_cantidad)/100;
+
+                        $html.='<tr>
+                            <th style="text-align: left; width:200px;">TRABAJO A EJECUTAR</th>
+                            <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
+                            <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
+                            <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
+                          </tr>
+                          <tr>
+                            <th style="text-align: left;">Detalles: </th>
+                            <th colspan="4" style="text-align: left;">'.$valueProdut['comentary'].'</th>
+                          </tr>
+                          <tr>
+                            <th colspan="5" style="text-align: left;"></th>
+                          </tr>';
+                          $itbms_for_product_sum += $itbms_for_product;
+                        }
+                        $html.='</table>';
+
+                    }else{
+
+      $html .='<table width="100%" style="table-layout:fixed;">
                  <tr>
                    <th style="text-align: center; background-color:#1e4799;">
                     <div style="border-radius:5px; color:white; width:100%;">DESCRIPCION</div>
@@ -223,7 +327,7 @@
                    <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
                  </tr>
                  <tr>
-                   <th style="text-align: left;">Destalle: </th>
+                   <th style="text-align: left;">Detalles: </th>
                    <th colspan="4" style="text-align: left;">'.$valueProdut['comentary'].'</th>
                  </tr>
                  <tr>
@@ -231,8 +335,11 @@
                  </tr>';
                  $itbms_for_product_sum += $itbms_for_product;
                }
-               $html.='</table>
-               </div>
+               $html.='</table>';
+
+             }
+
+               $html.='</div>
 
              <div style="padding:3px;">
                <div style="border:2px solid black; border-radius:5px; float:left; width:350px; margin:3px;">

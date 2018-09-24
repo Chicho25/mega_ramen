@@ -63,7 +63,9 @@
                               where
                               cc.id not in(34, 9)
                               and
-                              DATE_FORMAT(cr.date_register,'%d/%m/%Y') = '".$_GET['fecha']."'");?>
+                              DATE_FORMAT(cr.date_register,'%d/%m/%Y') = '".$_GET['fecha']."'
+                              or
+                              insert_date = '".$_GET['fecha']."'");?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">

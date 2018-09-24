@@ -5,6 +5,7 @@ include("include/defs.php");
 $sql_obtener_email = GetRecords("select
                                     ce.number_tickets,
                                     cc.legal_name,
+                                    cc.phone_1,
                                     ce.log_time,
                                     cco.name_contact,
                                     cco.last_name as last_name_contact,
@@ -18,7 +19,11 @@ $sql_obtener_email = GetRecords("select
                                   				           inner join crm_contact cco on cco.id = ce.id_contact
                                                      inner join users u on u.id = ce.log_user_register
                                   where
-                                  (select count(*) from crm_quot where id_entry = ce.id) = 0");
+                                  (select count(*) from crm_quot where id_entry = ce.id) = 0
+                                  and
+                                  MONTH(ce.log_time) = MONTH(CURDATE())
+                                  and
+                                  YEAR(ce.log_time) = YEAR(CURDATE())");
 
 date_default_timezone_set('america/lima');
 $fecha= date('Y-m-d');
@@ -32,7 +37,7 @@ $email_ventas = "osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernan
 
 $to = $email_ventas;
 //$to ='tayronperez17@gmail.com';
-$repEmail = (isset($email_ventas) && $email_ventas != "") ? $email_ventas : '';
+$repEmail = "tayron.arrieta@gruasshl.com";
 $conpania_nombre = 'SHL';
 $repName = 'LISTADO DE COTIZACIONES NO ENVIADAS';
 $eol = PHP_EOL;
@@ -51,6 +56,7 @@ $message1 .= "<table border='1'>
                 <td><b>Fecha de Registro</b></td>
                 <td><b>Medio</b></td>
                 <td><b>Cliente</b></td>
+                <td><b>Telefono</b> </td>
                 <td><b>Contacto</b></td>
                 <td><b>Nombre Proyecto</b></td>
                 <td><b>Trabajo a Realizar</b></td>
@@ -62,6 +68,7 @@ $message1 .= "<tr>
               <td>".$value['log_time']."</td>
               <td>".$value['media']."</td>
               <td>".$value['legal_name']."</td>
+              <td>".$value['phone_1']."</td>
               <td>".$value['name_contact']." ".$value['last_name_contact']."</td>
               <td>".$value['proyect_name']."</td>
               <td>".$value['work_do']."</td>

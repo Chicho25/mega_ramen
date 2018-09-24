@@ -38,6 +38,12 @@
 		      <div class="form form-horizontal">
             <input type="hidden" name="id_crane" value="<?php echo $_GET['id'];?>">
             <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Fecha</label>
+              <div class="col-lg-7">
+                  <input type="date" autocomplete="off" class="form-control" value="<?php if(isset($date_from)){ echo $date_from;}else{ echo date("Y-m-d"); }?>" name="insert_date" required placeholder="Fecha">
+              </div>
+            </div>
+            <div class="form-group required">
               <label class="col-lg-3 text-right control-label">Nombre</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" readonly value="<?php echo $name_craner; ?>">

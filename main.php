@@ -44,7 +44,7 @@ include("header.php");
                </header>
 
                <div class="panel-body">
-                 <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
+                 <?php if($_SESSION['MR_USER_ID'] == 1 || $_SESSION['MR_USER_ID'] == 8 || $_SESSION['MR_USER_ID'] == 13) : ?>
                  <?php
                        if(isset($message) && $message !=""){
                            echo $message;

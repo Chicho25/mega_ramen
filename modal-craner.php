@@ -21,6 +21,7 @@
     $stat = $arrUser[0]['stat'];
     $create_date = $arrUser[0]['log_time'];
     $serie = $arrUser[0]['serial'];
+    $id_type_craner = $arrUser[0]['id_type_craner'];
 
        }
 ?>
@@ -59,6 +60,19 @@
               <label class="col-lg-3 text-right control-label">Numero Serie</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" name="serial" value="<?php echo $serie; ?>">
+              </div>
+            </div>
+            <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Tipo de capacidad</label>
+              <div class="col-lg-7">
+                <select class="form-control" name="type_craner">
+                  <option value="">Seleccionar</option>
+                  <?php
+                        $arrCraner = GetRecords("SELECT * from type_craner where stat = 1");
+                        foreach ($arrCraner as $key => $value) { ?>
+                          <option value="<?php echo $value['id']?>" <?php if($id_type_craner == $value['id']){ echo 'selected'; } ?> ><?php echo utf8_encode($value['descriptions']); ?></option>
+                      <?php  } ?>
+                </select>
               </div>
             </div>
             <div class="form-group required">
