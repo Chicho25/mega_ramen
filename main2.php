@@ -20,19 +20,19 @@ include("header.php");
         }
 
      $where="insert_date = CURDATE()";
-     $where_cdc="cdc.insert_date = CURDATE()";
+     $where_cdc=" and crd.insert_date = CURDATE()";
 
      if(isset($_POST['date_from']) && $_POST['date_from'] != "")
      {
         $where="insert_date >= '".$_POST['date_from']."'";
-        $where_cdc="cdc.insert_date >= '".$_POST['date_from']."'";
+        $where_cdc=" and crd.insert_date >= '".$_POST['date_from']."'";
         $date_from = $_POST['date_from'];
      }
 
      if(isset($_POST['date_to']) && $_POST['date_to'] != "")
      {
         $where.=" and insert_date <= '".$_POST['date_to']." 23:59:59'";
-        $where_cdc.=" and cdc.insert_date <= '".$_POST['date_to']." 23:59:59'";
+        $where_cdc.=" and crd.insert_date <= '".$_POST['date_to']." 23:59:59'";
         $date_to = $_POST['date_to'];
      }
 
@@ -73,16 +73,33 @@ include("header.php");
                     <?php
 
                     $arrEntry = GetRecords("select
-                                              tc.descriptions,
-                                              sum(cdc.total_day) as monto,
-                                              ((sum(cdc.total_day) * 100 ) / (select sum(total_day) from crm_report_dialy_craners where $where)) as monto_porcentaje,
-                                              count(cdc.id) as equipos,
-                                              ((count(cdc.id) * 100) / (select count(*) from crm_report_dialy_craners where $where)) as cantidad_porcentaje
-                                              from crm_report_dialy_craners cdc inner join crm_craner cc on cdc.id_crane = cc.id
-                                              								                  inner join type_craner tc on cc.id_type_craner = tc.id
-                                              where
-                                              $where_cdc
-                                              group by tc.descriptions");
+                                            tc.id,
+                                            tc.descriptions,
+                                            sum((crd.price_hour * crd.hour_work)) as monto,
+                                            count(tc.descriptions) as cantidad_equipo
+                                            from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                            				   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                            where (1=1)
+                                            $where_cdc
+                                            group by
+                                            tc.descriptions,
+                                            tc.id");
+
+                    $total_montos = GetRecords("select
+                                                sum((crd.price_hour * crd.hour_work)) as result
+                                                from
+                                                  crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                				        inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                                where (1=1)
+                                                                $where_cdc");
+
+                    $total_equipo = GetRecords("select
+                                                count(tc.descriptions) as total_cantidad_equipo
+                                                from
+                                                  crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                				        inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                                where (1=1)
+                                                                $where_cdc");
 
                      ?>
                      <br>
@@ -96,21 +113,39 @@ include("header.php");
                              <th>PORCENTAJES</th>
                              <th>CANTIDAD DE EQUIPOS</th>
                              <th>PORCENTAJES DE EQUIPOS</th>
+                             <th>DETALLES</th>
                            </tr>
                          </thead>
                          <tbody>
                          <?PHP
+                           $monto = 0;
+                           $monto_porcentaje = 0;
+                           $equipos = 0;
+                           $cantidad_porcentaje = 0;
                            foreach ($arrEntry as $key => $value) {
                            ?>
                          <tr>
                              <td class="tbdata"> <?php echo utf8_encode($value['descriptions'])?> </td>
-                             <td class="tbdata"> <?php echo number_format($value['monto'], 2, '.', '')?> $</td>
-                             <td class="tbdata"> <?php echo number_format($value['monto_porcentaje'], 2, '.', '')?> %</td>
-                             <td class="tbdata"> <?php echo $value['equipos']?> </td>
-                             <td class="tbdata"> <?php echo number_format($value['cantidad_porcentaje'], 2, '.', '')?> %</td>
+                             <td class="tbdata"> <?php echo number_format($value['monto'], 2, ',', '.')?> $</td>
+                             <td class="tbdata"> <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 2, ',', '.')?> %</td>
+                             <td class="tbdata"> <?php echo $value['cantidad_equipo']?> </td>
+                             <td class="tbdata"> <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 2, ',', '.')?> %</td>
+                             <td class="tbdata"> <a href="view_detail_equip.php?id_type=<?php echo $value['id']?>&date_from=<?php echo $date_from?>&date_to=<?php echo $date_to?>" data-toggle="ajaxModal" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> </td>
                          </tr>
+                         <?php $monto += $value['monto']; ?>
+                         <?php $monto_porcentaje += (($value['monto']*100)/$total_montos[0]['result']); ?>
+                         <?php $equipos += $value['cantidad_equipo']; ?>
+                         <?php $cantidad_porcentaje += (($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']); ?>
                          <?php } ?>
+
                          </tbody>
+                         <tr>
+                           <th><b>Total</b></th>
+                           <th><b><?php echo number_format($monto, 2, ',', '.'); ?> $</b></th>
+                           <th><b><?php echo number_format($monto_porcentaje, 2, ',', '.'); ?> %</b></th>
+                           <th><b><?php echo $equipos; ?></b></th>
+                           <th><b><?php echo number_format($cantidad_porcentaje, 2, ',', '.'); ?> %</b></th>
+                         </tr>
                        </table>
                        <script src="mega_grafict/js/highcharts.js"></script>
                        <script src="mega_grafict/js/modules/exporting.js"></script>
@@ -147,15 +182,9 @@ include("header.php");
                                        data: [
                                          <?PHP $i = 0;
                                            foreach ($arrEntry as $key => $value) { ?>
-                                          <?php $description = $value['descriptions']; ?>
-                                          <?php $monto_porcentaje = $value['monto_porcentaje']; ?>
-                                          <?php if ($i == 3) {
-                                                    continue;
-                                                  } $i++; ?>
-                                           ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format($value['monto_porcentaje'], 2, '.', '')?>],
-
+                                           ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 2, ',', '.')?>],
                                            <?php  } ?>
-                                           ['<?php echo $description; ?>', <?php echo $monto_porcentaje; ?> ]
+                                           ['','']
 
                                        ]
                                    }]
@@ -195,16 +224,9 @@ include("header.php");
                                          data: [
                                            <?PHP $i = 0;
                                              foreach ($arrEntry as $key => $value) { ?>
-                                            <?php $description = $value['descriptions']; ?>
-                                            <?php $monto_cantidad = $value['cantidad_porcentaje']; ?>
-                                            <?php if ($i == 3) {
-                                                      continue;
-                                                    } $i++; ?>
-                                             ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format($value['cantidad_porcentaje'], 2, '.', '')?>],
-
-                                             <?php  } ?>
-                                             ['<?php echo $description; ?>', <?php echo $monto_cantidad; ?> ]
-
+                                             ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 2, ',', '.')?>],
+                                           <?php } ?>
+                                             ['','']
                                          ]
                                      }]
                                  });
@@ -249,21 +271,19 @@ include("header.php");
                                     <?php $registro_gruas = GetRecords("select
                                                                           cc.name_craner,
                                                                           tc.descriptions,
-                                                                          sum(cdc.total_day) as suma
-                                                                          from crm_report_dialy_craners cdc inner join crm_craner cc on cdc.id_crane = cc.id
+                                                                          sum(crd.total_day) as suma
+                                                                          from crm_report_dialy_craners crd inner join crm_craner cc on crd.id_crane = cc.id
                                                                           								  inner join type_craner tc on cc.id_type_craner = tc.id
-                                                                          where
+                                                                          where (1=1)
                                                                           $where_cdc
                                                                           group by
                                                                           cc.name_craner,
                                                                           tc.descriptions"); ?>
                                     data: [
-                                      <?php foreach ($registro_gruas as $key => $value):
-                                             //if($value['id']==9){ continue; }
-                                         ?>
-                                             ['<?php echo $value['name_craner'].' // '.utf8_encode($value['descriptions'])?>', <?php echo number_format($value['suma'], 2, '.', '')?>],
+                                      <?php foreach ($registro_gruas as $key => $value): ?>
+                                      ['<?php echo $value['name_craner'].' // '.utf8_encode($value['descriptions']);?>', <?php echo $value['suma']; ?>],
                                       <?php endforeach; ?>
-                                             ['', 0]
+                                      ['', 0]
                                     ],
                                     dataLabels: {
                                         enabled: true,
@@ -302,15 +322,15 @@ include("header.php");
                       $arrIncidencias = GetRecords("select
                                                     ce.descriptions,
                                                     cc.name_craner,
-                                                    cdc.descriptions_event,
-                                                    cdc.insert_date
+                                                    crd.descriptions_event,
+                                                    crd.insert_date
                                                     from
-                                                    crm_report_dialy_craners cdc inner join crm_events ce on cdc.event = ce.id
-                                                    							               inner join crm_craner cc on cdc.id_crane = cc.id
-                                                    where
+                                                    crm_report_dialy_craners crd inner join crm_events ce on crd.event = ce.id
+                                                    							               inner join crm_craner cc on crd.id_crane = cc.id
+                                                    where (1=1)
                                                     $where_cdc
                                                     and
-                                                    cdc.event not in(0)");
+                                                    crd.event not in(0)");
                         foreach ($arrIncidencias as $key => $value) {
                         ?>
                       <tr>

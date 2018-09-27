@@ -40,7 +40,10 @@
             <div class="form-group required">
               <label class="col-lg-3 text-right control-label">Fecha</label>
               <div class="col-lg-7">
-                  <input type="date" autocomplete="off" class="form-control" value="<?php if(isset($date_from)){ echo $date_from;}else{ echo date("Y-m-d"); }?>" name="insert_date" required placeholder="Fecha">
+                  <?php
+                    $fecha = date("Y-m-d");
+                   ?>
+                  <input type="date" autocomplete="off" class="form-control" value="<?php if(isset($date_from)){ echo $date_from;}else{ echo date("Y-m-d",strtotime($fecha."- 1 days")); }?>" name="insert_date" required placeholder="Fecha">
               </div>
             </div>
             <div class="form-group required">
