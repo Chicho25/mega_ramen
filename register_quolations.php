@@ -322,7 +322,7 @@
          "stat"=>5
       );
 
-      UpdateRec("crm_entry", "id=".$_GET['id'], $arrEntry);
+      UpdateRec("crm_entry", "id=".$_POST['id_entry'], $arrEntry);
 
       /* Log Seguimiento */
       $arrSend = array(

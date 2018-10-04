@@ -151,7 +151,7 @@
                         "id_contact" => $id_contact,
                         "version" => $version,
                         "number_tickets" => $number_tickets,
-                        "stat"=>5,
+                        "stat"=>4,
                         "limit_quot" => $limit_quot);
 
           $id_Quot = InsertRec("crm_quot", $arrQuot_Update);
@@ -490,7 +490,7 @@
                           <a href="modal-service_approval.php?id_quot=<?php echo $id_coti_creada;?>&id_entry=<?php echo $id_entry?>" title=" Agregar Servicio" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Agregar Servicios</a>
                           <a href="modal-nota_call.php?id=<?php echo $id_entry?>" title=" Agregar Nota de llamada" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-earphone"></i> Agregar Nota Llamada</a>
                           <a href="modal-nota_quot.php?id=<?php echo $id_entry?>" title=" Agregar Nota" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-pushpin"></i> Agregar Nota</a>
-                          <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk" name="save"> Guardar</button>
+                          <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk"> Guardar</button>
                           <a href="convert_pdf.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
                           <?php include('include_product_edit.php'); ?>
                           <div id="miselector"></div>

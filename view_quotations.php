@@ -292,8 +292,8 @@
                                 <?php } ?>
                                 <a href="convert_pdf.php?id=<?php echo $value['id']?>" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
                                 <?php if ($value['stat'] != 11){ ?>
-                                <a href="prueba_mail.php?id=<?php echo $value['id']?>&locat_view=1" class="btn btn-success btn-s-xs glyphicon glyphicon-send"> Enviar</a>
-                                <?php } ?>
+                                <a href="mail.php?id=<?php echo $value['id']?>&locat_view=1" class="btn btn-success btn-s-xs glyphicon glyphicon-send"> Enviar</a>
+                                <?php }  ?>
                                 <a href="modal_n_factura.php?id=<?php echo $value['id']?>" data-toggle="ajaxModal" class="btn btn-warning btn-s-xs fa fa-asterisk"> N# Factura</a>
                                 <?php if ($value['stat'] != 11){ ?>
                                 <a href="modal-swich.php?id=<?php echo $value['id']?>&id_grua=<?php echo $value['id_last_craner'];?>" data-toggle="ajaxModal" class="btn btn-danger btn-s-xs glyphicon glyphicon-random"> Cambio</a>

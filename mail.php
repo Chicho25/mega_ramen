@@ -37,6 +37,15 @@
     $number_tickets = $arrQuotCrate[0]['number_tickets'];
     $limit_quot = $arrQuotCrate[0]['limit_quot'];
 
+  //actualizar status del ingreso y cotizacion
+
+    $array_mail = array("stat" => 5);
+
+    $cotizacion_mail = UpdateRec("crm_quot", "id=".$id, $array_mail);
+    $ingreso_mail = UpdateRec("crm_entry", "id=".$id_entry, $array_mail);
+
+ //////////////////////////////////////////////////////////////////////////////////
+
     $telefono_cliente = GetRecords("select phone_1, legal_name from crm_customers where id =".$id_customer);
     $telefono_contacto = GetRecords("select phone_1, name_contact, last_name from crm_contact where id =".$id_contact);
     $vendedor_nombre = GetRecords("select real_name, last_name from users where id =".$id_seller);
@@ -201,9 +210,9 @@
 
                         $html.='<tr>
                             <th style="text-align: left; width:200px;">TRABAJO A EJECUTAR</th>
-                            <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
+                            <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").' USD</th>
                             <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
-                            <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
+                            <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").' USD</th>
                           </tr>
                           <tr>
                             <th style="text-align: left;">Detalles: </th>
@@ -320,11 +329,11 @@
                  endif;
                    $html .= '
                    <th style="text-align: left;">'.$valueProdut['type_detail'].'</th>
-                   <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").'</th>
+                   <th style="text-align: left;">'.number_format($valueProdut['price'],2,".",",").' USD</th>
                    <th style="text-align: left;">'.$valueProdut['quantity'].'</th>
-                   <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").'</th>
-                   <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").'</th>
-                   <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").'</th>
+                   <th style="text-align: left;">'.number_format($total_cantidad,2,".",",").' USD</th>
+                   <th style="text-align: left;">'.number_format($itbms_for_product,2,".",",").' USD</th>
+                   <th style="text-align: right; width:250px;">'.number_format($valueProdut['total'],2,".",",").' USD</th>
                  </tr>
                  <tr>
                    <th style="text-align: left;">Detalles: </th>
@@ -367,19 +376,19 @@
                  <table width="100%">
                    <tr>
                      <th style="text-align: left;">VENTA GRAVABLE:</th>
-                     <th style="text-align: left;">'.number_format($venta_gravable,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($venta_gravable,2,".",",").' USD</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">VENTA NO GRAVABLE:</th>
-                     <th style="text-align: left;">'.number_format($venta_no_gravable,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($venta_no_gravable,2,".",",").' USD</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">ITBMS:</th>
-                     <th style="text-align: left;">'.number_format($itbms_for_product_sum,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($itbms_for_product_sum,2,".",",").' USD</th>
                    </tr>
                    <tr>
                      <th style="text-align: left;">TOTAL:</th>
-                     <th style="text-align: left;">'.number_format($total,2,".",",").'</th>
+                     <th style="text-align: left;">'.number_format($total,2,".",",").' USD</th>
                    </tr>
                  </table>
                </div>

@@ -246,6 +246,11 @@
                             <span>Ver Registro Diario</span>
                           </a>
                         </li>
+                        <li <?php if(isset($regRebycrdclass)) echo $regRebycrdclass;?>>
+                          <a href="date_repor_by_craner.php"><i class="i i-dot"></i>
+                            <span>Reporte Por Grua</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
                     <li <?php if(isset($Reportclass)) echo $Reportclass;?>>
@@ -266,6 +271,11 @@
                         <li <?php if(isset($closedeportclass)) echo $closedeportclass;?>>
                           <a href="report_closed.php"><i class="i i-dot"></i>
                             <span>Cerradas</span>
+                          </a>
+                        </li>
+                        <li <?php if(isset($generaldeportclass)) echo $generaldeportclass;?>>
+                          <a href="report_send_quot.php"><i class="i i-dot"></i>
+                            <span>Cotizaciones General</span>
                           </a>
                         </li>
                       </ul>

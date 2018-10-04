@@ -64,7 +64,7 @@
                               from crm_craner cc left join crm_report_dialy_craners cr on cc.id = cr.id_crane and day(cr.date_register) = day(CURDATE()) and MONTH(cr.date_register) = MONTH(CURDATE())
                               					         left join crm_events ce on cr.event = ce.id
                               where
-                              cc.id not in(34,9,24,29,33,25,27,26,28,42)");?>
+                              cc.id not in(34,9,24,29,33,25,27,26,28,42,5)");?>
 	<section id="content">
           <section class="vbox">
             <section class="scrollable padder">

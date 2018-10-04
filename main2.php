@@ -81,6 +81,8 @@ include("header.php");
                                             				   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
                                             where (1=1)
                                             $where_cdc
+                                            and
+                                            (crd.price_hour * crd.hour_work) not in(0)
                                             group by
                                             tc.descriptions,
                                             tc.id");
@@ -97,8 +99,10 @@ include("header.php");
                                                 count(tc.descriptions) as total_cantidad_equipo
                                                 from
                                                   crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
-                                                				        inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                				inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
                                                                 where (1=1)
+                                                                and
+                                                                (crd.price_hour * crd.hour_work) not in(0)
                                                                 $where_cdc");
 
                      ?>
@@ -126,10 +130,10 @@ include("header.php");
                            ?>
                          <tr>
                              <td class="tbdata"> <?php echo utf8_encode($value['descriptions'])?> </td>
-                             <td class="tbdata"> <?php echo number_format($value['monto'], 2, ',', '.')?> $</td>
-                             <td class="tbdata"> <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 2, ',', '.')?> %</td>
+                             <td class="tbdata"> <?php echo number_format($value['monto'], 2, '.', ',')?> $</td>
+                             <td class="tbdata"> <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 1, '.', ',')?> %</td>
                              <td class="tbdata"> <?php echo $value['cantidad_equipo']?> </td>
-                             <td class="tbdata"> <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 2, ',', '.')?> %</td>
+                             <td class="tbdata"> <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 1, '.', ',')?> %</td>
                              <td class="tbdata"> <a href="view_detail_equip.php?id_type=<?php echo $value['id']?>&date_from=<?php echo $date_from?>&date_to=<?php echo $date_to?>" data-toggle="ajaxModal" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> </td>
                          </tr>
                          <?php $monto += $value['monto']; ?>
@@ -141,10 +145,10 @@ include("header.php");
                          </tbody>
                          <tr>
                            <th><b>Total</b></th>
-                           <th><b><?php echo number_format($monto, 2, ',', '.'); ?> $</b></th>
-                           <th><b><?php echo number_format($monto_porcentaje, 2, ',', '.'); ?> %</b></th>
+                           <th><b><?php echo number_format($monto, 2, '.', ','); ?> $</b></th>
+                           <th><b><?php echo number_format($monto_porcentaje, 2, '.', ','); ?> %</b></th>
                            <th><b><?php echo $equipos; ?></b></th>
-                           <th><b><?php echo number_format($cantidad_porcentaje, 2, ',', '.'); ?> %</b></th>
+                           <th><b><?php echo number_format($cantidad_porcentaje, 2, '.', ','); ?> %</b></th>
                          </tr>
                        </table>
                        <script src="mega_grafict/js/highcharts.js"></script>
@@ -182,7 +186,7 @@ include("header.php");
                                        data: [
                                          <?PHP $i = 0;
                                            foreach ($arrEntry as $key => $value) { ?>
-                                           ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 2, ',', '.')?>],
+                                           ['<?php echo utf8_encode($value['descriptions'])?>', <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 2, '.', ',')?>],
                                            <?php  } ?>
                                            ['','']
 
@@ -224,7 +228,7 @@ include("header.php");
                                          data: [
                                            <?PHP $i = 0;
                                              foreach ($arrEntry as $key => $value) { ?>
-                                             ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 2, ',', '.')?>],
+                                             ['<?php echo utf8_encode($value['descriptions'])?>',  <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 2, '.', ',')?>],
                                            <?php } ?>
                                              ['','']
                                          ]
@@ -281,6 +285,7 @@ include("header.php");
                                                                           tc.descriptions"); ?>
                                     data: [
                                       <?php foreach ($registro_gruas as $key => $value): ?>
+                                      <?php if($value['suma'] ==0){ continue; } ?>
                                       ['<?php echo $value['name_craner'].' // '.utf8_encode($value['descriptions']);?>', <?php echo $value['suma']; ?>],
                                       <?php endforeach; ?>
                                       ['', 0]
@@ -307,7 +312,7 @@ include("header.php");
                   <div id="container3" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   <div id="container" style="width: 100%; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   </div>
-                  <span class="h4">Indidencias</span>
+                  <span class="h4">Incidencias</span>
                   <table class="table table-striped b-t b-light" data-ride="datatables">
                       <thead>
                         <tr>

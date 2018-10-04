@@ -65,6 +65,7 @@
         $id_type_work = $_POST['id_type_work'];
         $inspection = $_POST['inspection'];
         $term = $_POST['term'];
+        $new_customer = $_POST['new_customer'];
 
         /*$ifUserExist = RecCount("crm_entry", "proyect_name = '".$proyect_name."'");
         if($ifUserExist > 0)
@@ -93,7 +94,8 @@
                           "stat" => 3,
                           "log_user_register" => $_SESSION['MR_USER_ID'],
                           "log_time" => date("Y-m-d H:i:s"),
-                          "term" => $term
+                          "term" => $term,
+                          "new_customer" => $new_customer
                          );
 
           $nId = InsertRec("crm_entry", $arrEnt);
@@ -141,6 +143,13 @@
                                 if($message !="")
                                     echo $message;
                           ?>
+                          <div class="form-group required">
+                            <label class="col-lg-4 text-right control-label font-bold">Cliente Nuevo?</label>
+                            <div class="col-lg-4">
+                              <label class="radio-inline"><input type="radio" name="new_customer" value="1" required>Si</label>
+                              <label class="radio-inline"><input type="radio" name="new_customer" value="2" required>No</label>
+                            </div>
+                          </div>
                           <div class="form-group required">
                             <label class="col-lg-4 text-right control-label font-bold">Termino</label>
                             <div class="col-lg-4">

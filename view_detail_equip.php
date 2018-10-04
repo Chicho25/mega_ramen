@@ -12,11 +12,30 @@
                               from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
                               				   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
                               where
+                              (crd.price_hour * crd.hour_work) not in(0)
+                              and
                               tc.id = '".$_GET['id_type']."'
                               and
                               crd.insert_date >= '".$_GET['date_from']."'
                               and
                               crd.insert_date <= '".$_GET['date_to']." 23:59:59'"); ?>
+
+                            <?php  $arrProductCero = GetRecords("select
+                                                        cc.name_craner,
+                                                        tc.descriptions,
+                                                        crd.price_hour,
+                                                        crd.hour_work,
+                                                        (crd.price_hour * crd.hour_work) as result
+                                                        from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                        				   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                        where
+                                                        (crd.price_hour * crd.hour_work) in(0)
+                                                        and
+                                                        tc.id = '".$_GET['id_type']."'
+                                                        and
+                                                        crd.insert_date >= '".$_GET['date_from']."'
+                                                        and
+                                                        crd.insert_date <= '".$_GET['date_to']." 23:59:59'"); ?>
 
 <div class="modal-dialog" style="width:80%">
   <div class="modal-content">
@@ -24,7 +43,7 @@
 
 	    <div class="modal-header">
 	      <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      <h4 class="modal-title">Agregar Productos </h4>
+	      <h4 class="modal-title">Detalle </h4>
 	    </div>
 	    <div class="modal-body">
 	      <div class="row">
@@ -47,12 +66,26 @@
               <tr>
                   <td class="tbdata"> <?php echo $value['name_craner']?> </td>
                   <td class="tbdata"> <?php echo utf8_encode($value['descriptions'])?> </td>
-                  <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, ',', '.')?> </td>
+                  <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, '.', ',')?> </td>
                   <td class="tbdata"> <?php echo $value['hour_work']?> </td>
-                  <td class="tbdata"> <?php echo number_format($value['result'], 2, ',', '.')?> </td>
+                  <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> </td>
               </tr>
               <?php
               $total +=$value['result'];
+              }
+              ?>
+
+              <?PHP
+
+                foreach ($arrProductCero as $key => $value) { ?>
+              <tr style="background-color:#7C7C7C; color:white;">
+                  <td class="tbdata"> <?php echo $value['name_craner']?> </td>
+                  <td class="tbdata"> <?php echo utf8_encode($value['descriptions'])?> </td>
+                  <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, '.', ',')?> </td>
+                  <td class="tbdata"> <?php echo $value['hour_work']?> </td>
+                  <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> </td>
+              </tr>
+              <?php
               }
               ?>
               </tbody>
@@ -61,7 +94,7 @@
                 <td></td>
                 <td></td>
                 <td><b>Total: </b></td>
-                <td><b><?php echo number_format($total, 2, ',', '.'); ?></b></td>
+                <td><b><?php echo number_format($total, 2, '.', ','); ?></b></td>
               </tr>
             </table>
 			    </div>
