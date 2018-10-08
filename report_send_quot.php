@@ -78,6 +78,7 @@ if (isset($_POST['date_from'], $_POST['date_to'])) {
                                  crm_entry.log_time,
                                  crm_entry.stat,
                                  crm_entry.term,
+                                 crm_entry.new_customer,
                                  (select total from crm_quot where id = (select max(id) from crm_quot where id_entry = crm_entry.id)) as monto,
                                  (select itbms from crm_quot where id = (select max(id) from crm_quot where id_entry = crm_entry.id)) as itbms,
                                  (select (taxable_sale + non_taxable_sale) from crm_quot where id = (select max(id) from crm_quot where id_entry = crm_entry.id)) as sub_total

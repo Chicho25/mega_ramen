@@ -14,7 +14,9 @@
                             cr.total_day,
                             cr.stat,
                             cr.descriptions_event,
-                            cr.event
+                            cr.event,
+                            cr.term,
+                            cr.insert_date
                             from crm_craner cc left join crm_report_dialy_craners cr on cc.id = cr.id_crane
                                                left join crm_events ce on cr.event = ce.id
                             where
@@ -30,6 +32,8 @@
     $stat = $arrUser[0]['stat'];
     $descriptions = $arrUser[0]['descriptions_event'];
     $event = $arrUser[0]['event'];
+    $term = $arrUser[0]['term'];
+    $insert_date = $arrUser[0]['insert_date'];
 
        }
 ?>
@@ -46,6 +50,22 @@
 	      <div class="row">
 		      <div class="form form-horizontal">
             <input type="hidden" name="id_report_di" value="<?php echo $_GET['id'];?>">
+            <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Fecha</label>
+              <div class="col-lg-7">
+                  <?php
+                    $fecha = $insert_date;
+                   ?>
+                  <input type="date" autocomplete="off" class="form-control" value="<?php if(isset($date_from)){ echo $date_from;}else{ echo date("Y-m-d",strtotime($fecha)); }?>" name="insert_date" required placeholder="Fecha">
+              </div>
+            </div>
+            <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Termino</label>
+              <div class="col-lg-7">
+                <label class="radio-inline"><input type="radio" name="term" value="1" <?php if($term == 1){ echo 'checked'; } ?> required>Largo Termino</label>
+                <label class="radio-inline"><input type="radio" name="term" value="2" <?php if($term == 2){ echo 'checked'; } ?> required>Taxi</label>
+              </div>
+            </div>
             <div class="form-group required">
               <label class="col-lg-3 text-right control-label">Nombre</label>
               <div class="col-lg-7">

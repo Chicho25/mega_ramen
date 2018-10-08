@@ -24,13 +24,15 @@
                         "hour_work" => $_POST['hour_work'],
                         "total_day" => $_POST['total_day'],
                         "event" => $_POST['event'],
-                        "descriptions_event" => $_POST['descriptions_event']);
+                        "descriptions_event" => $_POST['descriptions_event'],
+                        "term" => $_POST['term'],
+                        "insert_date" => $_POST['insert_date']);
 
        UpdateRec("crm_report_dialy_craners", "id = ".$_POST['id_report_di'], $arrCran);
 
        $message = '<div class="alert alert-success">
                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                     <strong>Registro Realizado</strong>
+                     <strong>Registro Actualizado</strong>
                    </div>';
      }
 

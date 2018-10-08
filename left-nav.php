@@ -241,6 +241,11 @@
                             <span>Registro Diario</span>
                           </a>
                         </li>
+                        <li <?php if(isset($regReporfordayclass)) echo $regReporfordayclass;?>>
+                          <a href="report_for_day_craners.php"><i class="i i-dot"></i>
+                            <span>Registro por dia especifico</span>
+                          </a>
+                        </li>
                         <li <?php if(isset($regRepovrtdclass)) echo $regRepovrtdclass;?>>
                           <a href="date_repor_dialy.php"><i class="i i-dot"></i>
                             <span>Ver Registro Diario</span>

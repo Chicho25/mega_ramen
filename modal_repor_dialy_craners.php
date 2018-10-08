@@ -47,6 +47,13 @@
               </div>
             </div>
             <div class="form-group required">
+              <label class="col-lg-3 text-right control-label">Termino</label>
+              <div class="col-lg-7">
+                <label class="radio-inline"><input type="radio" name="term" value="1" required>Largo Termino</label>
+                <label class="radio-inline"><input type="radio" name="term" value="2" required>Taxi</label>
+              </div>
+            </div>
+            <div class="form-group required">
               <label class="col-lg-3 text-right control-label">Nombre</label>
               <div class="col-lg-7">
                 <input type="text" class="form-control" readonly value="<?php echo $name_craner; ?>">

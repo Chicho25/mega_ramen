@@ -412,7 +412,7 @@ include("header.php");
                     });
                   </script>
 
-                        <script type="text/javascript">
+                  <script type="text/javascript">
                     $(function () {
                         $('#container3').highcharts({
                             chart: {
@@ -453,7 +453,7 @@ include("header.php");
                     });
                   </script>
 
-                        <script type="text/javascript">
+                  <script type="text/javascript">
                     $(function () {
                         $('#container4').highcharts({
                             chart: {
@@ -535,6 +535,7 @@ include("header.php");
                                                                 from crm_craner "); ?>
                            data: [
                              <?php foreach ($registro_gruas as $key => $value):
+                                    if($value['contar']==0){ continue; }
                                     //if($value['id']==9){ continue; }
                                 ?>
                                     ['<?php echo $value['name_craner']?>', <?php echo $value['contar']?>],
@@ -621,23 +622,15 @@ include("header.php");
 
                   <script src="mega_grafict/js/highcharts.js"></script>
                   <script src="mega_grafict/js/modules/exporting.js"></script>
+
                   <div id="container2" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
                   <div id="container3" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
                   <div id="container4" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto; float:left;"></div>
-
-                  <div id="container5" style="min-width: 310px; height: 400px; margin-top:600px;"></div>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <br><br>
-                  <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto;"></div>
+                  <div id="container5" style="position:relative; min-width: 300px; height: 400px; margin: 0 auto;"></div>
+                  <!--<div id="container" style="position:relative; min-width: 300px; height: 400px; margin: 0 auto;"></div>-->
 
                 </div>
+
               <?php endif; ?>
                </div>
              </section>
