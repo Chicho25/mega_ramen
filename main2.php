@@ -99,11 +99,15 @@ include("header.php");
                                                 count(tc.descriptions) as total_cantidad_equipo
                                                 from
                                                   crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
-                                                				inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                				        inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
                                                                 where (1=1)
                                                                 and
                                                                 (crd.price_hour * crd.hour_work) not in(0)
                                                                 $where_cdc");
+
+                    $arrLongTaxi = GetRecords("select (select count(*) from crm_report_dialy_craners crd where (1=1) $where_cdc and term = 0) as no_fefinido,
+                                                      (select count(*) from crm_report_dialy_craners crd where (1=1) $where_cdc and term = 1) as largo_termino,
+                                                      (select count(*) from crm_report_dialy_craners crd where (1=1) $where_cdc and term = 2) as taxi");
 
                      ?>
                      <br>
@@ -153,6 +157,49 @@ include("header.php");
                        </table>
                        <script src="mega_grafict/js/highcharts.js"></script>
                        <script src="mega_grafict/js/modules/exporting.js"></script>
+                       <script type="text/javascript">
+                           $(function () {
+                               $('#longTaxi').highcharts({
+                                   chart: {
+                                       plotBackgroundColor: null,
+                                       plotBorderWidth: null,
+                                       plotShadow: false
+                                   },
+                                   title: {
+                                       text: 'Largo Termino & Taxi'
+                                   },
+                                   tooltip: {
+                                       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                   },
+                                   plotOptions: {
+                                       pie: {
+                                           allowPointSelect: true,
+                                           cursor: 'pointer',
+                                           dataLabels: {
+                                               enabled: true,
+                                               format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                               style: {
+                                                   color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                               }
+                                           }
+                                       }
+                                   },
+                                   series: [{
+                                       type: 'pie',
+                                       name: 'Browser share',
+                                       data: [
+                                         <?PHP $i = 0;
+                                           foreach ($arrLongTaxi as $key => $value) { ?>
+                                           ['<?php echo utf8_encode('No definido')?>', <?php echo $value['no_fefinido']?>],
+                                           ['<?php echo utf8_encode('Largo Termino')?>', <?php echo $value['largo_termino']?>],
+                                           ['<?php echo utf8_encode('Taxi')?>', <?php echo $value['taxi']?>]
+                                           <?php  } ?>
+
+                                       ]
+                                   }]
+                               });
+                           });
+                         </script>
                        <script type="text/javascript">
                            $(function () {
                                $('#container2').highcharts({
@@ -310,6 +357,7 @@ include("header.php");
                   </div>
                   <div id="container2" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   <div id="container3" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
+                  <div id="longTaxi" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   <div id="container" style="width: 100%; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   </div>
                   <span class="h4">Incidencias</span>

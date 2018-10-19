@@ -283,6 +283,11 @@
                             <span>Cotizaciones General</span>
                           </a>
                         </li>
+                        <li <?php if(isset($regReportCclass)) echo $regReportCclass;?>>
+                          <a href="report_customers.php"><i class="i i-dot"></i>
+                            <span>Cliente | Contactos</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
               </ul>

@@ -107,6 +107,7 @@ include("header.php");
                                             crd.price_hour,
                                             crd.hour_work,
                                             crd.insert_date,
+                                            crd.term,
                                             (crd.price_hour * crd.hour_work) as result
                                             from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
                                                                inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
@@ -132,14 +133,65 @@ include("header.php");
                                               (crd.price_hour * crd.hour_work) in(0)
                                               $where");
 
-                                              foreach ($arrProduct as $key => $value) {
-                                                $total +=$value['result'];
-                                              }
+                        /* Count */
+
+                $arrCountActive = GetRecords("select count(*) as activas
+                                              from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                                 inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                              where
+                                              (crd.price_hour * crd.hour_work) not in(0)
+                                              $where");
+
+                $arrCountCiro = GetRecords("select
+                                                count(*) as cero
+                                                from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                                   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                                where
+                                                (crd.price_hour * crd.hour_work) in(0)
+                                                $where");
 
                    ?>
                   <script src="mega_grafict/js/highcharts.js"></script>
                   <script src="mega_grafict/js/modules/exporting.js"></script>
                   <script type="text/javascript">
+                      $(function () {
+                          $('#container3').highcharts({
+                              chart: {
+                                  plotBackgroundColor: null,
+                                  plotBorderWidth: null,
+                                  plotShadow: false
+                              },
+                              title: {
+                                  text: 'TRABAJANDO / DETENIDAS'
+                              },
+                              tooltip: {
+                                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                              },
+                              plotOptions: {
+                                  pie: {
+                                      allowPointSelect: true,
+                                      cursor: 'pointer',
+                                      dataLabels: {
+                                          enabled: true,
+                                          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                          style: {
+                                              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                          }
+                                      }
+                                  }
+                              },
+                              series: [{
+                                  type: 'pie',
+                                  name: 'Browser share',
+                                  data: [
+                                      ['TRABAJANDO', <?php echo $arrCountActive[0]['activas']; ?>],
+                                      ['DETENIDAS', <?php echo $arrCountCiro[0]['cero']; ?>]
+                                  ]
+                              }]
+                          });
+                      });
+                    </script>
+                    <script type="text/javascript">
                       $(function () {
                           $('#container2').highcharts({
                               chart: {
@@ -172,7 +224,7 @@ include("header.php");
                                   data: [
                                     <?PHP $i = 0;
                                       foreach ($arrProduct as $key => $value) { ?>
-                                      ['<?php echo utf8_encode(utf8_encode($value['name_craner']))?>', <?php echo number_format((($value[0]['result'] * 100) / $total), 2, '.', ',')?>],
+                                      ['<?php echo utf8_encode($value['name_craner'])?>', <?php echo (($value['result'] * 100) / $total)?>],
                                       <?php  } ?>
                                       ['','']
 
@@ -182,11 +234,14 @@ include("header.php");
                       });
                     </script>
                   <div id="container2" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
+                  <div id="container3" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
+
                   <table class="table b-t b-light" data-ride="datatables">
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>NOMBRE EQUIPO</th>
+                          <th>NOMBRE EQUIPO </th>
+                          <th>TERMINO </th>
                           <th>PRECIO POR HORA</th>
                           <th>HORAS TRABAJADAS</th>
                           <th>TOTAL</th>
@@ -204,6 +259,7 @@ include("header.php");
                       <tr>
                           <td class="tbdata"> <?php echo $value['id']?> </td>
                           <td class="tbdata"> <?php echo utf8_encode($value['name_craner'])?> </td>
+                          <td class="tbdata"> <?php if($value['term'] == 1){ echo 'Largo Termino';}elseif($value['term']==2){ echo 'Taxi';}else{ echo 'No definido';}?> </td>
                           <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, '.', ',')?> </td>
                           <td class="tbdata"> <?php echo $value['hour_work']?> </td>
                           <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> $</td>
@@ -219,6 +275,7 @@ include("header.php");
                     <tr style="background-color:#7C7C7C; color:white;">
                         <td class="tbdata"> <?php echo $value['id']?> </td>
                         <td class="tbdata"> <?php echo utf8_encode($value['name_craner'])?> </td>
+                        <td class="tbdata"> <?php if($value['term'] == 1){ echo 'Largo Termino';}elseif($value['term']==2){ echo 'Taxi';}else{ echo 'No definido';}?> </td>
                         <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, '.', ',')?> </td>
                         <td class="tbdata"> <?php echo $value['hour_work']?> </td>
                         <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> $</td>
@@ -228,7 +285,8 @@ include("header.php");
                         }
                     ?>
                       </tbody>
-                      <td class="tbdata">  </td>
+                          <td class="tbdata">  </td>
+                          <td class="tbdata">  </td>
                           <td class="tbdata"> </td>
                           <td class="tbdata"> </td>
                           <td class="tbdata"><b>Total: </b> </td>

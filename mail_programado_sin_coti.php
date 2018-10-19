@@ -23,7 +23,9 @@ $sql_obtener_email = GetRecords("select
                                   and
                                   MONTH(ce.log_time) = MONTH(CURDATE())
                                   and
-                                  YEAR(ce.log_time) = YEAR(CURDATE())");
+                                  YEAR(ce.log_time) = YEAR(CURDATE()) 
+                                  and 
+                                  ce.stat not in(7)");
 
 date_default_timezone_set('america/lima');
 $fecha= date('Y-m-d');
