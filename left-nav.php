@@ -37,6 +37,7 @@
                 <nav class="nav-primary hidden-xs">
                   <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><a href="main.php">Dashboard 1</a></div>
                   <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><a href="main2.php">Dashboard 2</a></div>
+                  <?php if ($_SESSION['MR_USER_ID'] != 17) { ?>
                   <ul class="nav nav-main" data-ride="collapse">
                     <?php if($_SESSION['MR_USER_ROLE'] == 1) : ?>
                     <li <?php if(isset($userclass)) echo $userclass;?>>
@@ -60,6 +61,7 @@
                           </a>
                         </li>
                       </ul>
+
                     </li>
                   <?php endif; ?>
                     <li <?php if(isset($collaclass)) echo $collaclass;?>>
@@ -291,6 +293,7 @@
                       </ul>
                     </li>
               </ul>
+              <?php } ?>
             </nav>
           </div>
         </section>

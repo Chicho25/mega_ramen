@@ -158,6 +158,7 @@
           $itbms = $_POST['itbms'];
           $total = $_POST['total'];
           $limit_quot = $_POST['limit_quot'];
+          $lenguaje = $_POST['id_lenguage'];
 
           $arrQuot_Update = array(
                         "id_customer" => $id_customer,
@@ -182,7 +183,8 @@
                         "date_send"=>date("Y-m-d H:i:s"),
                         "id_user_finish" => $_SESSION['MR_USER_ID'],
                         "id_contact" => $id_contact,
-                        "limit_quot" => $limit_quot);
+                        "limit_quot" => $limit_quot,
+                        "id_lenguage" => $lenguaje);
 
           UpdateRec("crm_quot", "id='".$_POST['id_coti_creada']."'", $arrQuot_Update);
 
@@ -244,6 +246,8 @@
       $itbms = $_POST['itbms'];
       $total = $_POST['total'];
       $limit_quot = $_POST['limit_quot'];
+      $lenguaje = $_POST['id_lenguage'];
+
 
       $arrQuot_Update = array(
                     "id_customer" => $id_customer,
@@ -269,7 +273,8 @@
                     "date_send"=>date("Y-m-d H:i:s"),
                     "id_user_finish" => $_SESSION['MR_USER_ID'],
                     "id_contact" => $id_contact,
-                    "limit_quot" => $limit_quot);
+                    "limit_quot" => $limit_quot,
+                    "id_lenguage" => $lenguaje);
 
       UpdateRec("crm_quot", "id='".$_POST['id_coti_creada']."'", $arrQuot_Update);
 
@@ -395,6 +400,7 @@
         $total = $_POST['total'];
         $number_tickets = $_POST['number_tickets'];
         $limit_quot = $_POST['limit_quot'];
+        $lenguaje = $_POST['id_lenguage'];
 
         /* Cuerpo de la Cotizacion */
 
@@ -430,7 +436,8 @@
                           "id_contact" => $id_contact,
                           "version" => $n_version,
                           "number_tickets"=>$number_tickets,
-                          "limit_quot" => $limit_quot);
+                          "limit_quot" => $limit_quot,
+                          "id_lenguage" => $lenguaje);
 
           $nIdQuot = InsertRec("crm_quot", $arrQuot);
 
@@ -609,6 +616,7 @@
       $id_seller = $arrQuotCrate[0]['id_seller'];
       $number_tickets = $arrQuotCrate[0]['number_tickets'];
       $limit_quot = $arrQuotCrate[0]['limit_quot'];
+      $lenguaje = $arrQuotCrate[0]['id_lenguage'];
 
       }elseif(isset($sin_cotizacion)){
 
@@ -635,7 +643,8 @@
       $venta_no_gravable = "";
       $itbms = "";
       $total = "";
-      $limit_quot = ""; }
+      $limit_quot = "";
+      $lenguaje = "";}
       ####################################################
       ?>
 
@@ -660,6 +669,24 @@
                                 if($message !="")
                                     echo $message;
                           ?>
+                          <div class="form-group required">
+                              <label class="col-lg-2 text-right control-label font-bold">Idioma</label>
+                              <div class="col-lg-3">
+                                  <select class="form-control" name="id_lenguage" required="required">
+                                    <option value="">Español</option>
+                                    <?PHP
+                                    $arrCust = GetRecords("Select * from language where stat = 1");
+                                    foreach ($arrCust as $key => $value) {
+                                      $kinId = $value['id'];
+                                      $legal_name = $value['name'];
+                                    ?>
+                                    <option value="<?php echo $kinId?>" <?php if($lenguaje == $kinId){ echo 'selected'; } ?> ><?php echo $legal_name?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                  </select>
+                              </div>
+                          </div>
                           <div class="form-group required">
                               <label class="col-lg-2 text-right control-label font-bold">Cliente</label>
                               <div class="col-lg-3">

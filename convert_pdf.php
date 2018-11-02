@@ -1,4 +1,5 @@
 <?php
+    require "vendor/autoload.php";
     ob_start();
     session_start();
     include("include/config.php");
@@ -42,6 +43,13 @@
     $numero_tikete = GetRecords("select number_tickets from crm_entry where id=".$id_tikete);
 
     $nomrbe_archivo = $numero_tikete[0]['number_tickets'].' V-'.$version;
+
+    use \Statickidz\GoogleTranslate;
+
+    $source = 'es';
+    $target = 'zh-TW';
+    //$text_nomrbe_archivo = $nomrbe_archivo;
+    $trans = new GoogleTranslate();
 
     $html = '
             <html>
@@ -92,13 +100,16 @@
                    <th style="text-align: left;">'.$vendedor_nombre[0]['real_name'].' '.$vendedor_nombre[0]['last_name'].'</th>
                  </tr>
                </table>
-             </div>
+             </div>';
 
-             <div style="border:2px solid black; border-radius:5px; margin:3px;">
+             $tras_proyect_name = $trans->translate($source, $target, $proyect_name);
+             $tras_proyect_name = $trans->translate($source, $target, $proyect_name);
+
+             $html .='<div style="border:2px solid black; border-radius:5px; margin:3px;">
                <table width="100%">
                  <tr>
                    <th style="text-align: left;">PROYECTO: </th>
-                   <th style="text-align: left;">'.$proyect_name.'</th>
+                   <th style="text-align: left;">'.$tras_proyect_name.'</th>
                    <th style="text-align: left;"></th>
                    <th style="text-align: left;">CONTACTO EN CAMPO: </th>
                    <th style="text-align: left;">'.$contact_site.'</th>

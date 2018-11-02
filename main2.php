@@ -13,7 +13,7 @@ include("header.php");
           header("Location: index.php");
           exit;
      }
-     if($_SESSION['MR_USER_ID'] != 1 && $_SESSION['MR_USER_ID'] != 8 && $_SESSION['MR_USER_ID'] != 13)
+     if($_SESSION['MR_USER_ID'] != 1 && $_SESSION['MR_USER_ID'] != 8 && $_SESSION['MR_USER_ID'] != 13 && $_SESSION['MR_USER_ID'] != 17)
         {
              header("Location: index.php");
              exit;
