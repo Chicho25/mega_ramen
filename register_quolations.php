@@ -346,8 +346,11 @@
       $session_id = session_id();
       DeleteRec("crm_tmp_product", "id_session ='".$session_id."'");
       /////////////////////////////////////////////////////////////
+      if($lenguaje == 1){
+      header("Location: mail_en.php?id=".$_POST['id_coti_creada']."&locat_page=".$rq);
+      }else{
       header("Location: mail.php?id=".$_POST['id_coti_creada']."&locat_page=".$rq);
-
+      }
       /*  casos para el status de la cotizacion e ingreso  */
 
       $stat_general = GetRecords("select stat from crm_entry where id = '".$_GET['id']."'");
@@ -669,10 +672,10 @@
                                 if($message !="")
                                     echo $message;
                           ?>
-                          <div class="form-group required">
+                          <div class="form-group">
                               <label class="col-lg-2 text-right control-label font-bold">Idioma</label>
                               <div class="col-lg-3">
-                                  <select class="form-control" name="id_lenguage" required="required">
+                                  <select class="form-control" name="id_lenguage">
                                     <option value="">Español</option>
                                     <?PHP
                                     $arrCust = GetRecords("Select * from language where stat = 1");
@@ -829,7 +832,11 @@
                           <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk" name="save"> Guardar</button>
                           <?php if (isset($cotizacion_creada)): ?>
                           <?php $id_coti_creada = $arrQuotCrate[0]['id']; ?>
+                          <?php if ($lenguaje == 1) { ?>
+                          <a href="convert_pdf_en.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>                            
+                          <?php }else{ ?>
                           <a href="convert_pdf.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          <?php } ?>
                           <?php endif; ?>
                           <?php if(isset($cotizacion_creada)){ ?>
 

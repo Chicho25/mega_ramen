@@ -125,6 +125,7 @@
           $version = $_POST['version'];
           $number_tickets = $_POST['number_tickets']+1;
           $limit_quot = $_POST['limit_quot'];
+          $lenguaje = $_POST['id_lenguage'];
 
           $arrQuot_Update = array(
                         "id_customer" => $id_customer,
@@ -152,7 +153,8 @@
                         "version" => $version,
                         "number_tickets" => $number_tickets,
                         "stat"=>4,
-                        "limit_quot" => $limit_quot);
+                        "limit_quot" => $limit_quot, 
+                        "id_lenguage" => $lenguaje);
 
           $id_Quot = InsertRec("crm_quot", $arrQuot_Update);
 
@@ -218,6 +220,7 @@
       $version = $_POST['version'];
       $number_tickets = $_POST['number_tickets']+1;
       $limit_quot = $_POST['limit_quot'];
+      $lenguaje = $_POST['id_lenguage'];
 
 
       $arrQuot_Update = array(
@@ -245,7 +248,8 @@
                     "id_user_finish" => $_SESSION['MR_USER_ID'],
                     "id_contact" => $id_contact,
                     "number_tickets" => $number_tickets,
-                    "limit_quot" => $limit_quot);
+                    "limit_quot" => $limit_quot, 
+                    "id_lenguage" => $lenguaje);
 
       $id_Quot = InsertRec("crm_quot", $arrQuot_Update);
 
@@ -295,7 +299,12 @@
 
       UpdateRec("crm_entry", "id=".$id_entry, $arrSendEntry);
       $rq = 1;
-      header("Location: mail.php?id=".$_POST['id_coti_creada']."&locat_page_send_aproval=".$rq);
+
+      if($lenguaje == 1){
+        header("Location: mail_en.php?id=".$_POST['id_coti_creada']."&locat_page_send_aproval=".$rq);
+        }else{
+        header("Location: mail.php?id=".$_POST['id_coti_creada']."&locat_page_send_aproval=".$rq);
+        }
 
       /*  casos para el status de la cotizacion e ingreso  */
 
@@ -327,6 +336,7 @@
           $id_seller = $arrQuotCrate[0]['id_seller'];
           $number_tickets = $arrQuotCrate[0]['number_tickets'];
           $limit_quot = $arrQuotCrate[0]['limit_quot'];
+          $lenguaje = $arrQuotCrate[0]['id_lenguage'];
 
       ?>
 
@@ -352,6 +362,24 @@
                                 if($message !="")
                                     echo $message;
                           ?>
+                          <div class="form-group">
+                              <label class="col-lg-2 text-right control-label font-bold">Idioma</label>
+                              <div class="col-lg-3">
+                                  <select class="form-control" name="id_lenguage">
+                                    <option value="">Español</option>
+                                    <?PHP
+                                    $arrCust = GetRecords("Select * from language where stat = 1");
+                                    foreach ($arrCust as $key => $value) {
+                                      $kinId = $value['id'];
+                                      $legal_name = $value['name'];
+                                    ?>
+                                    <option value="<?php echo $kinId?>" <?php if($lenguaje == $kinId){ echo 'selected'; } ?> ><?php echo $legal_name?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                  </select>
+                              </div>
+                          </div>
                           <div class="form-group required">
                               <label class="col-lg-2 text-right control-label font-bold">Cliente</label>
                               <div class="col-lg-3">
@@ -491,7 +519,12 @@
                           <a href="modal-nota_call.php?id=<?php echo $id_entry?>" title=" Agregar Nota de llamada" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-earphone"></i> Agregar Nota Llamada</a>
                           <a href="modal-nota_quot.php?id=<?php echo $id_entry?>" title=" Agregar Nota" data-toggle="ajaxModal" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-pushpin"></i> Agregar Nota</a>
                           <button name="save" type="submit" class="btn btn-sm btn-primary glyphicon glyphicon-floppy-disk"> Guardar</button>
-                          <a href="convert_pdf.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          
+                          <?php if($lenguaje == 1){ ?>
+                          <a href="convert_pdf_en.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          <?php }else{ ?>
+                          <a href="convert_pdf_en.php?id=<?php echo $id_coti_creada;?>" target="_blank" title="PDF" class="btn btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                          <?php } ?>
                           <?php include('include_product_edit.php'); ?>
                           <div id="miselector"></div>
                           <div class="form-group">
