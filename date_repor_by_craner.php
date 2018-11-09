@@ -16,7 +16,7 @@ include("header.php");
           exit;
      }
 
-     if($_SESSION['MR_USER_ID'] != 1 && $_SESSION['MR_USER_ID'] != 8 && $_SESSION['MR_USER_ID'] != 13 && $_SESSION['MR_USER_ID'] != 15)
+     if($_SESSION['MR_USER_ID'] != 1 && $_SESSION['MR_USER_ID'] != 8 && $_SESSION['MR_USER_ID'] != 13 && $_SESSION['MR_USER_ID'] != 15 && $_SESSION['MR_USER_ID'] != 6)
         {
              header("Location: index.php");
              exit;
@@ -108,6 +108,7 @@ include("header.php");
                                             crd.hour_work,
                                             crd.insert_date,
                                             crd.term,
+                                            crd.descriptions_event,
                                             (crd.price_hour * crd.hour_work) as result
                                             from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
                                                                inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
@@ -126,6 +127,7 @@ include("header.php");
                                               crd.price_hour,
                                               crd.hour_work,
                                               crd.insert_date,
+                                              crd.descriptions_event,
                                               (crd.price_hour * crd.hour_work) as result
                                               from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
                                                                  inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
@@ -246,6 +248,7 @@ include("header.php");
                           <th>HORAS TRABAJADAS</th>
                           <th>TOTAL</th>
                           <th>FECHA</th>
+                          <th>LOCALIDAD</th>
                         </tr>
                       </thead>
                       <?php if(isset($_POST['id_craner'])){ ?>
@@ -264,6 +267,7 @@ include("header.php");
                           <td class="tbdata"> <?php echo $value['hour_work']?> </td>
                           <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> $</td>
                           <td class="tbdata"> <?php echo $value['insert_date']?> </td>
+                          <td class="tbdata"> <?php echo $value['descriptions_event']?> </td>
                       </tr>
                       <?php
                     $total +=$value['result'];
@@ -280,6 +284,7 @@ include("header.php");
                         <td class="tbdata"> <?php echo $value['hour_work']?> </td>
                         <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> $</td>
                         <td class="tbdata"> <?php echo $value['insert_date']?> </td>
+                        <td class="tbdata"> <?php echo $value['descriptions_event']?> </td>
                     </tr>
                     <?php
                         }
@@ -291,6 +296,7 @@ include("header.php");
                           <td class="tbdata"> </td>
                           <td class="tbdata"><b>Total: </b> </td>
                           <td class="tbdata"><b> <?php echo number_format($total, 2, '.', ',')?> $</b> </td>
+                          <td class="tbdata"> </td>
                           <td class="tbdata"> </td>
                     <?php } ?>
                     </table>
