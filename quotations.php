@@ -66,6 +66,37 @@
                    </div>';
      }
 
+     if (isset($_POST['lost'])){
+
+       $arrStatus = array("stat"=>12,
+                          "sub_stat"=>$_POST['id_lost'],
+                          "why_lost"=>$_POST['lost_system'],
+                          "date_lost"=>date("Y-m-d H:i:s"));
+
+       UpdateRec("crm_entry", "id=".$_POST['id_entry'], $arrStatus);
+
+       $registros = GetRecords("SELECT count(*) as contar FROM crm_quot WHERE id_entry=".$_POST['id_entry']);
+
+       foreach ($registros as $key => $value) {
+         $contar = $value['contar'];
+       }
+
+       if ($contar > 0) {
+
+         UpdateRec("crm_quot", "id_entry=".$_POST['id_entry'], $arrStatus);
+
+         $reg = GetRecords("SELECT * FROM crm_quot WHERE id_entry=".$_POST['id_entry']);
+
+         foreach ($reg as $key => $value) {
+
+           UpdateRec("crm_quot_producs", "id_quot=".$value['id'], $arrStatus);
+
+         }
+
+       }
+
+     }
+
      if (isset($_POST['id_entry'], $_POST['delete'])){
 
        $arrStatus = array("stat"=>7,
@@ -287,6 +318,7 @@
                                 <?php } ?>
                                 <?php if( $_SESSION['MR_USER_ROLE'] == 1 ||  $_SESSION['MR_USER_ROLE'] == 3 || $_SESSION['MR_USER_ROLE'] == 4){ ?>
                                 <a href="modal-delete-qualition.php?id=<?php echo $value['id']?>" title="Descartar Ingreso" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                <a href="modal-lost-quat.php?id=<?php echo $value['id']?>" title="Ingreso Perdido" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></a>
                                 <?php } ?>
                               </td>
                           </tr>

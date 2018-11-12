@@ -285,6 +285,16 @@
                             <span>Cotizaciones General</span>
                           </a>
                         </li>
+                        <li <?php if(isset($perdidadeportclass)) echo $perdidadeportclass;?>>
+                          <a href="lost_qualitions.php"><i class="i i-dot"></i>
+                            <span>Cotizaciones Perdidas</span>
+                          </a>
+                        </li>
+                        <li <?php if(isset($perdidadeporcraclass)) echo $perdidadeporcraclass;?>>
+                          <a href="lost_qualitions_craner.php"><i class="i i-dot"></i>
+                            <span>Perdidas Por Grua</span>
+                          </a>
+                        </li>
                         <li <?php if(isset($regReportCclass)) echo $regReportCclass;?>>
                           <a href="report_customers.php"><i class="i i-dot"></i>
                             <span>Cliente | Contactos</span>
