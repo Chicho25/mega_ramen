@@ -291,7 +291,7 @@
                           </a>
                         </li>
                         <li <?php if(isset($perdidadeporcraclass)) echo $perdidadeporcraclass;?>>
-                          <a href="lost_qualitions_craner.php"><i class="i i-dot"></i>
+                          <a href="report_by_craner_lost.php"><i class="i i-dot"></i>
                             <span>Perdidas Por Grua</span>
                           </a>
                         </li>

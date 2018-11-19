@@ -26,8 +26,10 @@ include("header.php");
 
      if(isset($_POST['date_from']) && $_POST['date_from'] != "")
      {
-        $where .=" and crd.insert_date >= '".$_POST['date_from']."'";
+        $where .=" and crd.insert_date = '".$_POST['date_from']."'";
         $date_from = $_POST['date_from'];
+     }else{
+       $where .=" and crd.insert_date = CURDATE()";
      }
 
      if(isset($_POST['date_to']) && $_POST['date_to'] != "")
@@ -60,16 +62,16 @@ include("header.php");
                      <div class="row wrapper">
                        <div class="col-sm-2 m-b-xs">
                          <div class="input-group">
-                         Desde
+                         Fecha
                            <input type="text" autocomplete="off" require class="input-sm input-s datepicker-input form-control datepicker" id="datepicker" value="<?php if(isset($date_from)){ echo $date_from;}?>" name="date_from" placeholder="Fecha Desde">
                          </div>
                        </div>
-                       <div class="col-sm-2 m-b-xs">
+                       <!--<div class="col-sm-2 m-b-xs">
                          <div class="input-group">
                          Hasta
                            <input type="text" autocomplete="off" require class="input-sm input-s datepicker-input form-control datepicker" id="datepicker1" value="<?php if(isset($date_to)){ echo $date_to;}?>" name="date_to" placeholder="Fecha Hasta">
                          </div>
-                       </div>
+                       </div>-->
                        <div class="col-sm-4 m-b-xs">
                          <div class="input-group">
                          Gruas
@@ -279,7 +281,7 @@ include("header.php");
                     <tr style="background-color:#7C7C7C; color:white;">
                         <td class="tbdata"> <?php echo $value['id']?> </td>
                         <td class="tbdata"> <?php echo utf8_encode($value['name_craner'])?> </td>
-                        <td class="tbdata"> <?php if($value['term'] == 1){ echo 'Largo Termino';}elseif($value['term']==2){ echo 'Taxi';}else{ echo 'No definido';}?> </td>
+                        <td class="tbdata"> <?php if(isset($value['term'])){ if($value['term'] == 1){ echo 'Largo Termino';}elseif($value['term']==2){ echo 'Taxi';}else{ echo 'No definido';} }else{ echo 'No definido'; }?> </td>
                         <td class="tbdata"> <?php echo number_format($value['price_hour'], 2, '.', ',')?> </td>
                         <td class="tbdata"> <?php echo $value['hour_work']?> </td>
                         <td class="tbdata"> <?php echo number_format($value['result'], 2, '.', ',')?> $</td>

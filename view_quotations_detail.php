@@ -221,7 +221,7 @@
                                                           from
                                                           crm_craner inner join crm_quot_producs on crm_quot_producs.id_produc = crm_craner.id
                                                           where
-                                                          crm_quot_producs.stat  in (1,2)
+                                                          crm_quot_producs.stat  in (1,2,12)
                                                           and
                                                           crm_quot_producs.type_product = 0
                                                           and
@@ -251,7 +251,7 @@
                                                           from
                                                           crm_service inner join crm_quot_producs on crm_quot_producs.id_produc = crm_service.id
                                                           where
-                                                          crm_quot_producs.stat  in (1,2)
+                                                          crm_quot_producs.stat  in (1,2,12)
                                                           and
                                                           crm_quot_producs.type_product = 1
                                                           and
