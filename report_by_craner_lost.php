@@ -29,6 +29,8 @@ include("header.php");
      {
         $where="and cqp.date_lost >= '".$_POST['date_from']."'";
         $date_from = $_POST['date_from'];
+     }else {
+       $date_from = date('Y-m-d');
      }
 
      if(isset($_POST['date_to']) && $_POST['date_to'] != "")
@@ -36,10 +38,16 @@ include("header.php");
         $where.=" and cqp.date_lost <= '".$_POST['date_to']." 23:59:59'";
         //$where_cdc.=" and cqp.date_lost <= '".$_POST['date_to']." 23:59:59'";
         $date_to = $_POST['date_to'];
+     }else {
+       $date_to = date('Y-m-d');
      }
      if (isset($_POST['id_craner']) && $_POST['id_craner'] != "") {
 
-        $where_craner=" and cc.id = '".$_POST['id_craner']."'";
+        $where_craner.=" and cc.id = '".$_POST['id_craner']."'";
+     }
+     if (isset($_POST['id_stat']) && $_POST['id_stat'] != '') {
+         $where.=" and cqp.sub_stat = '".$_POST['id_stat']."'";
+         //$where_craner.=" and cqp.stat = '".$_POST['id_stat']."'";
      }
 
 
@@ -68,7 +76,7 @@ include("header.php");
                            <input type="text" autocomplete="off" class="input-sm input-s datepicker-input form-control datepicker" id="datepicker1" value="<?php if(isset($date_to)){ echo $date_to;}?>" name="date_to" placeholder="Fecha Hasta">
                          </div>
                        </div>
-                       <div class="col-sm-4 m-b-xs">
+                       <div class="col-sm-2 m-b-xs">
                          <div class="input-group">
                              <select class="chosen-select form-control" name="id_craner" require>
                                     <option value="">-------- Gruas -------</option>
@@ -80,6 +88,22 @@ include("header.php");
                                     $kinDesc = $value['name_craner'];
                                     ?>
                                     <option value="<?php echo $kinId?>" <?php if(isset($_POST['id_craner']) && $_POST['id_craner'] == $kinId){ echo 'selected';} ?>><?php echo utf8_encode($kinDesc)?></option>
+                                    <?php } ?>
+                           </select>
+                         </div>
+                       </div>
+                       <div class="col-sm-2 m-b-xs">
+                         <div class="input-group">
+                             <select class="chosen-select form-control" name="id_stat" require>
+                                    <option value="">-------- Status -------</option>
+                                    <option value="0">TODOS</option>
+                                    <?PHP
+                                    $arrStat = GetRecords("select * from master_stat where stat = 1 and id in(13,14)");
+                                    foreach ($arrStat as $key => $value) {
+                                    $kinId = $value['id'];
+                                    $kinDesc = $value['description'];
+                                    ?>
+                                    <option value="<?php echo $kinId?>"><?php echo utf8_encode($kinDesc)?></option>
                                     <?php } ?>
                            </select>
                          </div>

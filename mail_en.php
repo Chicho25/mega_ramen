@@ -487,7 +487,7 @@
               <th style="text-align: left;">Note 20: The crane moves without counterweights if the terrain is in optimal conditions and flat, otherwise it will be charged • transportation $ 250 / day </th>
               </tr>
               <tr>
-              <th style="text-align: left;">Note 21: Monthly • 2% will be charged for delay after 30 days of the invoice issued. </th>
+              <th style="text-align: left;">Note 21: Monthly • 10% will be charged for delay after 30 days of the invoice issued. </th>
               </tr>
               <tr>
               <th style="text-align: left;">Note 22: Any commercial or legal Dispute will be • in Panamanian territory under the Panamanian law. </th>

@@ -485,7 +485,7 @@
                       <th style="text-align: left;">Nota 20: La grúa se mueve sin contrapesos si el terreno este en óptimas condiciones y plano, de lo contrario se cobrar• el transporte $250/día </th>
                       </tr>
                       <tr>
-                      <th style="text-align: left;">Nota 21: Se cobrar• 2% mensual por mora después de 30 días de emitida la factura. </th>
+                      <th style="text-align: left;">Nota 21: Se cobrar• 10% mensual por mora después de 30 días de emitida la factura. </th>
                       </tr>
                       <tr>
                       <th style="text-align: left;">Nota 22: Toda Disputa comercial o legal ser• en territorio Panameño bajo la ley Panameña. </th>

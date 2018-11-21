@@ -300,6 +300,11 @@
                             <span>Cliente | Contactos</span>
                           </a>
                         </li>
+                        <li <?php if(isset($regReportnotes)) echo $regReportnotes;?>>
+                          <a href="report_notes_quot.php"><i class="i i-dot"></i>
+                            <span>Reporte Notas</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
               </ul>
