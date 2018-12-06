@@ -119,7 +119,7 @@
                               <select class="chosen-select form-control" name="id_status">
                                 <option value="">--------Status-------</option>
                                 <?PHP
-                                $arrStat = GetRecords("select * from master_stat where stat = 1 and id_stat in(12,13,14)");
+                                $arrStat = GetRecords("select * from master_stat where stat = 1 and id_stat in(12,13,14,15)");
                                 foreach ($arrStat as $key => $value) {
                                   $kinId = $value['id_stat'];
                                   $kinDesc = $value['description'];

@@ -98,7 +98,7 @@ include("header.php");
                                     <option value="">-------- Status -------</option>
                                     <option value="0">TODOS</option>
                                     <?PHP
-                                    $arrStat = GetRecords("select * from master_stat where stat = 1 and id in(13,14)");
+                                    $arrStat = GetRecords("select * from master_stat where stat = 1 and id in(13,14,15)");
                                     foreach ($arrStat as $key => $value) {
                                     $kinId = $value['id'];
                                     $kinDesc = $value['description'];

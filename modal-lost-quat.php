@@ -20,7 +20,7 @@
                 <select class="form-control" name="id_lost" id="customer">
                   <option value="">Seleccionar</option>
                   <?PHP
-                  $arrKindMeetings = GetRecords("Select * from master_stat where stat = 1 and id_stat in(13,14)");
+                  $arrKindMeetings = GetRecords("Select * from master_stat where stat = 1 and id_stat in(13,14,15)");
                   foreach ($arrKindMeetings as $key => $value) {
                     $kinId = $value['id'];
                     $description = $value['description'];

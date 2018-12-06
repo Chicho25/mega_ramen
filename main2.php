@@ -21,11 +21,13 @@ include("header.php");
 
      $where="insert_date = CURDATE()";
      $where_cdc=" and crd.insert_date = CURDATE()";
+     $where_cdc_sub = " and crdd.insert_date = CURDATE()";
 
      if(isset($_POST['date_from']) && $_POST['date_from'] != "")
      {
         $where="insert_date >= '".$_POST['date_from']."'";
         $where_cdc=" and crd.insert_date >= '".$_POST['date_from']."'";
+        $where_cdc_sub = " and crdd.insert_date >= '".$_POST['date_from']."'";
         $date_from = $_POST['date_from'];
      }
 
@@ -33,6 +35,7 @@ include("header.php");
      {
         $where.=" and insert_date <= '".$_POST['date_to']." 23:59:59'";
         $where_cdc.=" and crd.insert_date <= '".$_POST['date_to']." 23:59:59'";
+        $where_cdc_sub .= " and crdd.insert_date <= '".$_POST['date_to']." 23:59:59'";
         $date_to = $_POST['date_to'];
      }
 
@@ -73,19 +76,32 @@ include("header.php");
                     <?php
 
                     $arrEntry = GetRecords("select
-                                            tc.id,
-                                            tc.descriptions,
-                                            sum((crd.price_hour * crd.hour_work)) as monto,
-                                            count(tc.descriptions) as cantidad_equipo
-                                            from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
-                                            				   inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
-                                            where (1=1)
-                                            $where_cdc
-                                            and
-                                            (crd.price_hour * crd.hour_work) not in(0)
-                                            group by
-                                            tc.descriptions,
-                                            tc.id");
+                                              tc.id,
+                                              tc.descriptions,
+                                              sum((crd.price_hour * crd.hour_work)) as monto,
+                                              count(tc.descriptions) as cantidad_equipo,
+                                              (select
+                                                count(crdd.id_crane) as cantidad_equipo
+                                                from crm_craner ccc inner join type_craner tcc on ccc.id_type_craner = tcc.id
+                                              					  inner join crm_report_dialy_craners crdd on ccc.id = crdd.id_crane
+                                                where (1=1)
+                                                $where_cdc_sub
+                                                and
+                                                (crdd.price_hour * crdd.hour_work) in(0)
+                                                and
+                                                ccc.id_type_craner = cc.id_type_craner
+                                                group by
+                                                tcc.id) as no_trabajado
+                                              from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                              				           inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                              where (1=1)
+                                              $where_cdc
+                                               and
+                                              (crd.price_hour * crd.hour_work) not in(0)
+                                              group by
+                                              tc.descriptions,
+                                              tc.id");
+
 
                     $total_montos = GetRecords("select
                                                 sum((crd.price_hour * crd.hour_work)) as result
@@ -119,7 +135,8 @@ include("header.php");
                              <th>TIPO</th>
                              <th>MONTOS</th>
                              <th>PORCENTAJES</th>
-                             <th>CANTIDAD DE EQUIPOS</th>
+                             <th>CANTIDAD DE EQUIPOS USADOS</th>
+                             <th>CANTIDAD DE EQUIPOS NO USADOS</th>
                              <th>PORCENTAJES DE EQUIPOS</th>
                              <th>DETALLES</th>
                            </tr>
@@ -129,6 +146,7 @@ include("header.php");
                            $monto = 0;
                            $monto_porcentaje = 0;
                            $equipos = 0;
+                           $equipos_no_usados = 0;
                            $cantidad_porcentaje = 0;
                            foreach ($arrEntry as $key => $value) {
                            ?>
@@ -137,13 +155,15 @@ include("header.php");
                              <td class="tbdata"> <?php echo number_format($value['monto'], 2, '.', ',')?> $</td>
                              <td class="tbdata"> <?php echo number_format((($value['monto']*100)/$total_montos[0]['result']), 1, '.', ',')?> %</td>
                              <td class="tbdata"> <?php echo $value['cantidad_equipo']?> </td>
+                             <td class="tbdata"> <?php echo $value['no_trabajado']?> </td>
                              <td class="tbdata"> <?php echo number_format((($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']), 1, '.', ',')?> %</td>
-                             <td class="tbdata"> <a href="view_detail_equip.php?id_type=<?php echo $value['id']?>&date_from=<?php echo $date_from?>&date_to=<?php echo $date_to?>" data-toggle="ajaxModal" title="Ver Cotizacion" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> </td>
+                             <td class="tbdata"> <a href="view_detail_equip.php?id_type=<?php echo $value['id']?>&date_from=<?php echo $date_from?>&date_to=<?php echo $date_to?>" data-toggle="ajaxModal" title="Equipos" class="btn btn-sm btn-icon btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> </td>
                          </tr>
                          <?php $monto += $value['monto']; ?>
                          <?php $monto_porcentaje += (($value['monto']*100)/$total_montos[0]['result']); ?>
                          <?php $equipos += $value['cantidad_equipo']; ?>
                          <?php $cantidad_porcentaje += (($value['cantidad_equipo']*100)/$total_equipo[0]['total_cantidad_equipo']); ?>
+                         <?php $equipos_no_usados += $value['no_trabajado']; ?>
                          <?php } ?>
 
                          </tbody>
@@ -152,6 +172,7 @@ include("header.php");
                            <th><b><?php echo number_format($monto, 2, '.', ','); ?> $</b></th>
                            <th><b><?php echo number_format($monto_porcentaje, 2, '.', ','); ?> %</b></th>
                            <th><b><?php echo $equipos; ?></b></th>
+                           <th><b><?php echo $equipos_no_usados; ?></b></th>
                            <th><b><?php echo number_format($cantidad_porcentaje, 2, '.', ','); ?> %</b></th>
                          </tr>
                        </table>
