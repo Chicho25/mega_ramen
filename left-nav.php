@@ -258,6 +258,13 @@
                             <span>Reporte Por Grua</span>
                           </a>
                         </li>
+                        <?php if ($_SESSION['MR_USER_ID'] == 15 || $_SESSION['MR_USER_ID'] == 1) { ?>
+                        <li <?php if(isset($regYesenia)) echo $regYesenia;?>>
+                          <a href="date_repor_by_craner_range.php"><i class="i i-dot"></i>
+                            <span>Reporte Por Grua Yesenia</span>
+                          </a>
+                        </li>
+                      <?php } ?>
                       </ul>
                     </li>
                     <li <?php if(isset($Reportclass)) echo $Reportclass;?>>
