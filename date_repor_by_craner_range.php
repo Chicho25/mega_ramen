@@ -20,7 +20,7 @@ include("header.php");
         {
              header("Location: index.php");
              exit;
-        }
+         }
 
         $where="";
 
@@ -137,6 +137,17 @@ include("header.php");
                                               (crd.price_hour * crd.hour_work) in(0)
                                               $where");
 
+            $arrCantiadaEquipo = GetRecords("select
+                                              cc.name_craner,
+                                              count(cc.id) as contar
+                                              from crm_craner cc inner join type_craner tc on cc.id_type_craner = tc.id
+                                                                 inner join crm_report_dialy_craners crd on cc.id = crd.id_crane
+                                              where
+                                              (crd.price_hour * crd.hour_work) not in(0)
+                                              $where
+                                              group by
+                                              cc.name_craner");
+
                         /* Count */
 
                 $arrCountActive = GetRecords("select count(*) as activas
@@ -155,7 +166,7 @@ include("header.php");
                                                 $where");
 
                    ?>
-                  <script src="mega_grafict/js/highcharts.js"></script>
+                <?php  /*<script src="mega_grafict/js/highcharts.js"></script>
                   <script src="mega_grafict/js/modules/exporting.js"></script>
                   <script type="text/javascript">
                       $(function () {
@@ -195,7 +206,7 @@ include("header.php");
                           });
                       });
                     </script>
-                    <script type="text/javascript">
+                    <?php /*<script type="text/javascript">
                       $(function () {
                           $('#container2').highcharts({
                               chart: {
@@ -239,7 +250,28 @@ include("header.php");
                     </script>
                   <div id="container2" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
                   <div id="container3" style="width: 750px; height: 400px; max-width: 100%; margin: 0 auto; float:left;"></div>
-
+                  */ ?>
+                  <table class="table b-t b-light" data-ride="datatables">
+                    <thead>
+                      <tr>
+                        <th>NOMBRE EQUIPO</th>
+                        <th>CANTIDAD</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($arrCantiadaEquipo as $key => $value) { ?>
+                      <tr>
+                        <td class="tbdata"><?php echo $value['name_craner']; ?></td>
+                        <td class="tbdata"><?php echo $value['contar']; ?></td>
+                      </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
                   <table class="table b-t b-light" data-ride="datatables">
                       <thead>
                         <tr>

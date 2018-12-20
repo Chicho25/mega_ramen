@@ -36,6 +36,17 @@
                    </div>';
      }
 
+     if (isset($_POST['id_report_delete'])) {
+
+       DeleteRec("crm_report_dialy_craners", "id=".$_POST['id_report_delete']);
+
+       $message = '<div class="alert alert-danger">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     <strong>Registro Eliminado</strong>
+                   </div>';
+
+     }
+
     $where = "where (1=1)";
 
      if(isset($_POST['name_craner']) && $_POST['name_craner'] != "")
@@ -136,6 +147,7 @@
                                     }else{ ?>
                                 <a href="modal-edit-report-dialy.php?id=<?php echo $value['id_report']?>" title="Editar Grua" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-edit (alias)"></i></a>
                               <?php } ?>
+                                <a href="modal-delete-repor-dialy.php?id=<?php echo $value['id_report']?>" title="Editar Grua" data-toggle="ajaxModal" class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-remove-sign"></i></a>
                               </td>
                           </tr>
                           <?php

@@ -51,12 +51,12 @@
             <body style="font-family: arial; font-size: 10pt;">
              <table width="100%">
                <tr>
-               <th style="text-align: center; width:200px;"><img width="100" src="http://ofertadeviaje.com/mega_ramen/images/1800.jpg"></th>
-               <th style="text-align: center; width:200px;"><img width="100" src="http://ofertadeviaje.com/mega_ramen/images/logoshl.png"></th>
+               <th style="text-align: center; width:200px;"><img width="100" src="http://www.gruasshl.com/mega_ramen/images/1800.jpg"></th>
+               <th style="text-align: center; width:200px;"><img width="100" src="http://www.gruasshl.com/mega_ramen/images/logoshl.png"></th>
                <th style="text-align: center; width:200px;">Tel. 507 2315818 <br>
                                                  Fax. 507 2316811 <br>
                                                  www.Gruasshl.com<br>
-                                                 <img width="100" src="http://ofertadeviaje.com/mega_ramen/images/modular.png"></th>
+                                                 <img width="100" src="http://www.gruasshl.com/mega_ramen/images/modular.png"></th>
 
                </tr>
               </table>
@@ -297,12 +297,12 @@ $html2 = '
         <body style="font-family: arial; font-size: 10pt;">
          <table width="100%">
            <tr>
-           <th style="text-align: center; width:200px;"><img width="100" src="http://ofertadeviaje.com/mega_ramen/images/1800.jpg"></th>
-           <th style="text-align: center; width:200px;"><img width="100" src="http://ofertadeviaje.com/mega_ramen/images/logoshl.png"></th>
+           <th style="text-align: center; width:200px;"><img width="100" src="http://www.gruasshl.com/mega_ramen/images/1800.jpg"></th>
+           <th style="text-align: center; width:200px;"><img width="100" src="http://www.gruasshl.com/mega_ramen/images/logoshl.png"></th>
            <th style="text-align: center; width:200px;">Tel. 507 2315818 <br>
                                              Fax. 507 2316811 <br>
                                              www.Gruasshl.com<br>
-                                             <img width="100" src="http://ofertadeviaje.com/mega_ramen/images/modular.png"></th>
+                                             <img width="100" src="http://www.gruasshl.com/mega_ramen/images/modular.png"></th>
 
            </tr>
           </table>
