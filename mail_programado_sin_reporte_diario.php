@@ -2,9 +2,9 @@
 include("include/config.php");
 include("include/defs.php");
 
-$sql_obtener_email = GetRecords("select 
-                                count(*) as contar 
-                                from crm_report_dialy_craners 
+$sql_obtener_email = GetRecords("select
+                                count(*) as contar
+                                from crm_report_dialy_craners
                                 where DAY(date_register) = DAY(CURDATE())
                                 and
                                 MONTH(date_register) = MONTH(CURDATE())
@@ -19,7 +19,7 @@ $fecha_local = $fecha.' '.$hora;
 //  if($fecha_local >= $value['remember_date']){
 
 $subject = 'REPORTE DIARIO NO REALIZADO';
-$email_ventas = "osalerno@gruasshl.com, tayron.arrieta@gruasshl.com, luis.hernandez@gruasshl.com, irma.rodriguez@gruasshl.com";
+$email_ventas = "osalerno@gruasshl.com, luis.hernandez@gruasshl.com, irma.rodriguez@gruasshl.com";
 //$email_ventas = "tayron.arrieta@gruasshl.com";
 
 $to = $email_ventas;
@@ -39,7 +39,7 @@ $message1 .= "Esto es un email automatico. Mega Ramen" .$eol;
 foreach ($sql_obtener_email as $key => $value) {
     if($value["contar"]==0){
         $message1 .= "<h3>El Reporte Diario no se ha realizado hasta el momento ".$fecha_local."</h3>";
-    
+
 
 $message1 .="</table>";
 
@@ -52,7 +52,7 @@ $message .= "--".$separator."--";
 mail($to, $subject, $message1, $headers);
 
 }else{
-    $message1 .= ""; 
+    $message1 .= "";
     }
 }
 

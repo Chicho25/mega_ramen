@@ -202,7 +202,7 @@
                           <div class="form-group required">
                             <label class="col-lg-4 text-right control-label font-bold">Cliente</label>
                             <div class="col-lg-4">
-                              <select class="form-control" name="id_customer" id="customer">
+                              <select class="chosen-select form-control" name="id_customer" id="customer">
                                 <option value="">Seleccionar</option>
                                 <?PHP
                                 $arrKindMeetings = GetRecords("Select * from crm_customers where stat = 1");
@@ -210,8 +210,11 @@
                                   $kinId = $value['id'];
                                   $trade_name = $value['trade_name'];
                                   $legal_name = $value['legal_name'];
+                                  if($value['debt']==1){ $mora = "!!CLIENTE MOROSO!!"; }else{ $mora= "";}
                                 ?>
-                                <option value="<?php echo $kinId?>" <?php if(isset($_SESSION['id_cliente']) && $_SESSION['id_cliente'] ==$kinId){ echo 'selected'; }?>><?php echo $trade_name.' '.$legal_name?></option>
+                                <option value="<?php echo $kinId?>"
+                                  <?php if(isset($_SESSION['id_cliente']) && $_SESSION['id_cliente'] ==$kinId){ echo 'selected'; }?>
+                                  <?php if($value['debt']==1){ echo 'style="color:red;"'; } ?>><?php echo $mora.' '.$trade_name.' '.$legal_name?></option>
                                 <?php
                                 }
                                 ?>

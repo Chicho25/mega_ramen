@@ -22,6 +22,7 @@
     $city = $arrCus[0]['city'];
     $stat = $arrCus[0]['stat'];
     $log_time = $arrCus[0]['log_time'];
+    $debt = $arrCus[0]['debt'];
   } ?>
 <div class="modal-dialog">
   <div class="modal-content">
@@ -35,6 +36,16 @@
 	      <div class="row">
 		      <div class="form form-horizontal">
             <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+
+            <div class="form-group">
+              <label class="col-sm-3 text-right control-label">Saldo Moroso</label>
+              <div class="col-sm-7">
+                <label class="switch">
+                  <input type="checkbox" <?php if($debt==1){ echo 'checked';} ?> value="1" name="debt">
+                  <span></span>
+                </label>
+              </div>
+            </div>
 
             <div class="form-group ">
               <label class="col-lg-3 text-right control-label">Nombre Comercial</label>

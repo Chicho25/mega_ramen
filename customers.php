@@ -18,6 +18,7 @@
      if(isset($_POST['submitEditCus'])){
 
        if(isset($_POST['stat'])){ $stat = 1; }else{ $stat = 0; }
+       if(isset($_POST['debt'])){ $debt = 1; }else{ $debt= 0; }
 
        $arrEditCus = array("trade_name"=>$_POST['trade_name'],
                           "legal_name"=>$_POST['legal_name'],
@@ -32,7 +33,8 @@
                           "country"=>$_POST['country'],
                           "province"=>$_POST['province'],
                           "city"=>$_POST['city'],
-                          "stat"=>$stat);
+                          "stat"=>$stat,
+                          "debt"=>$debt);
 
        UpdateRec("crm_customers", "id = ".$_POST['id'], $arrEditCus);
 
@@ -131,7 +133,8 @@
 
                               $status = ($value['stat'] == 1) ? 'Activo' : 'Inactivo';
                             ?>
-                          <tr>
+                          <tr <?php if($value['debt']==1){ ?>style="color: red;"
+                          <?php } ?> >
                               <td class="tbdata"> <?php echo $value['id']?> </td>
                               <td class="tbdata"> <?php echo $value['trade_name']?> </td>
                               <td class="tbdata"> <?php echo $value['legal_name']?> </td>

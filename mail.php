@@ -555,7 +555,8 @@ $fileName = $nomrbe_archivo.'.pdf';
 //}else{
     $email_ventas = "ventas@gruasshl.com";
 //}
-$to = $email.','.$email_ventas.', irma.rodriguez@gruasshl.com, tayron.arrieta@gruasshl.com';
+//$to = $email.','.$email_ventas.', irma.rodriguez@gruasshl.com, tayron.arrieta@gruasshl.com';
+$to = $email.','.$email_ventas;
 //$to ='tayronperez17@gmail.com';
 $repEmail = (isset($email_ventas) && $email_ventas != "") ? $email_ventas : '';
 $conpania_nombre = 'SHL';
