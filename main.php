@@ -2,8 +2,9 @@
 ob_start();
 session_start();
 $hideLeft = true;
-include("include/config.php");
-include("include/defs.php");
+include("include/functions_tayron.php");
+//include("include/config.php");
+//include("include/defs.php");
 $loggdUType = current_user_type();
 
 include("header.php");
@@ -644,16 +645,18 @@ include("header.php");
    <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
    <script src="js/chosen/chosen.jquery.min.js"></script>
    <!-- parsley -->
- <script src="js/parsley/parsley.min.js"></script>
- <script src="js/parsley/parsley.extend.js"></script>
- <script src="js/datatables/jquery.dataTables.min.js"></script>
- <script src="js/datatables/dataTables.buttons.min.js"></script>
- <script src="js/datatables/buttons.flash.min.js"></script>
- <script src="js/datatables/jszip.min.js"></script>
- <script src="js/datatables/pdfmake.min.js"></script>
- <script src="js/datatables/vfs_fonts.js"></script>
- <script src="js/datatables/buttons.html5.min.js"></script>
- <script src="js/datatables/buttons.print.min.js"></script>
- <script src="js/datatables/demo.js"></script>
+   <script src="js/parsley/parsley.min.js"></script>
+   <script src="js/parsley/parsley.extend.js"></script>
+   <script src="js/datatables/jquery.dataTables.min.js"></script>
+   <script src="js/datatables/dataTables.buttons.min.js"></script>
+   <script src="js/datatables/buttons.flash.min.js"></script>
+   <script src="js/datatables/jszip.min.js"></script>
+   <script src="js/datatables/pdfmake.min.js"></script>
+   <script src="js/datatables/vfs_fonts.js"></script>
+   <script src="js/datatables/buttons.html5.min.js"></script>
+   <script src="js/datatables/buttons.print.min.js"></script>
+   <script src="js/datatables/demo.js"></script>
    <script src="js/app.plugin.js"></script>
    <script src="js/main.js"></script>
+ </body>
+</html>

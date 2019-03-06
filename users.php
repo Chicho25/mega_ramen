@@ -4,16 +4,17 @@
     $userclass="class='active'";
     $userlistclass="class='active'";
 
-    include("include/config.php");
-    include("include/defs.php");
+    include("include/functions_tayron.php");
+    //include("include/config.php");
+    //include("include/defs.php");
 
     include("header.php");
 
-    if(!isset($_SESSION['MR_USER_ID']) || $_SESSION['MR_USER_ROLE'] != 1)
+    /*if(!isset($_SESSION['MR_USER_ID']) || $_SESSION['MR_USER_ROLE'] != 1)
      {
           header("Location: index.php");
           exit;
-     }
+     }*/
 
      if(isset($_POST['submitUsuario'])){
 
@@ -62,7 +63,8 @@
 
      if(isset($_POST['submitpass'])){
 
-       $arrPass = array("pass"=>encryptIt($_POST['pass']));
+       $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+       $arrPass = array("pass"=>$pass);
 
        UpdateRec("users", "id = ".$_POST['id'], $arrPass);
 
@@ -103,7 +105,7 @@
 
 
       $arrUser = GetRecords("SELECT users.*,
-                                    type_users.description as name_type_user
+                                type_users.description as name_type_user
                              from users
                              inner join type_users on type_users.id = users.type_user
                              $where

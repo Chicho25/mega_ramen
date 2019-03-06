@@ -43,7 +43,8 @@
                               cct.last_name,
                               cct.charge,
                               cct.email as contact_email,
-                              cct.phone_1 as phone_contact
+                              cct.phone_1 as phone_contact,
+                              cc.debt
                               from crm_customers cc inner join crm_contact cct on cc.id = cct.id_customer");?>
 	<section id="content">
           <section class="vbox">
@@ -81,6 +82,7 @@
                         <table class="table table-striped b-t b-light" data-ride="datatables">
                           <thead>
                             <tr>
+                              <th>MORISIDAD</th>
                               <th>NOMBRE COMERCIAL</th>
                               <th>NOMBRE LEGAL</th>
                               <th>RUC</th>
@@ -100,7 +102,8 @@
                           <?PHP
                             $i=1;
                             foreach ($arrCran as $key => $value) {   ?>
-                          <tr>
+                          <tr <?php if($value['debt'] == 1){ ?> style="color:red;" <?php } ?>>
+                              <td><?php if($value['debt'] == 1){ echo "SI";}else{ echo "No"; } ?></td>
                               <td class="tbdata"> <?php echo $value['trade_name']?> </td>
                               <td class="tbdata"> <?php echo $value['legal_name']?> </td>
                               <td class="tbdata"> <?php echo $value['ruc']?> </td>

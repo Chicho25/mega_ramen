@@ -4,8 +4,9 @@
     $userclass="class='active'";
     $registerclass="class='active'";
 
-    include("include/config.php");
-    include("include/defs.php");
+    include("include/functions_tayron.php");
+    //include("include/config.php");
+    //include("include/defs.php");
 
     include("header.php");
 
@@ -18,10 +19,12 @@
 
     if(isset($_POST['submitUser']))
      {
+        $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
         $USERNAME = $_POST['username'];
         $FIRSTNAME = $_POST['name'];
         $LASTNAME = $_POST['lastname'];
-        $password = encryptIt($_POST['password']);
+        $password = $pass;
         $usertype = $_POST['usertype'];
         $email = $_POST['email'];
 
@@ -39,7 +42,7 @@
                           "user_name" => $USERNAME,
                           "real_name" => $FIRSTNAME,
                           "last_name" => $LASTNAME,
-                          "pass" => $password,
+                          "pass" => $pass,
                           "email" => $email,
                           "type_user" => $usertype,
                           "stat" => 1,

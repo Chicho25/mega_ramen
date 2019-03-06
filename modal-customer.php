@@ -1,5 +1,6 @@
 <?php
-
+    ob_start();
+    session_start();
     include("include/config.php");
     include("include/defs.php");
 
@@ -36,7 +37,7 @@
 	      <div class="row">
 		      <div class="form form-horizontal">
             <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
-
+            <?php if($_SESSION['MR_USER_ID'] == 1 || $_SESSION['MR_USER_ID'] == 18 || $_SESSION['MR_USER_ID'] == 15){ ?>
             <div class="form-group">
               <label class="col-sm-3 text-right control-label">Saldo Moroso</label>
               <div class="col-sm-7">
@@ -46,7 +47,7 @@
                 </label>
               </div>
             </div>
-
+            <?php } ?>
             <div class="form-group ">
               <label class="col-lg-3 text-right control-label">Nombre Comercial</label>
               <div class="col-lg-7">
