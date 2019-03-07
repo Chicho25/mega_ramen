@@ -2,8 +2,9 @@
 ob_start();
 session_start();
 $hideLeft = true;
-include("include/config.php");
-include("include/defs.php");
+include("include/functions_tayron.php");
+//include("include/config.php");
+//include("include/defs.php");
 $loggdUType = current_user_type();
 
 include("header.php");

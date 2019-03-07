@@ -4,8 +4,9 @@
     $userclass="class='active'";
     $userlistclass="class='active'";
 
-    include("include/config.php");
-    include("include/defs.php");
+    include("include/functions_tayron.php");
+    //include("include/config.php");
+    //include("include/defs.php");
 
     include("header.php");
 

@@ -71,19 +71,18 @@ function RecCount($strTable, $strCriteria)
   return $rstRow["cnt"];
 }
 
-function GetRecord($strTable, $strCriteria)
+function GetRecord($strTable, $strCriteria) // obtener un registro
 {
   $strQuery = "select * from $strTable ";
 
   if(!empty($strCriteria))
     $strQuery .= "where $strCriteria;";
 
-  //"<br>".$strQuery ;
   $nResult = conexion() -> query($strQuery);
   return $nResult -> fetch_array();
 }
 
-function current_user_type()
+function current_user_type() // tipo de usuario
 {
   if(!isset($_SESSION))
     session_start();

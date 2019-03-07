@@ -24,6 +24,11 @@ include("header.php");
         $date_from = $_POST['date_from'];
 
         $whereprin=" and crm_entry.date_form >= '".$_POST['date_from']."'";
+     }else{
+       $where=" and crm_entry.date_form >= CURDATE()";
+       $date_from = date("Y-m-d");
+
+       $whereprin=" and crm_entry.date_form >= CURDATE()";
      }
 
      if(isset($_POST['date_to']) && $_POST['date_to'] != "")
@@ -32,6 +37,11 @@ include("header.php");
         $date_to = $_POST['date_to'];
 
         $whereprin.=" and crm_entry.date_form <= '".$_POST['date_to']." 23:59:59'";
+     }else{
+       $where.=" and crm_entry.date_form <= now()";
+       $date_to = date("Y-m-d");
+
+       $whereprin.=" and crm_entry.date_form <= now()";
      }
 
      ?>

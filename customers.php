@@ -4,8 +4,9 @@
     $cataloge="class='active'";
     $editCntclass="class='active'";
 
-    include("include/config.php");
-    include("include/defs.php");
+    //include("include/config.php");
+    //include("include/defs.php");
+    include("include/functions_tayron.php");
 
     include("header.php");
 
